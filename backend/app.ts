@@ -1,5 +1,6 @@
 import express, { Express, Request, Response } from "express";
 import { connectToDatabase } from "./configs/db.config";
+import { configureRoutes } from "./configs/routes.config";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -14,12 +15,14 @@ app.use(express.json({ limit: "50mb" }));
 // express will accept and parse incoming url requests
 app.use(express.urlencoded({ limit: "50mb", extended: false }));
 
-app.get("/", (req: Request, res: Response) => {
-  res.send({ message: "Hello World!" });
-});
+// app.get("/", (req: Request, res: Response) => {
+//   res.send({ message: "Hello World!" });
+// });
 
 connectToDatabase()
   .then(() => {
+    configureRoutes(app);
+
     app.listen(port, () => {
       console.log(`[server]: Server running at http://localhost:${port}`);
     });
