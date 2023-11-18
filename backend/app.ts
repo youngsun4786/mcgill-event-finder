@@ -1,30 +1,27 @@
 import express, { Express, Request, Response } from "express";
+import debug from "debug";
 import { connectToDatabase } from "./configs/db.config";
-import { configureRoutes } from "./configs/routes.config";
+import { configureRoutes, configureServer } from "./configs";
 import dotenv from "dotenv";
 
 dotenv.config();
-
 const app: Express = express();
+
+const log = debug("backend:entry");
 
 const port = process.env.PORT || 8000;
 
-// express will parse incoming JSON requests
-app.use(express.json({ limit: "50mb" }));
-
-// express will accept and parse incoming url requests
-app.use(express.urlencoded({ limit: "50mb", extended: false }));
-
-// app.get("/", (req: Request, res: Response) => {
-//   res.send({ message: "Hello World!" });
-// });
-
+// * connect to express server after connecting to the database
 connectToDatabase()
   .then(() => {
+    // * middleware
+    configureServer(app, true);
+    // * set routes
     configureRoutes(app);
 
+    // * start server
     app.listen(port, () => {
-      console.log(`[server]: Server running at http://localhost:${port}`);
+      log(`[server]: Server running at http://localhost:${port}`);
     });
   })
   .catch((error: Error) => {

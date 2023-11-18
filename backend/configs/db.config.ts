@@ -1,7 +1,9 @@
-import express, { Express, Request, Response } from "express";
+import debug from "debug";
 import dotenv from "dotenv";
 import { MongoClient, Db, Collection, MongoServerError } from "mongodb";
-import { User } from "../models/users/user";
+import { User, applyUserSchemaValidation } from "../models/user";
+
+const log = debug("backend:db");
 
 dotenv.config();
 
@@ -9,16 +11,22 @@ export const collections: {
   users?: Collection<User>;
 } = {};
 
+const connectionUrl = process.env.DB_URL;
+const dbName = process.env.DB_NAME || "myDbTest";
+
+// exit the process if there is no connection string to MongoDB
+if (!connectionUrl) {
+  log("Missing DB_URL environment variable");
+  process.exit(1);
+}
+
+// exit the process if there is no database name variable
+if (!dbName) {
+  log("Missing DB_NAME environment variable");
+  process.exit(1);
+}
+
 export const connectToDatabase = async () => {
-  const connectionUrl = process.env.DB_URL;
-  const dbName = process.env.DB_NAME || "mydbTest";
-
-  // exit the process if there is no connection string to MongoDB
-  if (!connectionUrl) {
-    console.error("Missing DB_URL environment variable");
-    process.exit(1);
-  }
-
   const client: MongoClient = new MongoClient(connectionUrl);
   await client.connect();
 
@@ -28,14 +36,8 @@ export const connectToDatabase = async () => {
     console.log("Successfully connected to MongoDB database")
   );
 
-  // exit the process if there is no database name variable
-  if (!dbName) {
-    console.error("Missing DB_NAME environment variable");
-    process.exit(1);
-  }
-
   const db: Db = client.db(dbName);
-  await applySchemaValidation(db);
+  await applyUserSchemaValidation(db);
 
   // Get the collection
   const usersCollection = db.collection<User>("users");
@@ -50,46 +52,3 @@ export const connectToDatabase = async () => {
 
   // Print the results
 };
-
-async function applySchemaValidation(db: Db) {
-  const jsonSchema = {
-    $jsonSchema: {
-      bsonType: "object",
-      required: ["name", "email", "password"],
-      additionalProperties: false,
-      properties: {
-        _id: {},
-        name: {
-          bsonType: "string",
-          description: "'name' is required and is a string",
-          minLength: 2,
-          maxLength: 32,
-        },
-        email: {
-          bsonType: "string",
-          description: "'email' is required and is a string",
-          minLength: 4,
-          maxLength: 50,
-        },
-        password: {
-          bsonType: "string",
-          description: "'password' is required and is and is a string",
-          minLength: 3,
-          maxLength: 32,
-        },
-      },
-    },
-  };
-
-  // Try applying the modification to the collection, if the collection doesn't exist, create it
-  await db
-    .command({
-      collMod: "users",
-      validator: jsonSchema,
-    })
-    .catch(async (error: MongoServerError) => {
-      if (error.codeName === "NamespaceNotFound") {
-        await db.createCollection("users", { validator: jsonSchema });
-      }
-    });
-}
