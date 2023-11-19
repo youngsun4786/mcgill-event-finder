@@ -16,12 +16,13 @@ connectToDatabase()
   .then(() => {
     // * middleware
     configureServer(app, true);
+
     // * set routes
     configureRoutes(app);
 
     // * start server
     app.listen(port, () => {
-      log(`[server]: Server running at http://localhost:${port}`);
+      console.log(`[server]: Server running at http://localhost:${port}`);
     });
   })
   .catch((error: Error) => {

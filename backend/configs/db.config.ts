@@ -1,7 +1,7 @@
 import debug from "debug";
 import dotenv from "dotenv";
-import { MongoClient, Db, Collection, MongoServerError } from "mongodb";
-import { User, applyUserSchemaValidation } from "../models/user";
+import { MongoClient, Db, Collection } from "mongodb";
+import { User, applyUserSchemaValidation } from "../models/user.models";
 
 const log = debug("backend:db");
 
@@ -37,10 +37,11 @@ export const connectToDatabase = async () => {
   );
 
   const db: Db = client.db(dbName);
+  // check if the collection exists, if not, create it
   await applyUserSchemaValidation(db);
 
   // Get the collection
-  const usersCollection = db.collection<User>("users");
+  const usersCollection = db.collection<User>("User");
   collections.users = usersCollection;
 
   //   const collection = db.collection("cities"); // Replace with your collection name
