@@ -1,8 +1,9 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import debug from "debug";
-import { connectToDatabase } from "./configs/db.config";
-import { configureRoutes, configureServer } from "./configs";
+import { configureRoutes, configureServer, connectToDatabase } from "./configs";
 import dotenv from "dotenv";
+import { configureSession } from "./configs/session.config";
+import isError from "./middlewares/error.middleware";
 
 dotenv.config();
 const app: Express = express();
@@ -16,12 +17,15 @@ connectToDatabase()
   .then(() => {
     // * middleware
     configureServer(app, true);
+    configureSession(app);
+    // * error handling
+    app.use(isError);
     // * set routes
     configureRoutes(app);
 
     // * start server
     app.listen(port, () => {
-      log(`[server]: Server running at http://localhost:${port}`);
+      console.log(`[server]: Server running at http://localhost:${port}`);
     });
   })
   .catch((error: Error) => {

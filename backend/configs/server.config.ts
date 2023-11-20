@@ -1,7 +1,8 @@
 import cors, { CorsOptions } from "cors";
 import debug from "debug";
 import express, { Express } from "express";
-
+import cookieParser from "cookie-parser";
+import isError from "../middlewares/error.middleware";
 const log = debug("backend:server");
 
 const corsOptions: CorsOptions = {
@@ -17,5 +18,6 @@ export const configureServer = (app: Express, enableCors: boolean) => {
   // express will parse incoming JSON requests
   app.use(express.json({ limit: "50mb" }));
   // express will accept and parse incoming url requests (responsible for body parsing)
-  app.use(express.urlencoded({ limit: "50mb", extended: false }));
+  app.use(express.urlencoded({ limit: "50mb", extended: true }));
+  app.use(cookieParser());
 };
