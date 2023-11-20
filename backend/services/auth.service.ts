@@ -2,11 +2,12 @@ import { Response } from "express";
 import { genSalt, hashSync, compareSync } from "bcrypt";
 import dotenv from "dotenv";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import { User } from "../models/user.models";
 
 dotenv.config();
 
 export default interface DataInToken extends JwtPayload {
-  _id: string;
+  user?: { _id: string; name: string; email: string; role: string };
 }
 
 // environment variables
@@ -29,7 +30,7 @@ export const comparePassword = (hashedPassword: string, password: string) => {
 };
 
 export const generateToken = (res: Response, payload: DataInToken) => {
-  const token = jwt.sign(payload, jwtEnv, {
+  const token = jwt.sign({ payload }, jwtEnv, {
     expiresIn: "1hr",
   });
 

@@ -39,11 +39,13 @@ export const registerController = async (
 
     if (newUser.acknowledged) {
       // * create jwt token and cookie session
-      const token = generateToken(res, {
+      generateToken(res, {
         _id: newUser.insertedId.toString(),
+        name: name,
+        email: email,
+        role: role,
       } as DataInToken);
       // print token
-      console.log(token);
       res.status(201).json("User created successfully");
       return;
     }
@@ -55,7 +57,11 @@ export const registerController = async (
 // * @desc   login the user
 // * @route  POST /api/auth/login
 // * @access Public
-export const loginController = async (req: Request, res: Response) => {
+export const loginController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { email, password } = req.body;
 
@@ -73,25 +79,29 @@ export const loginController = async (req: Request, res: Response) => {
     //  create jwt token and cookie session
     generateToken(res, {
       _id: user._id.toString(),
+      name: user.name,
+      email: user.email,
+      role: user.role,
     } as DataInToken);
     res.status(201).json("Login successful");
   } catch (error: any) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 
 // * @desc   logout user
 // * @route  POST /api/auth/logout
 // * @access Public
-export const logoutController = async (req: Request, res: Response) => {
+export const logoutController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     // removing the cookie session
     res.clearCookie("access_token", { httpOnly: true, expires: new Date(0) });
     res.status(201).json("Logout successful");
   } catch (error: any) {
-    console.error(error);
-    res.status(500);
-    throw new Error("Unable to logout");
+    next(error);
   }
 };
