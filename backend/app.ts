@@ -2,6 +2,8 @@ import express, { Express } from "express";
 import debug from "debug";
 import { configureRoutes, configureServer, connectToDatabase } from "./configs";
 import dotenv from "dotenv";
+import { configureSession } from "./configs/session.config";
+import isError from "./middlewares/error.middleware";
 
 dotenv.config();
 const app: Express = express();
@@ -15,7 +17,9 @@ connectToDatabase()
   .then(() => {
     // * middleware
     configureServer(app, true);
-
+    configureSession(app);
+    // * error handling
+    app.use(isError);
     // * set routes
     configureRoutes(app);
 

@@ -1,15 +1,22 @@
-import { Request, Response } from "express";
-import {
+import { NextFunction, Request, Response } from "express";
+import DataInToken, {
   securePassword,
   comparePassword,
   generateToken,
 } from "../services/auth.service";
 import { Users } from "../models/user.models";
+import UserAlreadyExistsException from "../exceptions/UserAlreadyExistsException";
+import UserNotFoundException from "../exceptions/UserNotFoundException";
+import InvalidCredentialsException from "../exceptions/InvalidCrendentialsException";
 
 // * @desc   Register a new user
 // * @route  POST /api/auth/register
 // * @access Public
-export const registerController = async (req: Request, res: Response) => {
+export const registerController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { name, email, password, role } = req.body;
 
@@ -17,9 +24,7 @@ export const registerController = async (req: Request, res: Response) => {
     const checkUser = await Users.collections!.findOne({ email });
 
     if (checkUser) {
-      res.status(400).json("User already exists");
-      throw new Error("User already exists");
-      return;
+      throw new UserAlreadyExistsException();
     }
     // create a new user
     const newUser = await Users.collections!.insertOne({
@@ -33,17 +38,17 @@ export const registerController = async (req: Request, res: Response) => {
     });
 
     if (newUser.acknowledged) {
-      // generate jwt token
-      generateToken(res, { id: newUser.insertedId });
+      // * create jwt token and cookie session
+      const token = generateToken(res, {
+        _id: newUser.insertedId.toString(),
+      } as DataInToken);
+      // print token
+      console.log(token);
       res.status(201).json("User created successfully");
       return;
-    } else {
-      res.status(400);
-      throw new Error("Unable to create user");
     }
   } catch (error: any) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 
@@ -61,21 +66,15 @@ export const loginController = async (req: Request, res: Response) => {
     }
 
     const user = await Users.collections!.findOne({ email });
+    if (!user) throw new UserNotFoundException();
+    const validPassword = comparePassword(user.password, password);
+    if (!validPassword) throw new InvalidCredentialsException();
 
-    // check if the user exists
-    if (user && comparePassword(user.password, password)) {
-      res.status(201).json({
-        message: "Login successful",
-        success: true,
-        content: { _id: user._id, name: user.name, email: user.email },
-      });
-    } else {
-      res.status(401);
-      throw new Error("Invalid email or password");
-    }
-
-    // generate jwt token
-    generateToken(res, { id: user!._id });
+    //  create jwt token and cookie session
+    generateToken(res, {
+      _id: user._id.toString(),
+    } as DataInToken);
+    res.status(201).json("Login successful");
   } catch (error: any) {
     console.error(error);
     res.status(500).json({ error: error.message });
@@ -87,8 +86,9 @@ export const loginController = async (req: Request, res: Response) => {
 // * @access Public
 export const logoutController = async (req: Request, res: Response) => {
   try {
-    res.clearCookie("jwt", { httpOnly: true, expires: new Date(0) });
-    res.status(200).json("Logout successful");
+    // removing the cookie session
+    res.clearCookie("access_token", { httpOnly: true, expires: new Date(0) });
+    res.status(201).json("Logout successful");
   } catch (error: any) {
     console.error(error);
     res.status(500);
