@@ -1,7 +1,6 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import debug from "debug";
-import { connectToDatabase } from "./configs/db.config";
-import { configureRoutes, configureServer } from "./configs";
+import { configureRoutes, configureServer, connectToDatabase } from "./configs";
 import dotenv from "dotenv";
 
 dotenv.config();

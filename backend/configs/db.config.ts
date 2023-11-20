@@ -1,15 +1,11 @@
 import debug from "debug";
 import dotenv from "dotenv";
-import { MongoClient, Db, Collection } from "mongodb";
-import { User, applyUserSchemaValidation } from "../models/user.models";
+import { MongoClient, Db } from "mongodb";
+import { User, applyUserSchemaValidation, Users } from "../models/user.models";
 
 const log = debug("backend:db");
 
 dotenv.config();
-
-export const collections: {
-  users?: Collection<User>;
-} = {};
 
 const connectionUrl = process.env.DB_URL;
 const dbName = process.env.DB_NAME || "myDbTest";
@@ -41,11 +37,7 @@ export const connectToDatabase = async () => {
   await applyUserSchemaValidation(db);
 
   // Get the collection
-  const usersCollection = db.collection<User>("User");
-  collections.users = usersCollection;
-
-  //   const collection = db.collection("cities"); // Replace with your collection name
-
+  Users.collections = db.collection<User>("User");
   //   // Query the collection
   //   const query = { code: { $regex: "^YUL" } }; // Define your query here. An empty query will return all documents.
   //   const result = await collection.find(query).toArray();

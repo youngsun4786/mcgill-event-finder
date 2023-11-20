@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { collections } from "../configs/db.config";
+import { Users } from "../models/user.models";
 
 export const createUserController = async (req: Request, res: Response) => {
   try {
     const user = req.body;
 
-    const result = await collections.users!.insertOne(user);
+    const result = await Users.collections!.insertOne(user);
 
     if (result.acknowledged) {
       res.status(200).send({ message: "User created successfully" });
@@ -22,7 +22,7 @@ export const createUserController = async (req: Request, res: Response) => {
 
 export const getUserController = async (req: Request, res: Response) => {
   try {
-    const users = await collections.users!.find({}).toArray();
+    const users = await Users.collections!.find({}).toArray();
     res.status(200).send(users);
 
     console.log(users);
