@@ -39,11 +39,14 @@ export const registerController = async (
 
     if (newUser.acknowledged) {
       // * create jwt token and cookie session
+
       generateToken(res, {
-        _id: newUser.insertedId.toString(),
-        name: name,
-        email: email,
-        role: role,
+        user: {
+          _id: newUser.insertedId.toString(),
+          name: name,
+          email: email,
+          role: role,
+        },
       } as DataInToken);
       // print token
       res.status(201).json("User created successfully");
@@ -78,10 +81,12 @@ export const loginController = async (
 
     //  create jwt token and cookie session
     generateToken(res, {
-      _id: user._id.toString(),
-      name: user.name,
-      email: user.email,
-      role: user.role,
+      user: {
+        _id: user._id.toString(),
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
     } as DataInToken);
     res.status(201).json("Login successful");
   } catch (error: any) {

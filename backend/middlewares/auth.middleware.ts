@@ -23,8 +23,9 @@ export const isAuthenticated = (
   }
   try {
     const receivedUser = verifyToken(token);
+    console.log(receivedUser);
     if (receivedUser) {
-      req.user = receivedUser.payload;
+      req.user = receivedUser.user;
       next();
     } else {
       return next(new UnauthorizedInvalidTokenException());
