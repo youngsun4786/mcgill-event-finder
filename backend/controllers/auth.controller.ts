@@ -1,59 +1,45 @@
 import { NextFunction, Request, Response } from "express";
-import DataInToken, {
-  securePassword,
-  comparePassword,
-  generateToken,
-} from "../services/auth.service";
-import { Users } from "../models/user.models";
+import DataInToken, { generateToken } from "../utils/jwtCredentials";
 import UserAlreadyExistsException from "../exceptions/UserAlreadyExistsException";
-import UserNotFoundException from "../exceptions/UserNotFoundException";
 import InvalidCredentialsException from "../exceptions/InvalidCrendentialsException";
+import { RegisterUserInput } from "../models/schemas/user.schema";
+import { LoginUserInput } from "../models/schemas/auth.schema";
+import { register, login } from "../services/auth.service";
 
 // * @desc   Register a new user
 // * @route  POST /api/auth/register
 // * @access Public
 export const registerController = async (
-  req: Request,
+  req: Request<{}, {}, RegisterUserInput>,
   res: Response,
   next: NextFunction
 ) => {
+  const body = req.body;
   try {
-    const { name, email, password, role } = req.body;
-
-    // check the database if the user already exists
-    const checkUser = await Users.collections!.findOne({ email });
-
-    if (checkUser) {
-      throw new UserAlreadyExistsException();
-    }
     // create a new user
-    const newUser = await Users.collections!.insertOne({
-      name,
-      email,
-      password: await securePassword(password),
-      role,
-      pins: [],
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
+    const newUser = await register(body);
+    console.log(newUser);
+    if (newUser) {
+      // // * create jwt token and cookie session
 
-    if (newUser.acknowledged) {
-      // * create jwt token and cookie session
-
-      generateToken(res, {
-        user: {
-          _id: newUser.insertedId.toString(),
-          name: name,
-          email: email,
-          role: role,
-        },
-      } as DataInToken);
+      // generateToken(res, {
+      //   user: {
+      //     _id: newUser._id.toString(),
+      //     name: newUser.name,
+      //     email: newUser.email,
+      //     role: newUser.role,
+      //   },
+      // } as DataInToken);
       // print token
       res.status(201).json("User created successfully");
       return;
     }
   } catch (error: any) {
-    next(error);
+    if (error.code === 11000) {
+      return next(new UserAlreadyExistsException());
+    }
+    res.status(500).json(error.message);
+    return next(error);
   }
 };
 
@@ -61,25 +47,29 @@ export const registerController = async (
 // * @route  POST /api/auth/login
 // * @access Public
 export const loginController = async (
-  req: Request,
+  req: Request<{}, {}, LoginUserInput>,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const { email, password } = req.body;
 
-    // check for missing fields
-    if (!email || !password) {
-      res.status(402);
-      throw new Error("All fields are required");
+    const user = await login(email, password);
+    if (!user) {
+      res.status(401).json("Invalid credentials");
+      next(new InvalidCredentialsException());
     }
+    //  create session token and cookie
+    generateToken(res, {
+      user: {
+        _id: user._id.toString(),
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    } as DataInToken);
 
-    const user = await Users.collections!.findOne({ email });
-    if (!user) throw new UserNotFoundException();
-    const validPassword = comparePassword(user.password, password);
-    if (!validPassword) throw new InvalidCredentialsException();
-
-    //  create jwt token and cookie session
+    //  create refresh session token
     generateToken(res, {
       user: {
         _id: user._id.toString(),
@@ -106,6 +96,7 @@ export const logoutController = async (
     // removing the cookie session
     res.clearCookie("access_token", { httpOnly: true, expires: new Date(0) });
     res.status(201).json("Logout successful");
+    next();
   } catch (error: any) {
     next(error);
   }

@@ -4,9 +4,16 @@ import {
   loginController,
   logoutController,
 } from "../controllers/auth.controller";
+import validatorResource from "../middlewares/validators/post.validator";
+import { registerUserSchema } from "../models/schemas/user.schema";
+import { loginUserSchema } from "../models/schemas/auth.schema";
 const router = Router();
 
-router.post("/register", registerController);
-router.post("/login", loginController);
+router.post(
+  "/register",
+  validatorResource(registerUserSchema),
+  registerController
+);
+router.post("/login",validatorResource(loginUserSchema), loginController);
 router.post("/logout", logoutController);
 export default router;

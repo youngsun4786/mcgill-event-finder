@@ -1,9 +1,7 @@
 import cors, { CorsOptions } from "cors";
-import debug from "debug";
 import express, { Express } from "express";
 import cookieParser from "cookie-parser";
-import isError from "../middlewares/error.middleware";
-const log = debug("backend:server");
+import log from "./logger.config";
 
 const corsOptions: CorsOptions = {
   origin: process.env.CLIENT_ORIGIN || "http://localhost:4200",
@@ -12,12 +10,12 @@ const corsOptions: CorsOptions = {
 
 export const configureServer = (app: Express, enableCors: boolean) => {
   if (enableCors) {
-    log("CORS enabled");
+    log.info("CORS enabled");
     app.use(cors(corsOptions));
   }
   // express will parse incoming JSON requests
   app.use(express.json({ limit: "50mb" }));
   // express will accept and parse incoming url requests (responsible for body parsing)
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
-  app.use(cookieParser());
+  // app.use(cookieParser());
 };

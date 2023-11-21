@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction, query } from "express";
-import { verifyToken } from "../services/auth.service";
+import { verifyToken } from "../utils/jwtCredentials";
 import UnauthorizedInvalidTokenException from "../exceptions/UnauthorizedInvalidTokenException";
 import UnauthorizedNoTokenException from "../exceptions/UnauthorizedNoTokenException";
 
