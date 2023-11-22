@@ -3,7 +3,6 @@ import {
   pre,
   modelOptions,
   Severity,
-  getModelForClass,
   prop,
   Ref,
   index,

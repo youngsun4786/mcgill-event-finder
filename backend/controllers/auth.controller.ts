@@ -2,8 +2,10 @@ import { NextFunction, Request, Response } from "express";
 import DataInToken, { generateToken } from "../utils/jwtCredentials";
 import UserAlreadyExistsException from "../exceptions/UserAlreadyExistsException";
 import InvalidCredentialsException from "../exceptions/InvalidCrendentialsException";
-import { RegisterUserInput } from "../models/schemas/user.schema";
-import { LoginUserInput } from "../models/schemas/auth.schema";
+import {
+  RegisterUserInput,
+  LoginUserInput,
+} from "../models/schemas/user.schema";
 import { register, login } from "../services/auth.service";
 
 // * @desc   Register a new user

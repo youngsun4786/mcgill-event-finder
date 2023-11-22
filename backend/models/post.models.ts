@@ -3,7 +3,6 @@ import {
   modelOptions,
   prop,
   Severity,
-  getModelForClass,
   Ref,
 } from "@typegoose/typegoose";
 

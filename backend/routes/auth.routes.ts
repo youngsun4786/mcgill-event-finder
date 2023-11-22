@@ -5,8 +5,10 @@ import {
   logoutController,
 } from "../controllers/auth.controller";
 import validatorResource from "../middlewares/validators/post.validator";
-import { registerUserSchema } from "../models/schemas/user.schema";
-import { loginUserSchema } from "../models/schemas/auth.schema";
+import {
+  registerUserSchema,
+  loginUserSchema,
+} from "../models/schemas/user.schema";
 const router = Router();
 
 router.post(
@@ -14,6 +16,6 @@ router.post(
   validatorResource(registerUserSchema),
   registerController
 );
-router.post("/login",validatorResource(loginUserSchema), loginController);
+router.post("/login", validatorResource(loginUserSchema), loginController);
 router.post("/logout", logoutController);
 export default router;
