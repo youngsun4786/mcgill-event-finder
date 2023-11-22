@@ -1,1 +1,18 @@
-<p>login works!</p>
+<h3>Sign In</h3>
+<p>ignore the ugly color and styling, I used Copilot lol</p>
+
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div class="field">
+    <input id="email" type="text" placeholder="Enter email" formControlName="email" class="input">
+  </div>
+
+  <div class="field">
+    <input id="password" type="password" placeholder="Enter password" formControlName="password" class="input" />
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+
+  <!-- <div *ngIf="error" class="alert alert-danger">{{ error }}</div> -->
+
+  <a class="create-account" href="/register">Create an account</a>
+</form>
