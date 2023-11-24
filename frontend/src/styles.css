@@ -4,30 +4,40 @@
 :root {
   --inter-font: 'Inter', sans-serif;
   --inter-tight-font: 'Inter Tight', sans-serif;
+  --black: #000;
+  --gray-500: #4F4F4F;
   --gray-300: #C7C7C7;
   --gray-100: #EEE;
+  --gray-000: #FFF; /* white atm */
   --signature-red: #AA4B4B;
+  --signature-red-light: #B96E6E;
 }
 
-* {
-  font-size: 1rem;
-}
-
-button {
+html, body {
+  margin: 0;
+  padding: 0;
   font-family: var(--inter-font);
   font-size: 1rem;
-  font-weight: 700;
-  color: var(--gray-100);
-  background: var(--signature-red);
-  border-radius: 2rem;
+  font-weight: 400;
+  color: var(--gray-300);
+  height: 100%;
+}
+
+button.submit {
+  font-family: var(--inter-font);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--gray-000);
+  background: var(--signature-red-light);
+  border-radius: .5rem;
   border: none;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1rem;
   cursor: pointer;
   margin: 0.5rem;
 }
 
 button:hover {
-  background: #9a3a3a;
+  background: var(--signature-red);
 }
 
 button:active {
@@ -35,10 +45,13 @@ button:active {
 }
 
 input {
+  box-sizing: border-box;
   font-family: var(--inter-font);
   font-size: 1rem;
-  font-weight: 700;
-  border-radius: .1rem;
-  padding: 0.5rem 1rem;
+  font-weight: 500;
+  border-radius: .5rem;
+  border: 1px solid var(--gray-300);
+  /* add some drop shadow */
+  padding: 0.6rem;
   margin: 0.5rem;
 }
