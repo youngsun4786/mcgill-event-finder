@@ -13,11 +13,14 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
+  loading = false;
+  error: boolean = false;
+
   constructor(
     private fb : FormBuilder,
   ) {
     this.loginForm = this.fb.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     })
   }
@@ -26,6 +29,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    this.error = true;
     console.log('Form submitted');
   }
 }

@@ -38,20 +38,17 @@
   font-size: 0.8rem;
 }
 
-.field {
-  width: 100%;
-}
-
-.field input {
+.input {
   margin: 0 0 1rem 0;
   border: none;
   width: 100%;
 }
 
-button {
-  margin: 1rem;
-  width: 50%;
-  align-self: center;
+.error {
+  color: red;
+  font-size: 0.8rem;
+  margin: 0 0 0.3rem 0;
+  padding-left: 0.5rem;
 }
 
 .links {
