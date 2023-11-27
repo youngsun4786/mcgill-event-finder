@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction, query } from "express";
-import { verifyToken } from "../services/auth.service";
+import { verifyToken } from "../utils/jwtCredentials";
 import UnauthorizedInvalidTokenException from "../exceptions/UnauthorizedInvalidTokenException";
 import UnauthorizedNoTokenException from "../exceptions/UnauthorizedNoTokenException";
 
@@ -16,14 +16,13 @@ export const isAuthenticated = (
   let token: string | null = "";
   // * check if the cookie exists in incoming request
   if (req.headers.cookie) {
-    token = req.cookies.access_token;
+    token = req.headers.cookie.split("=")[1];
   }
   if (!token) {
     return next(new UnauthorizedNoTokenException());
   }
   try {
     const receivedUser = verifyToken(token);
-    console.log(receivedUser);
     if (receivedUser) {
       req.user = receivedUser.user;
       next();

@@ -1,0 +1,26 @@
+<div class="login-container">
+  <div class="login-box">
+    <h2>Log into your account</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <p class="field-label">Email</p>
+      <input id="email" type="text" formControlName="email" class="input">
+
+
+      <p class="field-label">Password</p>
+      <input id="password" type="password" formControlName="password" class="input" />
+
+      <p class="error" [hidden]="!error">Oops, looks like email or password is incorrect</p>
+
+      <button type="submit" class="submit" [disabled]="!loginForm.valid || loading">Log In</button>
+      <!-- <div *ngIf="error" class="alert alert-danger">{{ error }}</div> -->
+    </form>
+
+    <div class="links">
+      <a href="/register">create account</a>
+      <a href="/forgot-password">forgot password</a>
+    </div>
+  </div>
+</div>
+
+
