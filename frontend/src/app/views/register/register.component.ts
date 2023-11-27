@@ -12,6 +12,8 @@ import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule } 
 export class RegisterComponent {
   registerForm: FormGroup;
 
+  hasErrors: boolean = false;
+
   constructor(
     private fb : FormBuilder,
   ) {
@@ -23,6 +25,11 @@ export class RegisterComponent {
   }
 
   onSubmit() {
+    if (this.registerForm.value.password !== this.registerForm.value.password2 || this.registerForm.invalid) {
+      this.hasErrors = true;
+      return;
+    }
+    this.hasErrors = false;
     console.log('Form submitted');
   }
 }
