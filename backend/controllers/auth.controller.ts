@@ -9,7 +9,7 @@ import {
 import { register, login } from "../services/auth.service";
 
 // * @desc   Register a new user
-// * @route  POST /api/auth/register
+// * @route  POST /auth/register
 // * @access Public
 export const registerController = async (
   req: Request<{}, {}, RegisterUserInput>,
@@ -20,7 +20,6 @@ export const registerController = async (
   try {
     // create a new user
     const newUser = await register(body);
-    console.log(newUser);
     if (newUser) {
       // // * create jwt token and cookie session
 
@@ -46,7 +45,7 @@ export const registerController = async (
 };
 
 // * @desc   login the user
-// * @route  POST /api/auth/login
+// * @route  POST /auth/login
 // * @access Public
 export const loginController = async (
   req: Request<{}, {}, LoginUserInput>,
@@ -87,7 +86,7 @@ export const loginController = async (
 };
 
 // * @desc   logout user
-// * @route  POST /api/auth/logout
+// * @route  POST /auth/logout
 // * @access Public
 export const logoutController = async (
   req: Request,

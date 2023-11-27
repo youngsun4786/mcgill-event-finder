@@ -1,4 +1,3 @@
-import UserNotFoundException from "../exceptions/UserNotFoundException";
 import { User } from "../models/user.models";
 import { UserModel } from "../models";
 const omit = require("just-omit");
@@ -7,7 +6,8 @@ import UserAlreadyExistsException from "../exceptions/UserAlreadyExistsException
 // create a new user
 export const register = async (input: Partial<User>) => {
   try {
-    const user = await UserModel.create(input);
+    const user = new UserModel(input);
+    await user.save();
     // remove password from user object
     return omit(user.toJSON(), "password");
   } catch (error: any) {
