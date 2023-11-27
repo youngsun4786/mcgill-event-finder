@@ -79,7 +79,7 @@ export const loginController = async (
         role: user.role,
       },
     } as DataInToken);
-    res.status(201).json("Login successful");
+    res.status(200).json("Login successful");
   } catch (error: any) {
     next(error);
   }

@@ -38,10 +38,10 @@ export class LoginComponent implements OnInit {
       password: password,
     };
     this.httpClient
-      .post(`http://localhost:8000/auth/login`, user, {})
+      .post(`http://localhost:8000/auth/login`, user, { responseType: 'text' })
       .subscribe({
         next: () => {
-          this.router.navigate(['/users']);
+          this.router.navigate(['/']);
         },
         error: (error: any) => {
           alert(error.error.toString().replace(/['"]+/g, ''));
@@ -51,7 +51,15 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.error = true;
+    if (
+      !this.loginForm.value.email ||
+      !this.loginForm.value.password ||
+      this.loginForm.invalid
+    ) {
+      this.error = true;
+      return;
+    }
+    this.error = false;
     this.loginUser(this.loginForm.value.email, this.loginForm.value.password);
     console.log('Form submitted');
   }
