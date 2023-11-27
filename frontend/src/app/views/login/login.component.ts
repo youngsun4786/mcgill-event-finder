@@ -38,9 +38,7 @@ export class LoginComponent implements OnInit {
       password: password,
     };
     this.httpClient
-      .post(`http://localhost:8000/auth/login`, user, {
-        responseType: 'text',
-      })
+      .post(`http://localhost:8000/auth/login`, user, {})
       .subscribe({
         next: () => {
           this.router.navigate(['/users']);
