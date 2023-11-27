@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/']);
         },
         error: (error: any) => {
+          // remove the quotes from the error message
           alert(error.error.toString().replace(/['"]+/g, ''));
           console.error(error);
         },

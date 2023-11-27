@@ -32,7 +32,7 @@ export const registerController = async (
       //   },
       // } as DataInToken);
       // print token
-      res.status(201).json("User created successfully");
+      res.status(201).json({ message: "User created successfully" });
       return;
     }
   } catch (error: any) {
@@ -57,7 +57,6 @@ export const loginController = async (
 
     const user = await login(email, password);
     if (!user) {
-      res.status(401).json("Invalid credentials");
       next(new InvalidCredentialsException());
     }
     //  create session token and cookie
@@ -79,7 +78,7 @@ export const loginController = async (
         role: user.role,
       },
     } as DataInToken);
-    res.status(200).json("Login successful");
+    res.status(200).json({ message: "Login successful" });
   } catch (error: any) {
     next(error);
   }
@@ -96,7 +95,7 @@ export const logoutController = async (
   try {
     // removing the cookie session
     res.clearCookie("access_token", { httpOnly: true, expires: new Date(0) });
-    res.status(201).json("Logout successful");
+    res.status(201).json({ message: "Logout successful" });
     next();
   } catch (error: any) {
     next(error);
