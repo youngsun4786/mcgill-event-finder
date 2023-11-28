@@ -9,9 +9,8 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { User } from '../../models/user.models';
-import { UserService } from '../../services/user.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-
+import { httpOptions } from '../../services/user.service';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -37,9 +36,7 @@ export class RegisterComponent {
 
   registerUser(user: User) {
     this.httpClient
-      .post(`http://localhost:8000/auth/register`, user, {
-        responseType: 'text',
-      })
+      .post(`http://localhost:8000/auth/register`, user, httpOptions)
       .subscribe({
         next: () => {
           this.router.navigate(['/login']);

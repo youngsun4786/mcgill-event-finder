@@ -1,8 +1,14 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject, tap } from 'rxjs';
 import { User } from '../models/user.models';
 
+export const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+};
+@Injectable({
+  providedIn: 'root',
+})
 export class UserService {
   private url = 'http://localhost:8000';
   private users$: Subject<User[]> = new Subject();

@@ -8,6 +8,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { httpOptions } from '../../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -38,10 +39,10 @@ export class LoginComponent implements OnInit {
       password: password,
     };
     this.httpClient
-      .post(`http://localhost:8000/auth/login`, user, { responseType: 'text' })
+      .post(`http://localhost:8000/auth/login`, user, httpOptions)
       .subscribe({
         next: () => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/posts']);
         },
         error: (error: any) => {
           // remove the quotes from the error message
