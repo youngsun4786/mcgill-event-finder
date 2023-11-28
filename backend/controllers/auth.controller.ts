@@ -1,5 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import DataInToken, { generateToken } from "../utils/jwtCredentials";
+import DataInToken, {
+  generateRefreshToken,
+  generateToken,
+} from "../utils/jwtCredentials";
 import UserAlreadyExistsException from "../exceptions/UserAlreadyExistsException";
 import InvalidCredentialsException from "../exceptions/InvalidCrendentialsException";
 import {
@@ -60,25 +63,24 @@ export const loginController = async (
       next(new InvalidCredentialsException());
     }
     //  create session token and cookie
-    generateToken(res, {
-      user: {
-        _id: user._id.toString(),
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      },
-    } as DataInToken);
+    const userData = {
+      _id: user._id.toString(),
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    };
+    const token = generateToken(res, { user: userData } as DataInToken);
 
-    //  create refresh session token
-    generateToken(res, {
-      user: {
-        _id: user._id.toString(),
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      },
-    } as DataInToken);
-    res.status(200).json({ message: "Login successful" });
+    // //  create refresh session token
+    // const refreshToken = generateRefreshToken(res, {
+    //   user: userData,
+    // } as DataInToken);
+    res.send({
+      message: "Login successful",
+      user: userData,
+      token: token,
+    });
+    res.status(200);
   } catch (error: any) {
     next(error);
   }

@@ -33,9 +33,7 @@ export const getPostsController = async (
 ) => {
   try {
     const allPosts = await posts();
-    res
-      .status(200)
-      .json({ message: "All posts retrieved successfully", allPosts });
+    res.status(200).json(allPosts);
   } catch (error: any) {
     res.status(500).json(error.message);
     next(error);

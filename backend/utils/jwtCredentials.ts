@@ -12,9 +12,15 @@ export default interface DataInToken extends JwtPayload {
 
 // environment variables
 const jwtEnv = process.env.JWT_SECRET;
+const jwtRefreshEnv = process.env.REFRESH_JWT_SECRET;
 // exit the process if there is no jwt secret string
 if (!jwtEnv) {
   console.error("Missing JWT_SECRET environment variable");
+  process.exit(1);
+}
+// exit the process if there is no jwt refresh secret string
+if (!jwtRefreshEnv) {
+  console.error("Missing JWT_REFRESH_SECRET environment variable");
   process.exit(1);
 }
 
@@ -43,9 +49,23 @@ export const generateToken = (res: Response, payload: DataInToken) => {
 
   // activating cookie session
   res.cookie("access_token", token, {
-    httpOnly: true,
+    httpOnly: false,
     secure: process.env.NODE_ENV !== "development",
     maxAge: 60 * 60 * 1000, // 1 hour
+  });
+  return token;
+};
+
+export const generateRefreshToken = (res: Response, payload: DataInToken) => {
+  const token = jwt.sign(payload, jwtRefreshEnv, {
+    expiresIn: "1d",
+  });
+
+  // activating cookie session
+  res.cookie("access_token", token, {
+    httpOnly: false,
+    secure: process.env.NODE_ENV !== "development",
+    maxAge: 24 * 60 * 60 * 1000, // 1 hour
   });
   return token;
 };
