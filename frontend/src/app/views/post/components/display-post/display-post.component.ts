@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Post } from '../../models/post.models';
+import { Post } from '../../../../models/post.models';
 
 @Component({
   selector: 'app-display-post',

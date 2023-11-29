@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { MainComponent } from './views/main/main.component';
-import { DisplayPostComponent } from './components/display-post/display-post.component';
+import { DisplayPostComponent } from './views/post/components/display-post/display-post.component';
 import { httpInterceptorProviders } from './utils/HttpRequestInterceptor';
 @NgModule({
   declarations: [
