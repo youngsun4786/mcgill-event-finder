@@ -45,27 +45,15 @@ export const comparePassword = async (
 export const generateToken = (res: Response, payload: DataInToken) => {
   const token = jwt.sign(payload, jwtEnv, {
     expiresIn: "1hr",
+    allowInsecureKeySizes: true,
   });
 
-  // activating cookie session
-  res.cookie("access_token", token, {
-    httpOnly: false,
-    secure: process.env.NODE_ENV !== "development",
-    maxAge: 60 * 60 * 1000, // 1 hour
-  });
   return token;
 };
 
 export const generateRefreshToken = (res: Response, payload: DataInToken) => {
   const token = jwt.sign(payload, jwtRefreshEnv, {
     expiresIn: "1d",
-  });
-
-  // activating cookie session
-  res.cookie("access_token", token, {
-    httpOnly: false,
-    secure: process.env.NODE_ENV !== "development",
-    maxAge: 24 * 60 * 60 * 1000, // 1 hour
   });
   return token;
 };

@@ -68,17 +68,13 @@ export const loginController = async (
       name: user.name,
       email: user.email,
       role: user.role,
-    };
+    } as DataInToken;
     const token = generateToken(res, { user: userData } as DataInToken);
 
-    // //  create refresh session token
-    // const refreshToken = generateRefreshToken(res, {
-    //   user: userData,
-    // } as DataInToken);
+    if (req.session) req.session.token = token;
     res.send({
       message: "Login successful",
       user: userData,
-      token: token,
     });
     res.status(200);
   } catch (error: any) {

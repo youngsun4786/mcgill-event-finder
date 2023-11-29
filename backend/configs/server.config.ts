@@ -1,6 +1,5 @@
 import cors, { CorsOptions } from "cors";
 import express, { Express } from "express";
-import cookieParser from "cookie-parser";
 import log from "./logger.config";
 
 const corsOptions: CorsOptions = {
