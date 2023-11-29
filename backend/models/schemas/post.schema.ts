@@ -1,10 +1,12 @@
 import { TypeOf, object, string, nativeEnum, array, date } from "zod";
 import { EventStatusType } from "../post.models";
-import { registerUserSchema } from "./user.schema";
 
+// ensure that the incoming data for creating post is validated and in correct format
 export const postSchema = object({
   body: object({
-    author: registerUserSchema!,
+    email: string({ required_error: "Email is required" })
+      .trim()
+      .email("Not a valid email"),
     title: string({
       required_error: "Title is required",
     }),
@@ -26,3 +28,4 @@ export const postSchema = object({
 });
 
 export type PostInput = TypeOf<typeof postSchema>["body"];
+export type PostInformation = Omit<PostInput, "email">;

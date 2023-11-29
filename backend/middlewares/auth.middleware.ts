@@ -16,7 +16,7 @@ export const isAuthenticated = (
   let token: string | null = "";
   // * check if the cookie exists in incoming request
   if (req.headers.cookie) {
-    token = req.headers.cookie.split("=")[1];
+    token = req.headers.cookie.split("access_token=")[1];
   }
   if (!token) {
     return next(new UnauthorizedNoTokenException());

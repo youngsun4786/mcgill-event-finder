@@ -3,7 +3,8 @@ import { UserModel } from "../models";
 const omit = require("just-omit");
 import { comparePassword } from "../utils/jwtCredentials";
 import UserAlreadyExistsException from "../exceptions/UserAlreadyExistsException";
-// create a new user
+
+// * @desc   Register a new user
 export const register = async (input: Partial<User>) => {
   try {
     const user = new UserModel(input);
@@ -15,27 +16,13 @@ export const register = async (input: Partial<User>) => {
   }
 };
 
+// * @desc   login the user
 export const login = async (userEmail: string, userPassword: string) => {
-  const user = await UserModel.findOne({ email: userEmail });
+  const user = await UserModel.findOne({ email: userEmail }).exec();
   if (!user) return false;
 
-  const validPassword = comparePassword(user.password, userPassword);
+  const validPassword = await comparePassword(user.password, userPassword);
   if (!validPassword) return false;
   //r remove password from user object
   return omit(user.toJSON(), "password");
 };
-
-// export const logout = async (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) => {
-//   try {
-//     // removing the cookie session
-//     res.clearCookie("access_token", { httpOnly: true, expires: new Date(0) });
-//     res.status(201).json("Logout successful");
-//     next();
-//   } catch (error: any) {
-//     next(error);
-//   }
-// };

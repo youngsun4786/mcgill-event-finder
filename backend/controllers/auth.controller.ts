@@ -1,5 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import DataInToken, { generateToken } from "../utils/jwtCredentials";
+import DataInToken, {
+  generateRefreshToken,
+  generateToken,
+} from "../utils/jwtCredentials";
 import UserAlreadyExistsException from "../exceptions/UserAlreadyExistsException";
 import InvalidCredentialsException from "../exceptions/InvalidCrendentialsException";
 import {
@@ -32,7 +35,7 @@ export const registerController = async (
       //   },
       // } as DataInToken);
       // print token
-      res.status(201).json("User created successfully");
+      res.status(201).json({ message: "User created successfully" });
       return;
     }
   } catch (error: any) {
@@ -57,29 +60,27 @@ export const loginController = async (
 
     const user = await login(email, password);
     if (!user) {
-      res.status(401).json("Invalid credentials");
       next(new InvalidCredentialsException());
     }
     //  create session token and cookie
-    generateToken(res, {
-      user: {
-        _id: user._id.toString(),
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      },
-    } as DataInToken);
+    const userData = {
+      _id: user._id.toString(),
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    };
+    const token = generateToken(res, { user: userData } as DataInToken);
 
-    //  create refresh session token
-    generateToken(res, {
-      user: {
-        _id: user._id.toString(),
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      },
-    } as DataInToken);
-    res.status(201).json("Login successful");
+    // //  create refresh session token
+    // const refreshToken = generateRefreshToken(res, {
+    //   user: userData,
+    // } as DataInToken);
+    res.send({
+      message: "Login successful",
+      user: userData,
+      token: token,
+    });
+    res.status(200);
   } catch (error: any) {
     next(error);
   }
@@ -96,7 +97,7 @@ export const logoutController = async (
   try {
     // removing the cookie session
     res.clearCookie("access_token", { httpOnly: true, expires: new Date(0) });
-    res.status(201).json("Logout successful");
+    res.status(201).json({ message: "Logout successful" });
     next();
   } catch (error: any) {
     next(error);

@@ -1,19 +1,22 @@
 import { Request, Response, NextFunction } from "express";
 import { posts } from "../services/post.service";
+import { PostInput } from "../models/schemas/post.schema";
+import { createPost } from "../services/post.service";
+
 import util from "util";
 
 // * @desc   Create a new post
 // * @route  POST /posts
 // * @access Private
 export const createPostController = async (
-  req: Request,
+  req: Request<{}, {}, PostInput>,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const { title, content } = req.body;
-    // const newPost = await posts().create({ title, content });
-    // res.status(201).json(newPost);
+    const { email, ...postInfo } = req.body;
+    const newPost = await createPost(email, postInfo);
+    res.status(201).json(newPost);
   } catch (error: any) {
     res.status(500).json(error.message);
     next(error);

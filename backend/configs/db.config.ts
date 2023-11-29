@@ -21,7 +21,7 @@ if (!dbName) {
 
 export const connectToDatabase = async () => {
   try {
-    await mongoose.connect(connectionUrl);
+    await mongoose.connect(`${connectionUrl}/${dbName}`);
     log.info("Successfully connected to MongoDB");
   } catch (error: any) {
     log.error(error, "Could not connect to MongoDB");
