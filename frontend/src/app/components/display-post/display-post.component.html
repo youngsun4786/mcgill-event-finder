@@ -2,5 +2,7 @@
   <li *ngFor="let post of posts">
     <h2>{{ post.title }}</h2>
     <p>{{ post.description }}</p>
+    <p>{{ post.author.name }}</p>
+    <p>{{ post.location }}</p>
   </li>
 </ul>

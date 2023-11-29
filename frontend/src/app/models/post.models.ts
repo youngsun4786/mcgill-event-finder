@@ -1,3 +1,5 @@
+import { User } from "./user.models";
+
 export enum EventStatusType {
   SCHEDULED = 'scheduled',
   ONGOING = 'ongoing',
@@ -6,6 +8,7 @@ export enum EventStatusType {
 }
 
 export type Post = {
+  author: User;
   title: string;
   tags?: string[];
   location: string;

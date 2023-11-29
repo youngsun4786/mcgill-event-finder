@@ -9,7 +9,6 @@ import {
 } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { httpOptions } from '../../services/user.service';
-
 @Component({
   selector: 'app-login',
   standalone: true,
