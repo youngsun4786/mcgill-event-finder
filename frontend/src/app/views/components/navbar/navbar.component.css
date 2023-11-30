@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  padding: 10px;
+  background-color: #ddd;
+  overflow: hidden;
+}
+
+.nav-options {
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #333;
+}
+
+.app-header {
+  display: flex;
+  row-gap: 10px;
+}
+
+nav a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+nav a:hover {
+  background-color: #ddd;
+  color: black;
+}
