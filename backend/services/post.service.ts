@@ -19,7 +19,10 @@ export const createPost = async (email: string, postInfo: PostInformation) => {
 // * @desc   Retrieve all posts in database
 export const posts = async () => {
   try {
-    const posts = await PostModel.find().populate("author").lean().exec();
+    const posts = await PostModel.find()
+      .populate({ path: "author", select: "-password" })
+      .lean()
+      .exec();
     return posts;
   } catch (error: any) {
     throw new Error(error.message);

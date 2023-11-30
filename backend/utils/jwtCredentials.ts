@@ -44,8 +44,9 @@ export const comparePassword = async (
 
 export const generateToken = (res: Response, payload: DataInToken) => {
   const token = jwt.sign(payload, jwtEnv, {
-    expiresIn: "1hr",
+    expiresIn: "30s",
     allowInsecureKeySizes: true,
+    algorithm: "HS256",
   });
 
   return token;
@@ -54,6 +55,8 @@ export const generateToken = (res: Response, payload: DataInToken) => {
 export const generateRefreshToken = (res: Response, payload: DataInToken) => {
   const token = jwt.sign(payload, jwtRefreshEnv, {
     expiresIn: "1d",
+    allowInsecureKeySizes: true,
+    algorithm: "HS256",
   });
   return token;
 };
