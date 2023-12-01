@@ -1,5 +1,5 @@
-import { inject, Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { inject, Component, OnInit, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import {
   FormGroup,
@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AuthService, httpOptions } from '../../services/auth.service';
+import { StorageService } from '../../services/storage.service';
 import { User } from '../../models/user.models';
 @Component({
   selector: 'app-login',
@@ -20,6 +21,8 @@ import { User } from '../../models/user.models';
 export class LoginComponent implements OnInit {
   authService = inject(AuthService);
   httpClient = inject(HttpClient);
+  platformId = inject(PLATFORM_ID);
+  storageService = inject(StorageService);
   loginForm: FormGroup;
 
   loading = false;
@@ -51,13 +54,20 @@ export class LoginComponent implements OnInit {
       )
       .subscribe({
         next: (user: any) => {
-          sessionStorage.setItem('token', user.accessToken);
+          localStorage.setItem('token', user.accessToken);
+          this.storageService.saveUser(user.user);
           this.authService.currentUserSignal.set(user.user);
-          this.router.navigateByUrl('/posts');
+          if (isPlatformBrowser(this.platformId)) {
+            this.router.navigateByUrl('/posts').then(() => {
+              window.location.reload();
+            });
+          }
         },
         error: (error: any) => {
           // remove the quotes from the error message
-          alert(error.toString().replace(/['"]+/g, ''));
+          alert(error);
+          console.error(error);
+          this.authService.currentUserSignal.set(null);
         },
       });
   }

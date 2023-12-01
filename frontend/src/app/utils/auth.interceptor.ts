@@ -12,9 +12,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   req = req.clone({ withCredentials: true });
   const router = inject(Router);
   const token = sessionStorage.getItem('token') ?? '';
-  // req = req.clone({
-  //   setHeaders: { Authorization: token ? `Bearer ${token}` : '' },
-  // });
 
   if (token) {
     try {
@@ -36,5 +33,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     console.error('No token');
     router.navigate(['/login']);
   }
+
+  req = req.clone({
+    setHeaders: { Authorization: token ? `Bearer ${token}` : '' },
+  });
+
   return next(req);
 };

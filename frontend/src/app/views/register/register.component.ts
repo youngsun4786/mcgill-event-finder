@@ -43,7 +43,7 @@ export class RegisterComponent {
           this.router.navigateByUrl('/login');
         },
         error: (error: any) => {
-          alert(error.error.toString().replace(/['"]+/g, ''));
+          alert(error.toString().replace(/['"]+/g, ''));
           console.error(error);
         },
       });

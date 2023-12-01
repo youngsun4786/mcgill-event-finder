@@ -1,8 +1,15 @@
-import { Component, Injectable, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  Component,
+  OnInit,
+  PLATFORM_ID,
+  afterNextRender,
+  inject,
+} from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
-
+import { StorageService } from '../../../services/storage.service';
+import { platformBrowser } from '@angular/platform-browser';
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -12,28 +19,36 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class NavbarComponent implements OnInit {
   authService = inject(AuthService);
+  storageService = inject(StorageService);
+  platformId = inject(PLATFORM_ID);
+  isAuth = false;
   name?: string;
   role?: string;
 
-  constructor(private router: Router) {
-    if (this.authService.currentUserSignal()) {
-      this.name = this.authService.currentUserSignal()?.name;
-      console.log(this.name);
-      this.role = this.authService.currentUserSignal()?.role;
-      console.log(this.role);
+  constructor(private router: Router) {}
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      console.log(this.storageService.loggedIn());
+      if (this.storageService.loggedIn()) {
+        this.isAuth = true;
+        this.name = this.storageService.getUser()?.name;
+        this.role = this.storageService.getUser()?.role;
+      }
     }
   }
-  ngOnInit(): void {}
 
   logout(): void {
     this.authService.logout().subscribe({
       next: (response) => {
-        console.log(response);
-        sessionStorage.clear();
+        localStorage.clear();
+        this.isAuth = false;
         this.authService.currentUserSignal.set(null);
         this.router.navigateByUrl('/');
       },
       error: (err) => {
+        localStorage.clear();
+        this.isAuth = false;
+        this.authService.currentUserSignal.set(null);
         console.log(err);
       },
     });
