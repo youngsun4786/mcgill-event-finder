@@ -1,5 +1,6 @@
-import { Injectable, inject, Signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { PLATFORM_ID } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { User } from '../models/user.models';
 
@@ -11,16 +12,10 @@ export const httpOptions = {
 })
 export class AuthService {
   url = 'http://localhost:8000';
-  private users$: Subject<User[]> = new Subject();
+  currentUserSignal = signal<User | undefined | null>(undefined);
 
   constructor(private httpClient: HttpClient) {
     this.httpClient = inject(HttpClient);
-  }
-
-  private refreshUser() {
-    this.httpClient.get<User[]>(`${this.url}/users`).subscribe((users) => {
-      this.users$.next(users);
-    });
   }
 
   registerUser(user: User): Observable<string> {

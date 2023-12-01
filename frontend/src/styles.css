@@ -47,7 +47,7 @@ button:active {
 }
 
 button:disabled {
-  background: rgba(170, 75, 75, 0.5);
+  background: rgba(144, 112, 112, 0.5);
 }
 
 input {

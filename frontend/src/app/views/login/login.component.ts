@@ -1,5 +1,5 @@
-import { inject, Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { inject, Component, OnInit, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import {
   FormGroup,
@@ -8,8 +8,9 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { httpOptions } from '../../services/auth.service';
+import { AuthService, httpOptions } from '../../services/auth.service';
 import { StorageService } from '../../services/storage.service';
+import { User } from '../../models/user.models';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -18,26 +19,26 @@ import { StorageService } from '../../services/storage.service';
   styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
-  storageService = inject(StorageService);
+  authService = inject(AuthService);
   httpClient = inject(HttpClient);
+  platformId = inject(PLATFORM_ID);
+  storageService = inject(StorageService);
   loginForm: FormGroup;
 
-  loggedIn = false;
-  loginFailed = false;
   loading = false;
   error: boolean = false;
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {
-    if (this.storageService.loggedIn()) {
-      this.loggedIn = true;
-    }
+    // if (this.storageService.loggedIn()) {
+    //   this.loggedIn = true;
+    // }
   }
 
   loginUser(email: string, password: string) {
@@ -46,20 +47,27 @@ export class LoginComponent implements OnInit {
       password: password,
     };
     this.httpClient
-      .post(`http://localhost:8000/auth/login`, user, httpOptions)
+      .post<{ user: User }>(
+        `http://localhost:8000/auth/login`,
+        user,
+        httpOptions
+      )
       .subscribe({
         next: (user: any) => {
-          this.storageService.saveUser(user);
           localStorage.setItem('token', user.accessToken);
-          this.loginFailed = false;
-          this.loggedIn = true;
-          this.router.navigateByUrl('/posts');
+          this.storageService.saveUser(user.user);
+          this.authService.currentUserSignal.set(user.user);
+          if (isPlatformBrowser(this.platformId)) {
+            this.router.navigateByUrl('/posts').then(() => {
+              window.location.reload();
+            });
+          }
         },
         error: (error: any) => {
           // remove the quotes from the error message
-          alert(error.error.toString().replace(/['"]+/g, ''));
-          this.loginFailed = true;
+          alert(error);
           console.error(error);
+          this.authService.currentUserSignal.set(null);
         },
       });
   }
