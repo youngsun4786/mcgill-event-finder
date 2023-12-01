@@ -24,6 +24,13 @@
   margin-top: 0;
 }
 
+.login-box>p {
+  font-weight: 500;
+  color: var(--gray-500);
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+}
+
 .login-box form {
   display: flex;
   flex-direction: column;
@@ -45,9 +52,64 @@
 }
 
 .error {
-
   color: red;
   font-size: 0.8rem;
   margin: 0 0 0.7rem 0;
   padding-left: 0.5rem;
+}
+
+div.error {
+  height: 1rem;
+}
+
+div.error > p {
+  margin: 0;
+}
+
+/* styling for radio buttons */
+.radio-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+/* hide radio buttons */
+.radio-container input {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  width: 1px;
+  border: 0;
+  overflow: hidden;
+}
+
+.radio-container label {
+  background-color: #e4e4e4;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 0.8rem;
+  line-height: 1;
+  text-align: center;
+  padding: 0.5rem;
+  margin-left: -1px; /* to remove the border between the radio buttons */
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  transition: all 0.1s ease-in-out;
+  flex: 1;
+}
+
+.radio-container label:hover {
+  cursor: pointer;
+}
+
+.radio-container input:checked + label {
+  background-color: var(--signature-red-light);
+  color: var(--gray-000)
+}
+
+.radio-container label:first-of-type {
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.radio-container label:last-of-type {
+  border-radius: 0 0.5rem 0.5rem 0;
 }

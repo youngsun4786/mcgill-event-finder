@@ -1,23 +1,29 @@
 <div class="login-container">
   <div class="login-box">
     <h2>Register</h2>
-
+    <p>Please fill out all the fields</p>
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <p class="field-label">Name</p>
-      <input id="name" type="text" formControlName="name" class="input" />
-      <p class="error" [style.visibility]="hasErrors ? '' : 'hidden'">
+      <input type="text" formControlName="name" class="input" />
+      <p class="error" [style.visibility]="hasErrors && registerForm.value.name == '' ? '' : 'hidden'">
         <i class="fa-solid fa-triangle-exclamation"></i> Name is required
       </p>
 
       <p class="field-label">Email</p>
-      <input id="email" type="text" formControlName="email" class="input" />
-      <p class="error" [style.visibility]="hasErrors ? '' : 'hidden'">
-        <i class="fa-solid fa-triangle-exclamation"></i> Email is required
-      </p>
+      <input type="text" formControlName="email" class="input" (focusout)="emailCheck()"/>
+      <!-- forgive me y'all these error messages gettin kinda ugly lmao -->
+      <div class="error" [style.visibility]="emailWarning ? '' : 'hidden'">
+        <p *ngIf="registerForm.value.email == ''">
+          <i class="fa-solid fa-triangle-exclamation"></i> Email is required
+        </p>
+        <p *ngIf="registerForm.value.email != ''">
+          <i class="fa-solid fa-triangle-exclamation"></i> Please enter a valid email
+        </p>
+      </div>
+
 
       <p class="field-label">Password</p>
       <input
-        id="password"
         type="password"
         formControlName="password"
         class="input"
@@ -28,7 +34,6 @@
 
       <p class="field-label">Confirm Password</p>
       <input
-        id="password_confirmation"
         type="password"
         formControlName="passwordConfirmation"
         class="input"
@@ -37,46 +42,46 @@
         <i class="fa-solid fa-triangle-exclamation"></i> Passwords don't match!
       </p>
 
-      <div class="mb-3">
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            formControlName="role"
-            name="role"
-            id="role-student"
-            value="student"
-            required
-          />
-          <label class="form-check-label" for="role-student">Student</label>
-        </div>
+      <p class="field-label">I am a...</p>
+      <div class="radio-container">
+        <input
+          type="radio"
+          formControlName="role"
+          name="role"
+          id="role-student"
+          value="student"
+          required
+        />
+        <label for="role-student">Student</label>
 
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            formControlName="role"
-            name="role"
-            id="role-staff"
-            value="staff"
-          />
-          <label class="form-check-label" for="role-staff">Staff</label>
-        </div>
+        <input
+          type="radio"
+          formControlName="role"
+          name="role"
+          id="role-staff"
+          value="staff"
+        />
+        <label for="role-staff">Staff</label>
 
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            formControlName="role"
-            name="role"
-            id="role-professor"
-            value="professor"
-          />
-          <label class="form-check-label" for="role-professor">Professor</label>
-        </div>
+        <input
+          type="radio"
+          formControlName="role"
+          name="role"
+          id="role-professor"
+          value="professor"
+        />
+        <label for="role-professor">Professor</label>
       </div>
+      <p class="error" [style.visibility]="hasErrors && registerForm.value.role == '' ? '' : 'hidden'">
+        <i class="fa-solid fa-triangle-exclamation"></i> Passwords don't match!
+      </p>
 
-      <button type="submit" class="submit">Submit</button>
+      <button
+        type="submit"
+        class="submit"
+        [disabled]="loading"
+        matTooltip="registerForm.valid ? 'Submit' : 'Please fill out all fields'"
+        >Submit</button>
     </form>
   </div>
 </div>
