@@ -1,15 +1,8 @@
-import {
-  Component,
-  OnInit,
-  PLATFORM_ID,
-  afterNextRender,
-  inject,
-} from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { StorageService } from '../../../services/storage.service';
-import { platformBrowser } from '@angular/platform-browser';
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -28,7 +21,6 @@ export class NavbarComponent implements OnInit {
   constructor(private router: Router) {}
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      console.log(this.storageService.loggedIn());
       if (this.storageService.loggedIn()) {
         this.isAuth = true;
         this.name = this.storageService.getUser()?.name;
