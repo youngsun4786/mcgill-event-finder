@@ -1,6 +1,6 @@
 import { Component, Injectable, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from 'express';
+import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { StorageService } from '../../../services/storage.service';
 
@@ -13,30 +13,31 @@ import { StorageService } from '../../../services/storage.service';
   providers: [StorageService, AuthService],
 })
 export class NavbarComponent {
-  //   storageService = inject(StorageService);
-  //   authService = inject(AuthService);
-  //   router = inject(Router);
-  //   loggedIn = false;
-  //   name?: string;
-  //   role?: string;
-  //   ngOnInit(): void {
-  //     this.loggedIn = this.storageService.loggedIn();
-  //     if (this.loggedIn) {
-  //       const user = this.storageService.getUser();
-  //       this.name = user.name;
-  //       this.role = user.role;
-  //     }
-  //   }
-  //   logout(): void {
-  //     this.authService.logout().subscribe({
-  //       next: (res) => {
-  //         console.log(res);
-  //         this.storageService.clean();
-  //         this.router.navigateByUrl('/');
-  //       },
-  //       error: (err) => {
-  //         console.log(err);
-  //       },
-  //     });
-  //   }
+    storageService = inject(StorageService);
+    authService = inject(AuthService);
+    loggedIn = false;
+    name?: string;
+    role?: string;
+
+    constructor(private router: Router) {}
+    ngOnInit(): void {
+      this.loggedIn = this.storageService.loggedIn();
+      if (this.loggedIn) {
+        const user = this.storageService.getUser();
+        this.name = user.name;
+        this.role = user.role;
+      }
+    }
+    logout(): void {
+      this.authService.logout().subscribe({
+        next: (res) => {
+          console.log(res);
+          this.storageService.clean();
+          this.router.navigateByUrl('/');
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
 }
