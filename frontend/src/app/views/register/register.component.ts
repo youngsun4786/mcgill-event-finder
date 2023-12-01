@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import { User } from '../../models/user.models';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { httpOptions } from '../../services/user.service';
+import { httpOptions } from '../../services/auth.service';
 @Component({
   selector: 'app-register',
   standalone: true,

@@ -1,5 +1,5 @@
 .login-container {
-  background-image: url('../../../assets/images/campus.jpg');
+  background-image: url("../../../assets/images/campus.jpg");
   background-size: cover;
   height: 100%;
   display: flex;

@@ -1,4 +1,4 @@
-import { User } from "./user.models";
+import { User } from './user.models';
 
 export enum EventStatusType {
   SCHEDULED = 'scheduled',
@@ -7,7 +7,7 @@ export enum EventStatusType {
   DELAYED = 'delayed',
 }
 
-export type Post = {
+export interface Post {
   author: User;
   title: string;
   tags?: string[];
@@ -17,4 +17,4 @@ export type Post = {
   endDate: Date;
   status: 'scheduled' | 'ongoing' | 'cancelled' | 'delayed';
   description?: string;
-};
+}

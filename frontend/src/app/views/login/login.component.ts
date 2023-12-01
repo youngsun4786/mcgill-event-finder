@@ -8,7 +8,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { httpOptions } from '../../services/user.service';
+import { httpOptions } from '../../services/auth.service';
 import { StorageService } from '../../services/storage.service';
 @Component({
   selector: 'app-login',
