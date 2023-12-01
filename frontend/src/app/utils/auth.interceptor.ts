@@ -4,17 +4,17 @@ import { Router } from '@angular/router';
 import { inject } from '@angular/core';
 
 const handleToken = (router: Router) => {
-  localStorage.removeItem('token');
+  sessionStorage.removeItem('token');
   router.navigate(['/login']);
 };
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   req = req.clone({ withCredentials: true });
   const router = inject(Router);
-  const token = localStorage.getItem('token');
-  req = req.clone({
-    setHeaders: { Authorization: token ? `Bearer ${token}` : '' },
-  });
+  const token = sessionStorage.getItem('token') ?? '';
+  // req = req.clone({
+  //   setHeaders: { Authorization: token ? `Bearer ${token}` : '' },
+  // });
 
   if (token) {
     try {

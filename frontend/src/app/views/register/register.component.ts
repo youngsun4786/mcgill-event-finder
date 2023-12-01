@@ -1,16 +1,15 @@
-import { Component, EventEmitter, Output, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import {
   FormGroup,
-  FormControl,
   Validators,
   FormBuilder,
   ReactiveFormsModule,
 } from '@angular/forms';
 import { User } from '../../models/user.models';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { httpOptions } from '../../services/auth.service';
+import { AuthService, httpOptions } from '../../services/auth.service';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -20,6 +19,7 @@ import { httpOptions } from '../../services/auth.service';
 })
 export class RegisterComponent {
   httpClient = inject(HttpClient);
+  authService = inject(AuthService);
   registerForm: FormGroup;
 
   hasErrors: boolean = false;
@@ -39,7 +39,8 @@ export class RegisterComponent {
       .post(`http://localhost:8000/auth/register`, user, httpOptions)
       .subscribe({
         next: () => {
-          this.router.navigate(['/login']);
+          this.authService.currentUserSignal.set(user);
+          this.router.navigateByUrl('/login');
         },
         error: (error: any) => {
           alert(error.error.toString().replace(/['"]+/g, ''));
@@ -59,17 +60,5 @@ export class RegisterComponent {
     }
     this.hasErrors = false;
     this.registerUser(this.registerForm.value as User);
-
-    // this.userService.registerUser(this.registerForm.value as User).subscribe({
-    //   next: () => {
-    //     this.router.navigate(['/login']);
-    //   },
-    //   error: (error: any) => {
-    //     alert('Failed to create user');
-    //     console.error(error);
-    //   },
-    // });
-    console.log(this.registerForm.value);
-    console.log('Form submitted');
   }
 }

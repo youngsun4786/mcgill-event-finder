@@ -1,11 +1,24 @@
-<nav>
+<nav [style]="authService.currentUserSignal() ? { height: '95px' } : null">
   <div class="app-header">
     <img src="assets/images/mcgill-logo.svg" alt="logo" />
     <h2>McGill Event Finder</h2>
   </div>
-  <div class="nav-options"  >
-    <a href="#home">All Posts</a>
-    <a href="#about">My Posts</a>
-    <a href="#services">Create a Post</a>
+  @if(authService.currentUserSignal()) {
+  <div class="nav-options">
+    <a routerLink="#">All Posts</a>
+    <a routerLink="#">My Posts</a>
+    <a routerLink="#">Create a Post</a>
+    <a href=""> {{ authService.currentUserSignal()?.name }} </a>
+    <!-- <ul>
+      <li class="menu-container">
+        <a routerLink="/dashboard">John<a>
+        <div class="menu">
+          <a routerLink="#contact">Profile</a>
+          <a routerLink="#contact">Settings</a>
+          <a (click)="logout()">Logout</a>
+        </div>
+      </li>
+    </ul> -->
   </div>
+  }
 </nav>

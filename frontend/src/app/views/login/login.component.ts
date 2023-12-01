@@ -8,8 +8,8 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { httpOptions } from '../../services/auth.service';
-import { StorageService } from '../../services/storage.service';
+import { AuthService, httpOptions } from '../../services/auth.service';
+import { User } from '../../models/user.models';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -18,12 +18,10 @@ import { StorageService } from '../../services/storage.service';
   styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
-  storageService = inject(StorageService);
+  authService = inject(AuthService);
   httpClient = inject(HttpClient);
   loginForm: FormGroup;
 
-  loggedIn = false;
-  loginFailed = false;
   loading = false;
   error: boolean = false;
 
@@ -35,9 +33,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.storageService.loggedIn()) {
-      this.loggedIn = true;
-    }
+    // if (this.storageService.loggedIn()) {
+    //   this.loggedIn = true;
+    // }
   }
 
   loginUser(email: string, password: string) {
@@ -46,20 +44,20 @@ export class LoginComponent implements OnInit {
       password: password,
     };
     this.httpClient
-      .post(`http://localhost:8000/auth/login`, user, httpOptions)
+      .post<{ user: User }>(
+        `http://localhost:8000/auth/login`,
+        user,
+        httpOptions
+      )
       .subscribe({
         next: (user: any) => {
-          this.storageService.saveUser(user);
-          localStorage.setItem('token', user.accessToken);
-          this.loginFailed = false;
-          this.loggedIn = true;
+          sessionStorage.setItem('token', user.accessToken);
+          this.authService.currentUserSignal.set(user.user);
           this.router.navigateByUrl('/posts');
         },
         error: (error: any) => {
           // remove the quotes from the error message
-          alert(error.error.toString().replace(/['"]+/g, ''));
-          this.loginFailed = true;
-          console.error(error);
+          alert(error.toString().replace(/['"]+/g, ''));
         },
       });
   }

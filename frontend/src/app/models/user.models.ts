@@ -7,6 +7,5 @@ export enum UserType {
 export interface User {
   name: string;
   email: string;
-  password: string;
   role: UserType;
 }

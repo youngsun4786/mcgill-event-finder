@@ -64,7 +64,6 @@ export const loginController = async (
     }
     //  create session token and cookie
     const userData = {
-      _id: user._id,
       name: user.name,
       email: user.email,
       role: user.role,
@@ -73,7 +72,6 @@ export const loginController = async (
 
     if (req.session) req.session.token = token;
     res.send({
-      message: "Login successful",
       accessToken: token,
       user: userData,
     });
