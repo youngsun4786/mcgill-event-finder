@@ -1,6 +1,6 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, Signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, Subject, tap } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { User } from '../models/user.models';
 
 export const httpOptions = {
@@ -9,8 +9,8 @@ export const httpOptions = {
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
-  private url = 'http://localhost:8000';
+export class AuthService {
+  url = 'http://localhost:8000';
   private users$: Subject<User[]> = new Subject();
 
   constructor(private httpClient: HttpClient) {
@@ -27,5 +27,9 @@ export class UserService {
     return this.httpClient.post(`${this.url}/auth/register`, user, {
       responseType: 'text',
     });
+  }
+
+  logout(): Observable<Object> {
+    return this.httpClient.post(`${this.url}/auth/logout`, {}, httpOptions);
   }
 }

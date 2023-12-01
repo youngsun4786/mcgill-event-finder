@@ -4,7 +4,7 @@ export enum UserType {
   STAFF = 'staff',
 }
 
-export type User = {
+export interface User {
   name: string;
   email: string;
   password: string;

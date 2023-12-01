@@ -14,15 +14,16 @@ export const isAuthenticated = (
   next: NextFunction
 ) => {
   let token: string | null = "";
-  // * check if the cookie exists in incoming request
-  if (req.headers.cookie) {
-    token = req.headers.cookie.split("access_token=")[1];
-  }
+  // * check if the token exists in incoming request session
+  console.log(req.session);
+  if (req.session) token = req.session["token"];
+
   if (!token) {
     return next(new UnauthorizedNoTokenException());
   }
   try {
     const receivedUser = verifyToken(token);
+    console.log(receivedUser);
     if (receivedUser) {
       req.user = receivedUser.user;
       next();

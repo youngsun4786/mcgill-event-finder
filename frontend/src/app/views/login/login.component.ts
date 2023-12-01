@@ -8,7 +8,8 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { httpOptions } from '../../services/user.service';
+import { httpOptions } from '../../services/auth.service';
+import { StorageService } from '../../services/storage.service';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -17,9 +18,12 @@ import { httpOptions } from '../../services/user.service';
   styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
+  storageService = inject(StorageService);
   httpClient = inject(HttpClient);
   loginForm: FormGroup;
 
+  loggedIn = false;
+  loginFailed = false;
   loading = false;
   error: boolean = false;
 
@@ -30,7 +34,11 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit(): void {
+    if (this.storageService.loggedIn()) {
+      this.loggedIn = true;
+    }
+  }
 
   loginUser(email: string, password: string) {
     const user = {
@@ -40,12 +48,17 @@ export class LoginComponent implements OnInit {
     this.httpClient
       .post(`http://localhost:8000/auth/login`, user, httpOptions)
       .subscribe({
-        next: () => {
-          this.router.navigate(['/posts']);
+        next: (user: any) => {
+          this.storageService.saveUser(user);
+          localStorage.setItem('token', user.accessToken);
+          this.loginFailed = false;
+          this.loggedIn = true;
+          this.router.navigateByUrl('/posts');
         },
         error: (error: any) => {
           // remove the quotes from the error message
           alert(error.error.toString().replace(/['"]+/g, ''));
+          this.loginFailed = true;
           console.error(error);
         },
       });
@@ -62,6 +75,5 @@ export class LoginComponent implements OnInit {
     }
     this.error = false;
     this.loginUser(this.loginForm.value.email, this.loginForm.value.password);
-    console.log('Form submitted');
   }
 }

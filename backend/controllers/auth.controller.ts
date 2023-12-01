@@ -64,21 +64,18 @@ export const loginController = async (
     }
     //  create session token and cookie
     const userData = {
-      _id: user._id.toString(),
+      _id: user._id,
       name: user.name,
       email: user.email,
       role: user.role,
-    };
+    } as DataInToken;
     const token = generateToken(res, { user: userData } as DataInToken);
 
-    // //  create refresh session token
-    // const refreshToken = generateRefreshToken(res, {
-    //   user: userData,
-    // } as DataInToken);
+    if (req.session) req.session.token = token;
     res.send({
       message: "Login successful",
+      accessToken: token,
       user: userData,
-      token: token,
     });
     res.status(200);
   } catch (error: any) {
@@ -96,7 +93,9 @@ export const logoutController = async (
 ) => {
   try {
     // removing the cookie session
-    res.clearCookie("access_token", { httpOnly: true, expires: new Date(0) });
+    // if (req.session) req.session.token = null;
+
+    res.clearCookie("token", { httpOnly: true, expires: new Date(0) });
     res.status(201).json({ message: "Logout successful" });
     next();
   } catch (error: any) {

@@ -1,0 +1,48 @@
+nav {
+  position: sticky;
+  right: 0;
+  left: 0;
+  z-index: 30;
+  height: 60px;
+  padding: 4px 20px;
+  border-bottom: solid;
+  border-bottom-width: 1px;
+  border-color: #e5e7eb;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.nav-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+}
+
+.app-header {
+  display: flex;
+  row-gap: 10px;
+  height: 60px;
+  border-color: #e5e7eb;
+  align-items: center;
+
+  :is(h2) {
+    margin-left: 20px;
+    font-weight: 400;
+    color: #000;
+  }
+}
+
+nav a {
+  float: left;
+  display: block;
+  color: #000;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+nav a:hover {
+  background-color: #ddd;
+  color: black;
+}
