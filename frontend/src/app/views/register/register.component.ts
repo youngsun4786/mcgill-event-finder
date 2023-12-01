@@ -17,17 +17,21 @@ import { AuthService, httpOptions } from '../../services/auth.service';
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
+
 export class RegisterComponent {
   httpClient = inject(HttpClient);
   authService = inject(AuthService);
   registerForm: FormGroup;
 
+  loading = false;
   hasErrors: boolean = false;
+  passwordMismatch: boolean = false;
+  emailWarning: boolean = false;
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       passwordConfirmation: ['', Validators.required],
       role: ['', Validators.required],
@@ -50,15 +54,19 @@ export class RegisterComponent {
   }
 
   onSubmit() {
-    if (
-      this.registerForm.value.password !==
-        this.registerForm.value.passwordConfirmation ||
-      this.registerForm.invalid
-    ) {
+    this.emailCheck();
+    if (this.registerForm.value.password !== this.registerForm.value.passwordConfirmation) {
+      this.passwordMismatch = true;
+    }
+    if (this.passwordMismatch || this.registerForm.invalid) {
       this.hasErrors = true;
       return;
     }
     this.hasErrors = false;
     this.registerUser(this.registerForm.value as User);
+  }
+
+  emailCheck(){
+    this.emailWarning = this.registerForm.controls['email'].invalid
   }
 }
