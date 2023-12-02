@@ -1,9 +1,9 @@
-nav {
+.nav-bar {
   position: sticky;
   right: 0;
   left: 0;
   z-index: 30;
-  height: 60px;
+  height: 65px;
   padding: 6px 20px;
   border-bottom: solid;
   border-bottom-width: 1px;
@@ -34,7 +34,7 @@ nav {
   }
 }
 
-a {
+.nav-a {
   float: left;
   display: block;
   color: #000;
@@ -43,9 +43,12 @@ a {
   text-decoration: none;
 }
 
-.nav-options a {
+:host ::ng-deep .nav-options a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
   float: left;
-  display: block;
   color: #000;
   text-align: center;
   padding: 14px 8px;

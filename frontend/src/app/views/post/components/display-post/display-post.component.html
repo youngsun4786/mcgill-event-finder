@@ -1,8 +1,10 @@
-<ul>
-  <li *ngFor="let post of posts">
-    <h2>{{ post.title }}</h2>
-    <p>{{ post.description }}</p>
-    <p>{{ post.author.name }}</p>
-    <p>{{ post.location }}</p>
-  </li>
-</ul>
+<section class="event-component">
+  <div class="posts-base">
+    <h2>Events Post</h2>
+    <section class="result-base">
+      @for(post of allPosts; track post._id) {
+      <app-post-item [post]="post"></app-post-item>
+      }
+    </section>
+  </div>
+</section>
