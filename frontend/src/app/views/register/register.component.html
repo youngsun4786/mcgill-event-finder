@@ -27,20 +27,34 @@
         type="password"
         formControlName="password"
         class="input"
+        (input)="passwordCheck()"
+        (focusout)="passwordCheck()"
       />
-      <p class="error" [style.visibility]="hasErrors ? '' : 'hidden'">
-        <i class="fa-solid fa-triangle-exclamation"></i> Password needs xyz
-      </p>
+      <div class="error" [style.visibility]="passwordError ? '' : 'hidden'" [style.height]="passwordError ? '' : '1rem'">
+        <p *ngIf="registerForm.value.password == ''">
+          <i class="fa-solid fa-triangle-exclamation"></i> Please enter a password
+        </p>
+        <p *ngIf="registerForm.value.password != ''">
+          <i class="fa-solid fa-triangle-exclamation"></i> Password must be at least 8 characters long and contain an uppercase letter, a lowercase letter and a number
+        </p>
+      </div>
 
       <p class="field-label">Confirm Password</p>
       <input
         type="password"
         formControlName="passwordConfirmation"
         class="input"
+        (input)="passwordMatchCheck()"
+        (focusout)="passwordMatchCheck()"
       />
-      <p class="error" [style.visibility]="hasErrors ? '' : 'hidden'">
-        <i class="fa-solid fa-triangle-exclamation"></i> Passwords don't match!
-      </p>
+      <div class="error" [style.visibility]="passwordMismatch ? '' : 'hidden'">
+        <p *ngIf="registerForm.value.passwordConfirmation == ''">
+          <i class="fa-solid fa-triangle-exclamation"></i> Please confirm your password
+        </p>
+        <p *ngIf="registerForm.value.passwordConfirmation != ''">
+          <i class="fa-solid fa-triangle-exclamation"></i> Passwords don't match!
+        </p>
+      </div>
 
       <p class="field-label">I am a...</p>
       <div class="radio-container">
@@ -73,7 +87,7 @@
         <label for="role-professor">Professor</label>
       </div>
       <p class="error" [style.visibility]="hasErrors && registerForm.value.role == '' ? '' : 'hidden'">
-        <i class="fa-solid fa-triangle-exclamation"></i> Passwords don't match!
+        <i class="fa-solid fa-triangle-exclamation"></i> Please select a role
       </p>
 
       <button
