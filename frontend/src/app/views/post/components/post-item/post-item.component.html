@@ -4,7 +4,13 @@
     src="../../../../../assets/images/image 4.svg"
     alt="Photo of {{ post.title }}"
   />
-  <h3 class="posting-heading">{{ post.title }}</h3>
-  <p class="posting-location">{{ post.location }}</p>
-  <p>{{ post.startDate }}</p>
+  <div style="display: flex flex-row">
+    <h3 class="posting-heading">{{ post.title }}</h3>
+    <p class="posting-location">{{ post.location }}</p>
+    <div class="date">
+      <p>{{ this.date["month"] }}</p>
+      <h4>{{ this.date["day"] }}</h4>
+    </div>
+    <small *ngIf="post.startDate">{{ this.date["time"] }}</small>
+  </div>
 </section>

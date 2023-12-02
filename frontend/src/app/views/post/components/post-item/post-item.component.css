@@ -1,7 +1,6 @@
 .posting {
   background: var(--accent-color);
   border-radius: 20px;
-  padding-bottom: 20px;
   border: 0.3px solid #b9b9b9;
 }
 .posting-heading {
@@ -19,6 +18,14 @@
 }
 .posting-location::before {
   content: url("../../../../../assets/images/location-pin.svg") / "";
+}
+
+.date {
+  width: 64.223px;
+  height: 78.03px;
+  text-align: center;
+  border-radius: 8px;
+  background: var(--signature-red-light);
 }
 
 section.posting a {

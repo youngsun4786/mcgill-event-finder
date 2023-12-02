@@ -1,16 +1,22 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
 import { Router } from '@angular/router';
-import { inject } from '@angular/core';
+import { PLATFORM_ID, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
-const handleToken = (router: Router) => {
-  localStorage.clear();
-  router.navigate(['/login']);
+const handleToken = (router: Router, platformId: Object) => {
+  if (isPlatformBrowser(platformId)) {
+    localStorage.clear();
+    router.navigateByUrl('/login').then(() => {
+      window.location.reload();
+    });
+  }
 };
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   req = req.clone({ withCredentials: true });
   const router = inject(Router);
+  const platformId = inject(PLATFORM_ID);
   const token = localStorage.getItem('token') ?? '';
 
   if (token) {
@@ -21,17 +27,17 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       if (expired) {
         alert('Token expired');
         console.error('Token expired');
-        handleToken(router);
+        handleToken(router, platformId);
       }
     } catch (e: any) {
       alert('Invalid token');
       console.error('Invalid token');
-      handleToken(router);
+      handleToken(router, platformId);
     }
   } else {
     alert('No token');
     console.error('No token');
-    router.navigate(['/login']);
+    handleToken(router, platformId);
   }
 
   req = req.clone({
