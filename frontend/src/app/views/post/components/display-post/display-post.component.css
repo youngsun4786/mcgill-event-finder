@@ -1,0 +1,21 @@
+.event-component {
+  display: flex;
+  align-items: center;
+}
+
+.posts.base {
+  margin-left: auto;
+  margin-right: auto;
+  width: 8em;
+}
+
+.result-base {
+  display: grid;
+  grid-auto-flow: row;
+  width: 800px;
+  column-gap: 7px;
+  row-gap: 7px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 350px));
+  margin-top: 100px;
+  justify-content: space-around;
+}

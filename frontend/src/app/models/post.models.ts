@@ -8,6 +8,7 @@ export enum EventStatusType {
 }
 
 export interface Post {
+  _id?: string;
   author: User;
   title: string;
   tags?: string[];
