@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { inject } from '@angular/core';
 
 const handleToken = (router: Router) => {
-  localStorage.removeItem('token');
+  localStorage.clear();
   router.navigate(['/login']);
 };
 

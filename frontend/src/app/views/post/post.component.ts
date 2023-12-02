@@ -4,8 +4,8 @@ import { DisplayPostComponent } from './components/display-post/display-post.com
 import { Post } from '../../models/post.models';
 import { PostService } from '../../services/post.service';
 import { StorageService } from '../../services/storage.service';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Observable, map, filter } from 'rxjs';
 @Component({
   selector: 'app-posts',
   standalone: true,
@@ -13,19 +13,30 @@ import { Router } from '@angular/router';
   templateUrl: './post.component.html',
   styleUrl: './post.component.css',
 })
-export class PostComponent implements OnInit {
+export class PostComponent {
   router = inject(Router);
   postService = inject(PostService);
-  httpClient = inject(HttpClient);
-  posts: Post[] = [];
+  storageService = inject(StorageService);
+  posts: Observable<Post[]> = this.postService.getPosts();
+  posts$: Post[] = [];
 
+  // filteredPosts$ = this.posts.pipe(
+  //   map((posts: Post[]) => {
+  //     return posts.filter((post: Post) => {
+  //       return this.postService.emailFilter
+  //         ? post.author.email.toLowerCase() ===
+  //             this.storageService.getUser().email.toLowerCase()
+  //         : true;
+  //     });
+  //   })
+  // );
   ngOnInit(): void {
     this.fetchPosts();
   }
 
   fetchPosts(): void {
-    this.postService.getPosts().subscribe((posts: Post[]) => {
-      this.posts = posts;
+    this.posts.subscribe((posts: Post[]) => {
+      this.posts$ = posts;
     });
   }
 }

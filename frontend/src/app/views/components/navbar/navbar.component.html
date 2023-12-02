@@ -1,19 +1,41 @@
-<nav [style]="this.isAuth ? { height: '95px' } : null">
-  <div class="app-header">
+<div class="nav-bar" [ngStyle]="this.isAuth ? { height: '95px' } : null">
+  <div
+    class="app-header"
+    [ngStyle]="this.isAuth ? { marginBottom: '0' } : null"
+  >
     <img src="assets/images/mcgill-logo.svg" alt="logo" />
-    <div class="">
+    <div>
       <h2>McEv</h2>
-      <p>Where all events come to reality</p>
+      <p style="font-size: small">Where all events come to reality</p>
     </div>
   </div>
-  @if(this.isAuth) {
-  <div class="nav-options">
+  <nav class="nav-options" mat-tab-nav-bar [tabPanel]="tabPanel">
+    @if (this.isAuth) {
+    <a
+      class="nav-a"
+      mat-tab-link
+      *ngFor="let link of links"
+      [routerLink]="link.link"
+      routerLinkActive
+      #rla="routerLinkActive"
+      [active]="rla.isActive"
+    >
+      {{ link.label }}
+    </a>
+    <a mat-tab-link (click)="logout()">Logout</a>
+
+    }
+  </nav>
+  <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+</div>
+
+<!-- <div class="nav-options">
     <a routerLink="/posts">All Posts</a>
-    <a routerLink="/posts">My Posts</a>
+    <a (click)="FilterByEmail()">My Posts</a>
     <a routerLink="#">Create a Post</a>
     <a (click)="logout()">logout</a>
-    <a href=""> {{ this.name }} </a>
-    <!-- <ul>
+    <a href=""> {{ this.name }} </a> -->
+<!-- <ul>
       <li class="menu-container">
         <a routerLink="/dashboard">John<a>
         <div class="menu">
@@ -23,6 +45,4 @@
         </div>
       </li>
     </ul> -->
-  </div>
-  }
-</nav>
+<!-- </div> -->

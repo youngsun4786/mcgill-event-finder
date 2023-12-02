@@ -1,0 +1,32 @@
+.posting {
+  background: var(--accent-color);
+  border-radius: 20px;
+  padding-bottom: 20px;
+  border: 0.3px solid #b9b9b9;
+}
+.posting-heading {
+  color: var(--primary-color);
+  padding: 10px 20px 0 20px;
+}
+.posting-photo {
+  height: 115px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 15px 15px 0 0;
+}
+.posting-location {
+  padding: 10px 20px 20px 20px;
+}
+.posting-location::before {
+  content: url("../../../../../assets/images/location-pin.svg") / "";
+}
+
+section.posting a {
+  padding-left: 20px;
+  text-decoration: none;
+  color: var(--primary-color);
+}
+section.posting a::after {
+  content: "\203A";
+  margin-left: 5px;
+}
