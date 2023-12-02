@@ -13,6 +13,7 @@ export const httpOptions = {
 export class AuthService {
   url = 'http://localhost:8000';
   currentUserSignal = signal<User | undefined | null>(undefined);
+  platformId = inject(PLATFORM_ID);
 
   constructor(private httpClient: HttpClient) {
     this.httpClient = inject(HttpClient);

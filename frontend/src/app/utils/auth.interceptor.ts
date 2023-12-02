@@ -4,14 +4,14 @@ import { Router } from '@angular/router';
 import { inject } from '@angular/core';
 
 const handleToken = (router: Router) => {
-  sessionStorage.removeItem('token');
+  localStorage.removeItem('token');
   router.navigate(['/login']);
 };
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   req = req.clone({ withCredentials: true });
   const router = inject(Router);
-  const token = sessionStorage.getItem('token') ?? '';
+  const token = localStorage.getItem('token') ?? '';
 
   if (token) {
     try {

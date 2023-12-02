@@ -1,6 +1,6 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Post } from '../../../../models/post.models';
 
 @Component({
@@ -10,21 +10,6 @@ import { Post } from '../../../../models/post.models';
   templateUrl: './display-post.component.html',
   styleUrl: './display-post.component.css',
 })
-export class DisplayPostComponent implements OnInit {
-  httpClient = inject(HttpClient);
-  posts: Post[] = [];
-
-  ngOnInit(): void {
-    this.fetchPosts();
-  }
-
-  fetchPosts() {
-    this.httpClient
-      .get('http://localhost:8000/posts')
-      .subscribe((posts: any) => {
-        this.posts = posts;
-
-        console.log(posts);
-      });
-  }
+export class DisplayPostComponent {
+  @Input() allPosts!: Post[];
 }

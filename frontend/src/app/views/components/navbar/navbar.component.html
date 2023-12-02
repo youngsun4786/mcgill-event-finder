@@ -8,8 +8,8 @@
   </div>
   @if(this.isAuth) {
   <div class="nav-options">
-    <a routerLink="#">All Posts</a>
-    <a routerLink="#">My Posts</a>
+    <a routerLink="/posts">All Posts</a>
+    <a routerLink="/posts">My Posts</a>
     <a routerLink="#">Create a Post</a>
     <a (click)="logout()">logout</a>
     <a href=""> {{ this.name }} </a>

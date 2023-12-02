@@ -3,13 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { MainComponent } from './views/main/main.component';
-import { DisplayPostComponent } from './views/post/components/display-post/display-post.component';
-
+import { PostComponent } from './views/post/post.component';
+import { authGuard } from './utils/guard/auth.guard';
 export const routes: Routes = [
   { path: '', component: MainComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'posts', component: DisplayPostComponent },
+  { path: 'posts', component: PostComponent, canActivate: [authGuard] },
   { path: '', redirectTo: '', pathMatch: 'full' },
 ];
 
