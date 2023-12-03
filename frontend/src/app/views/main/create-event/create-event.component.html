@@ -30,10 +30,18 @@
     <textarea formControlName="description" class="input"></textarea>
 
     <p class="field-label">Tags</p>
-    <input type="text" formControlName="tags" class="input" />
-    <mat-select formControlName="tags" multiple>
+    <!-- <mat-select class="custom-select" formControlName="tags" panelClass="custom-select-panel" multiple>
       <mat-option *ngFor="let tag of tags" [value]="tag">{{tag}}</mat-option>
-    </mat-select>
+    </mat-select> -->
+    <ng-select
+      class="custom-select"
+      formControlName="tags"
+      [items]="tags"
+      [multiple]="true"
+      [closeOnSelect]="false"
+      [hideSelected]="true"
+      [searchable]="true">
+    </ng-select>
 
     <div class="create-event-button-row">
       <button class="cancel" type="button" (click)="closeCreateEvent()">Cancel</button>
