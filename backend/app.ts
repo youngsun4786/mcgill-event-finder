@@ -26,6 +26,7 @@ connectToDatabase()
     app.listen(port, () => {
       log.info(`[server]: Server running at http://localhost:${port}`);
 
+      // ! Run ONLY once
       // PostModel.bulkSave(posts);
     });
   })
