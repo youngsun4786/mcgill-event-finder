@@ -23,8 +23,11 @@
     "@angular/platform-server": "^17.0.0",
     "@angular/router": "^17.0.0",
     "@angular/ssr": "^17.0.3",
+    "@ng-select/ng-select": "^12.0.4",
     "express": "^4.18.2",
     "jwt-decode": "^4.0.0",
+    "main": "^1000.0.1",
+    "ng-click-outside2": "^13.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.6.2",
     "zone.js": "~0.14.2"

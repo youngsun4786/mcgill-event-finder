@@ -1,0 +1,187 @@
+/* darkening overlay for when modals pop up */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  z-index: 2;
+}
+
+.create-event-modal {
+  position: fixed;
+  width: 50%;
+  left: 25%;
+  top: 10%;
+  transform: translate(-50%);
+  background: var(--gray-000);
+  border-radius: 1rem;
+  padding: 2rem;
+  z-index: 3;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  color: black;
+}
+
+.create-event-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: top;
+}
+
+.create-event-title-row h1 {
+  margin: 0;
+  color: #676767;
+  margin-bottom: 1rem;
+}
+
+.day-type-toggle-section {
+  display: flex;
+  align-items: top;
+  gap: 2rem;
+}
+
+.day-type-toggle {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--gray-500);
+  cursor: pointer;
+}
+
+.selected-toggle {
+  font-weight: 700;
+  color: black;
+  text-decoration: underline;
+}
+
+.field-label {
+  margin: 0 0.5rem;
+}
+
+input {
+  width: 100%;
+  margin: 0;
+  margin-bottom: 1rem;
+  border: 1px solid #676767;
+  outline: none;
+}
+
+textarea {
+  max-width: 100%;
+  min-width: 100%;
+  min-height: 5rem;
+  max-height: 10rem;
+  margin: 0;
+  margin-bottom: 1rem;
+  border: 1px solid #676767;
+}
+
+.create-event-important-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.important-row-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.date-input {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  font-family: var(--inter-font);
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: .5rem;
+  /* add some drop shadow */
+  width: 100%;
+  padding: 0.6rem;
+  margin: 0;
+  margin-bottom: 1rem;
+  border: 1px solid #676767;
+}
+
+.date-input input {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.custom-icon {
+  padding: -0.5rem;
+}
+
+.important-row-right {
+  flex: 1;
+  width: 50%;
+  border-radius: 1rem;
+}
+
+ng-select.custom-select {
+  box-sizing: border-box;
+  font-family: var(--inter-font);
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: .5rem;
+  /* add some drop shadow */
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0;
+  margin-bottom: 1rem;
+  border: 1px solid #676767;
+}
+
+.create-event-button-row {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+button {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+button.submit {
+  margin-right: 0;
+  width: 10rem;
+  background-color: black;
+  border: 2px solid black;
+}
+
+button.submit:hover {
+  background-color: rgb(47, 47, 47);
+  border: 2px solid rgb(47, 47, 47);
+}
+
+button.submit:active {
+  background-color: rgb(60, 60, 60);
+  border: 2px solid rgb(60, 60, 60);
+}
+
+button.cancel {
+  font-family: var(--inter-font);
+  color: black;
+  border: 2px solid black;
+  background: none;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  margin: 1rem;
+  width: 10rem;
+  align-self: center;
+}
+
+button.cancel:hover {
+  background-color: var(--gray-100);
+}
+
+button.cancel:active {
+  background-color: var(--gray-300);
+}

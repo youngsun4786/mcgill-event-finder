@@ -61,3 +61,58 @@ input {
   padding: 0.6rem;
   margin: 0.5rem;
 }
+
+textarea {
+  box-sizing: border-box;
+  font-family: var(--inter-font);
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: .5rem;
+  border: 1px solid var(--gray-300);
+  /* add some drop shadow */
+  padding: 0.6rem;
+  margin: 0.5rem;
+}
+
+/* ng-select styles */
+.ng-select .ng-select-container {
+  overflow: unset !important;
+  .ng-value-container .ng-input > input {
+    margin: 0;
+  }
+}
+
+.ng-dropdown-panel {
+  transform: translate(-9px, 3px);
+  background-color: var(--gray-000);
+  border: 1px solid #676767;
+  border-top: none;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  overflow: hidden;
+
+  padding-top: 6px;
+
+  width: calc(100% + 2px) !important;
+
+  .ng-dropdown-panel-items .ng-option {
+    padding: 0.5rem;
+  }
+
+  .ng-option.ng-option-marked {
+    background-color: var(--gray-100);
+  }
+}
+
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
+  background-color: var(--gray-100);
+  border-radius: 0.2rem;
+  margin: -0.2rem 0.5rem -0.2rem 0;
+  padding: 0.2rem 0.5rem;
+
+  .ng-value-icon.left {
+    margin-right: 0.25rem;
+    padding-right: 0.25rem;
+    border-right: 1px solid var(--gray-300);
+  }
+}
