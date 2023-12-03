@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { posts } from "../services/post.service";
 import { PostInput } from "../models/schemas/post.schema";
-import { createPost } from "../services/post.service";
+import { createPost, deletePostById } from "../services/post.service";
 
 import util from "util";
 
@@ -34,6 +34,24 @@ export const getPostsController = async (
   try {
     const allPosts = await posts();
     res.status(200).json(allPosts);
+  } catch (error: any) {
+    res.status(500).json(error.message);
+    next(error);
+  }
+};
+
+// * @desc   Delete a post in database
+// * @route  DELETE /posts/:id
+// * @access Private
+export const deletePostController = async (
+  req: Request<{ id: string }>,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params
+    const deletedPost = await deletePostById(id);
+    res.status(200).json(deletedPost);
   } catch (error: any) {
     res.status(500).json(error.message);
     next(error);

@@ -1,5 +1,5 @@
 import { object, string, TypeOf, nativeEnum, array } from "zod";
-import { postSchema } from "./post.schema";
+import { createPostSchema } from "./post.schema";
 import { UserType } from "../user.models";
 
 // ensure that the incoming data for register is validated and in correct format
@@ -22,7 +22,7 @@ export const registerUserSchema = object({
   }),
 });
 
-registerUserSchema.extend({ pins: array(postSchema).optional() });
+registerUserSchema.extend({ pins: array(createPostSchema).optional() });
 
 // ensure that the incoming data for login is validated and in correct format
 export const loginUserSchema = object({

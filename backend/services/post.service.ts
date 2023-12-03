@@ -1,5 +1,6 @@
 import { PostModel, UserModel } from "../models";
 import { PostInformation } from "../models/schemas/post.schema";
+import { FilterQuery } from "mongoose";
 import { User } from "../models/user.models";
 
 // * @desc   Insert a new post into database
@@ -28,3 +29,16 @@ export const posts = async () => {
     throw new Error(error.message);
   }
 };
+
+// * @desc   Delete a post by id
+export const deletePostById = async (id: string) => {
+  try {
+    const post = await PostModel.findByIdAndDelete(id).exec();
+    return post;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
+
+// * @desc Edit/update existing post by id
+export const updatePostById = async (id: string) => {};

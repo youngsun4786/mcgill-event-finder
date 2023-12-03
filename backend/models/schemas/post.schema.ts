@@ -2,7 +2,7 @@ import { TypeOf, object, string, nativeEnum, array, date } from "zod";
 import { EventStatusType } from "../post.models";
 
 // ensure that the incoming data for creating post is validated and in correct format
-export const postSchema = object({
+const postSchema = {
   body: object({
     email: string({ required_error: "Email is required" })
       .trim()
@@ -25,7 +25,30 @@ export const postSchema = object({
     }),
     description: string().optional(),
   }),
+};
+
+const paramsSchema = {
+  params: object({
+    postId: string({
+      required_error: "postId is required",
+    }),
+  }),
+};
+
+export const createPostSchema = object({
+  ...postSchema,
 });
 
-export type PostInput = TypeOf<typeof postSchema>["body"];
+export const updatePostSchema = object({
+  ...postSchema,
+  ...paramsSchema,
+});
+
+export const deletePostSchema = object({
+  ...paramsSchema,
+});
+
+export type PostInput = TypeOf<typeof createPostSchema>["body"];
+export type UpdatePostInput = TypeOf<typeof updatePostSchema>["params"];
+export type DeletePostInput = TypeOf<typeof deletePostSchema>["params"];
 export type PostInformation = Omit<PostInput, "email">;
