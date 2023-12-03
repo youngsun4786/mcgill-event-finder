@@ -3,8 +3,11 @@ import { CommonModule } from '@angular/common';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Post } from '../../../models/post.models';
-import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
 import { NgSelectModule } from '@ng-select/ng-select';
+
 
 const createEventToggleAnimation = [
 	trigger('overlayToggle', [
@@ -42,7 +45,14 @@ const createEventToggleAnimation = [
 @Component({
   selector: 'app-create-event',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatSelectModule, NgSelectModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    NgSelectModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule
+  ],
   animations: createEventToggleAnimation,
   templateUrl: './create-event.component.html',
   styleUrl: './create-event.component.css'
@@ -55,7 +65,9 @@ export class CreateEventComponent {
   eventDayType: string = 'singleday';
 
   tags: string[] = ['tag1', 'tag2', 'tag3'];
-  selectedTags: string[] = [];
+
+  calendarOpen: boolean = false;
+  selectedDate: Date | null = null;
 
   constructor(fb : FormBuilder) {
     this.newEventForm = fb.group({
@@ -72,6 +84,10 @@ export class CreateEventComponent {
 
   ngOnInit() {
 
+  }
+
+  calendarToggle() {
+    this.calendarOpen = !this.calendarOpen;
   }
 
   closeCreateEvent() {

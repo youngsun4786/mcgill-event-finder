@@ -21,8 +21,7 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "src/custom-theme.scss",
-              "src/styles.css",
-              "~@ng-select/ng-select/themes/material.theme.css"
+              "src/styles.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",

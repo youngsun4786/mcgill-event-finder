@@ -18,7 +18,14 @@
         <input type="text" formControlName="title" class="input" />
         <p class="field-label">Date and Time</p>
         <!-- using mat for calendar -->
-        <input type="text" formControlName="startDate" class="input" />
+        <div class="date-input">
+          <input formControlName="startDate">
+          <i class="fa-solid fa-calendar-day" (click)="calendarToggle()"></i>
+        </div>
+        <p>MM/DD/YYYY</p>
+
+        <mat-calendar [(selected)]="selectedDate" *ngIf="calendarOpen"></mat-calendar>
+
         <input type="text" formControlName="startTime" class="input" />
         <p class="field-label">Location</p>
         <input type="text" formControlName="location" class="input" />
@@ -30,9 +37,6 @@
     <textarea formControlName="description" class="input"></textarea>
 
     <p class="field-label">Tags</p>
-    <!-- <mat-select class="custom-select" formControlName="tags" panelClass="custom-select-panel" multiple>
-      <mat-option *ngFor="let tag of tags" [value]="tag">{{tag}}</mat-option>
-    </mat-select> -->
     <ng-select
       class="custom-select"
       formControlName="tags"
@@ -48,6 +52,4 @@
       <button class="submit" type="submit">Create Event</button>
     </div>
   </form>
-
-
 </div>
