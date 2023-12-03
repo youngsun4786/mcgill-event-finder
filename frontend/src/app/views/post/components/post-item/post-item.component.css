@@ -1,31 +1,58 @@
 .posting {
   background: var(--accent-color);
-  border-radius: 20px;
+  border-radius: 10px;
   border: 0.3px solid #b9b9b9;
 }
-.posting-heading {
-  color: var(--primary-color);
-  padding: 10px 20px 0 20px;
-}
+
 .posting-photo {
   height: 115px;
   width: 100%;
   object-fit: cover;
   border-radius: 15px 15px 0 0;
 }
-.posting-location {
-  padding: 10px 20px 20px 20px;
-}
-.posting-location::before {
-  content: url("../../../../../assets/images/location-pin.svg") / "";
-}
 
 .date {
+  margin-left: 2%;
+  margin-bottom: 2%;
   width: 64.223px;
   height: 78.03px;
   text-align: center;
   border-radius: 8px;
   background: var(--signature-red-light);
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 20%;
+}
+
+.day {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.posting-heading {
+  color: var(--primary-color);
+  padding: 5px 20px 0 20px;
+  margin-block-end: 10px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.posting-location {
+  padding: 0px 0px 0px 20px;
+  margin-block-start: 5px;
+  margin-block-end: 17px;
+  font-size: 11px;
+  font-weight: 400;
+}
+.posting-location::before {
+  content: url("../../../../../assets/images/pin.svg") / "";
+  margin-right: 4px;
+}
+
+
+.heading {
+  line-height: 20%;
 }
 
 section.posting a {
@@ -36,4 +63,12 @@ section.posting a {
 section.posting a::after {
   content: "\203A";
   margin-left: 5px;
+}
+
+small {
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 200;
+  line-height: normal;
+  padding: 0px 0px 0px 20px;
 }
