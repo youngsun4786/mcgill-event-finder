@@ -1,0 +1,43 @@
+<div class="overlay" [@overlayToggle]="showCreateEvent ? 'open' : 'closed'"
+(click)="closeCreateEvent()"
+[style.pointer-events]="showCreateEvent ? 'auto' : 'none'"></div>
+
+<div class="create-event-modal" [@fadeInOut]="showCreateEvent ? 'open' : 'closed'">
+  <form [formGroup]="newEventForm" (ngSubmit)="onEventCreate()">
+    <div class="create-event-title-row">
+      <h1 class="create-event-title">Create Event</h1>
+      <div class="day-type-toggle-section">
+        <div class="day-type-toggle" [class.selected-toggle]="eventDayType == 'singleday'" type="button" (click)="eventDayType='singleday'">Single day</div>
+        <div class="day-type-toggle" [class.selected-toggle]="eventDayType == 'multiday'" type="button" (click)="eventDayType='multiday'">Multi-day</div>
+      </div>
+    </div>
+
+    <div class="create-event-important-row">
+      <div class="important-row-left">
+        <p class="field-label">Event Title</p>
+        <input type="text" formControlName="title" class="input" />
+        <p class="field-label">Date and Time</p>
+        <!-- using mat for calendar -->
+        <input type="text" formControlName="startDate" class="input" />
+        <input type="text" formControlName="startTime" class="input" />
+        <p class="field-label">Location</p>
+        <input type="text" formControlName="location" class="input" />
+      </div>
+      <img src="../../../../assets/images/event-img-placeholder.jpg" class="important-row-right">
+    </div>
+
+    <p class="field-label">Description</p>
+    <textarea formControlName="description" class="input"></textarea>
+
+    <p class="field-label">Tags</p>
+    <input type="text" formControlName="tags" class="input" />
+    <ng-select></ng-select>
+
+    <div class="create-event-button-row">
+      <button class="cancel" type="button" (click)="closeCreateEvent()">Cancel</button>
+      <button class="submit" type="submit">Create Event</button>
+    </div>
+  </form>
+
+
+</div>

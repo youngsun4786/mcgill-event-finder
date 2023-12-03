@@ -61,3 +61,15 @@ input {
   padding: 0.6rem;
   margin: 0.5rem;
 }
+
+textarea {
+  box-sizing: border-box;
+  font-family: var(--inter-font);
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: .5rem;
+  border: 1px solid var(--gray-300);
+  /* add some drop shadow */
+  padding: 0.6rem;
+  margin: 0.5rem;
+}
