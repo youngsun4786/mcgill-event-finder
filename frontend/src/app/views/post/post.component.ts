@@ -36,6 +36,7 @@ export class PostComponent {
 
   fetchPosts(): void {
     this.posts.subscribe((posts: Post[]) => {
+      console.log(posts);
       this.posts$ = posts;
     });
   }

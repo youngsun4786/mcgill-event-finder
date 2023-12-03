@@ -14,10 +14,10 @@ const postSchema = {
     location: string({
       required_error: "Location is required",
     }),
-    startDate: date({
+    startDate: string({
       required_error: "Start Date is required",
     }),
-    endDate: date({
+    endDate: string({
       required_error: "End Date is required",
     }),
     status: nativeEnum(EventStatusType, {
@@ -41,14 +41,13 @@ export const createPostSchema = object({
 
 export const updatePostSchema = object({
   ...postSchema,
-  ...paramsSchema,
-});
+}).extend(paramsSchema);
 
 export const deletePostSchema = object({
   ...paramsSchema,
 });
-
 export type PostInput = TypeOf<typeof createPostSchema>["body"];
+
 export type UpdatePostInput = TypeOf<typeof updatePostSchema>["params"];
 export type DeletePostInput = TypeOf<typeof deletePostSchema>["params"];
 export type PostInformation = Omit<PostInput, "email">;
