@@ -31,7 +31,9 @@
 
     <p class="field-label">Tags</p>
     <input type="text" formControlName="tags" class="input" />
-    <ng-select></ng-select>
+    <mat-select formControlName="tags" multiple>
+      <mat-option *ngFor="let tag of tags" [value]="tag">{{tag}}</mat-option>
+    </mat-select>
 
     <div class="create-event-button-row">
       <button class="cancel" type="button" (click)="closeCreateEvent()">Cancel</button>

@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { Post } from '../../../models/post.models';
+import { MatSelectModule } from '@angular/material/select';
 
 const createEventToggleAnimation = [
 	trigger('overlayToggle', [
@@ -41,7 +41,7 @@ const createEventToggleAnimation = [
 @Component({
   selector: 'app-create-event',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, NgSelectModule],
+  imports: [CommonModule, ReactiveFormsModule, MatSelectModule],
   animations: createEventToggleAnimation,
   templateUrl: './create-event.component.html',
   styleUrl: './create-event.component.css'
@@ -52,6 +52,8 @@ export class CreateEventComponent {
 
   newEventForm: FormGroup;
   eventDayType: string = 'singleday';
+
+  tags: string[] = ['tag1', 'tag2', 'tag3'];
 
   constructor(fb : FormBuilder) {
     this.newEventForm = fb.group({
