@@ -14,7 +14,6 @@
   width: 50%;
   left: 25%;
   top: 10%;
-  transform: translate(-50%);
   background: var(--gray-000);
   border-radius: 1rem;
   padding: 2rem;

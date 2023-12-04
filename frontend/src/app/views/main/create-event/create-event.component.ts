@@ -11,7 +11,6 @@ import { User } from '@app/models/user.models';
 import { HttpClient } from '@angular/common/http';
 import { httpOptions } from '@app/services/auth.service';
 
-
 const createEventToggleAnimation = [
 	trigger('overlayToggle', [
 		state('open', style({
@@ -54,7 +53,7 @@ const createEventToggleAnimation = [
     NgSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    NgClickOutsideDirective
+    NgClickOutsideDirective,
   ],
   animations: createEventToggleAnimation,
   templateUrl: './create-event.component.html',
