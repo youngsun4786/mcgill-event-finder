@@ -145,6 +145,23 @@ textarea {
   z-index: 6;
 }
 
+.error {
+  border: 1px solid red;
+  outline: 1px solid rgb(255, 146, 146);
+}
+
+.error input:not(:first-child) {
+  border-left: 1px solid red;
+}
+
+.error-message {
+  color: red;
+  font-size: 1rem;
+  font-weight: 400;
+  margin: 0;
+  margin-left: 0.5rem;
+}
+
 .row-labels {
   display: flex;
   align-items: center;
@@ -168,6 +185,14 @@ textarea {
   width: 50%;
   border-radius: 1rem;
   object-fit: cover;
+}
+
+.optional-label {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--gray-500);
+  margin: 0;
+  margin-left: 0.5rem;
 }
 
 ng-select.custom-select {

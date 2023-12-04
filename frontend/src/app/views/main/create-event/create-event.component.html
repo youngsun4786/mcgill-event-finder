@@ -15,12 +15,21 @@
     <div class="create-event-important-row">
       <div class="important-row-left">
         <p class="field-label">Event Title</p>
-        <input type="text" formControlName="title" class="input" />
+        <input
+          type="text"
+          formControlName="title"
+          class="input"
+          [class.error]="isIncomplete && newEventForm.controls['title'].value == ''"
+        />
 
         <!-- for singleday selections -->
         <ng-container *ngIf="eventDayType == 'singleday'">
           <p class="field-label">Date</p>
-          <div class="input-box" *ngIf="eventDayType == 'singleday'">
+          <div
+            class="input-box"
+            *ngIf="eventDayType == 'singleday'"
+            [class.error]="isIncomplete && newEventForm.controls['startDate'].value == ''"
+          >
             <div (click)="calendarToggle(1)">{{ newEventForm.controls['startDate'].value }} &nbsp;</div>
             <i class="fa-solid fa-calendar-day" (click)="calendarToggle(1)"></i>
             <mat-calendar
@@ -39,9 +48,16 @@
             <p class="field-label">Start Time</p>
             <p class="field-label">End Time</p>
           </div>
-          <div class="input-box">
-            <input type="time" formControlName="startTime" class="input" />
-            <input type="time" formControlName="endTime" class="input" />
+          <div
+            class="input-box"
+            [class.error]="
+              (isIncomplete &&
+              (newEventForm.controls['startTime'].value == ''
+              || newEventForm.controls['endTime'].value == ''))
+              || timeError"
+          >
+            <input type="time" max="{{ getTime('max') }}" formControlName="startTime" class="input" />
+            <input type="time" min="{{ getTime('min') }}" formControlName="endTime" class="input" />
           </div>
 
         </ng-container>
@@ -52,7 +68,11 @@
             <p class="field-label field-date-label">Start Date</p>
             <p class="field-label field-time-label">Start Time</p>
           </div>
-          <div class="input-box">
+          <div class="input-box"
+            [class.error]="
+              isIncomplete &&
+              (newEventForm.controls['startDate'].value == '' || newEventForm.controls['startTime'].value == '')"
+          >
             <div (click)="calendarToggle(1)">{{ newEventForm.controls['startDate'].value }} &nbsp;</div>
             <i class="fa-solid fa-calendar-day" (click)="calendarToggle(1)"></i>
             <mat-calendar
@@ -73,7 +93,11 @@
             <p class="field-label field-date-label">End Date</p>
             <p class="field-label field-time-label">End Time</p>
           </div>
-          <div class="input-box">
+          <div class="input-box"
+            [class.error]="
+              isIncomplete &&
+              (newEventForm.controls['endDate'].value == '' || newEventForm.controls['endtTime'].value == '')"
+          >
             <div (click)="calendarToggle(2)">{{ newEventForm.controls['endDate'].value }} &nbsp;</div>
             <i class="fa-solid fa-calendar-day" (click)="calendarToggle(2)"></i>
             <mat-calendar
@@ -92,15 +116,20 @@
         </ng-container>
 
         <p class="field-label">Location</p>
-        <input type="text" formControlName="location" class="input" />
+        <input
+          type="text"
+          formControlName="location"
+          class="input"
+          [class.error]="isIncomplete && newEventForm.controls['location'].value == ''"
+        />
       </div>
       <img src="../../../../assets/images/event-img-placeholder.jpg" class="important-row-right">
     </div>
 
-    <p class="field-label">Description</p>
+    <p class="field-label">Description<span class="optional-label">(optional)</span></p>
     <textarea formControlName="description" class="input"></textarea>
 
-    <p class="field-label">Tags</p>
+    <p class="field-label">Tags<span class="optional-label">(optional)</span></p>
     <ng-select
       class="custom-select"
       formControlName="tags"
@@ -111,6 +140,8 @@
       [searchable]="true">
     </ng-select>
 
+    <p class="error-message" *ngIf="isIncomplete">* Please fill out all required fields</p>
+    <p class="error-message" *ngIf="timeError">* Oops, looks like your starting time is after your ending time</p>
     <div class="create-event-button-row">
       <button class="cancel" type="button" (click)="closeCreateEvent()">Cancel</button>
       <button class="submit" type="submit">Create Event</button>
