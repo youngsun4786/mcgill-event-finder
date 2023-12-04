@@ -1,17 +1,19 @@
 <div
   class="overlay"
-  [@overlayToggle]="this.showViewPost ? 'open' : 'closed'"
+  @overlayToggle
+  *ngIf="showViewPost"
   (click)="closeShowPost()"
-  [style.pointer-events]="this.showViewPost ? 'auto' : 'none'"
+  [style.pointer-events]="showViewPost ? 'auto' : 'none'"
 ></div>
 
 <div
   class="view-post-modal"
-  [@fadeInOut]="this.showViewPost ? 'open' : 'closed'"
+  @modalToggle
+  *ngIf="showViewPost"
 >
   <div class="view-post-title-row">
-    <h1 class="view-post-title">{{ this.post.title }}</h1>
-    <div class="post-author">post by {{ this.post.author.name }}</div>
+    <h1 class="view-post-title">{{ post.title }}</h1>
+    <!--   -->
   </div>
   <!-- Post content-body start -->
   <div class="view-post-important-row">

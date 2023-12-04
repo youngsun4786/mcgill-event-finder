@@ -7,6 +7,7 @@
   height: 100vh;
   background-color: black;
   z-index: 2;
+  opacity: 0.25;
 }
 
 
@@ -15,6 +16,7 @@
   width: 50%;
   left: 25%;
   top: 10%;
+  translate: translateY(0);
   background: var(--gray-000);
   border-radius: 1rem;
   padding: 2rem;

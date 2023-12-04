@@ -14,41 +14,25 @@ import { NgClickOutsideDirective } from 'ng-click-outside2';
 import { MatNativeDateModule } from '@angular/material/core';
 
 const showPostToggleAnimation = [
-  trigger('overlayToggle', [
-    state(
-      'open',
-      style({
-        opacity: 0.25,
-      })
-    ),
-    state(
-      'closed',
-      style({
-        opacity: 0,
-      })
-    ),
-    transition('open => closed', [animate('300ms ease-in')]),
-    transition('closed => open', [animate('200ms ease-in')]),
-  ]),
-  trigger('fadeInOut', [
-    state(
-      'open',
-      style({
-        transform: 'translateY(0)',
-        opacity: 1,
-      })
-    ),
-    state(
-      'closed',
-      style({
-        transform: 'translateY(30px)',
-        opacity: 0,
-      })
-    ),
-    transition('open => closed', [animate('300ms ease-in')]),
-    transition('closed => open', [animate('200ms ease-in')]),
-  ]),
-];
+	trigger('overlayToggle', [
+    transition(':enter', [
+      style({ opacity: 0 }),
+      animate('200ms ease-in', style({ opacity: 0.25 }))
+    ]),
+    transition(':leave', [
+      animate('300ms ease-in', style({ opacity: 0 }))
+    ])
+	]),
+	trigger('modalToggle', [
+    transition(':enter', [
+      style({ opacity: 0, transform: 'translateY(30px)' }),
+      animate('200ms ease-in', style({ opacity: 1, transform: 'translateY(0)' }))
+    ]),
+    transition(':leave', [
+      animate('300ms ease-in', style({ opacity: 0, transform: 'translateY(30px)' }))
+    ])
+  ])
+]
 
 @Component({
   selector: 'app-post-item-details',
@@ -72,6 +56,7 @@ export class PostItemDetailsComponent {
   @Output() showViewPostChange = new EventEmitter<boolean>();
 
   closeShowPost() {
+    console.log('wahoo' + this.showViewPost)
     this.showViewPost = false;
     this.showViewPostChange.emit(this.showViewPost);
   }

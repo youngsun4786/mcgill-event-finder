@@ -5,6 +5,7 @@ import { configureSession } from "./configs/session.config";
 import { errorHandler } from "./middlewares/error.middleware";
 import log from "./configs/logger.config";
 
+
 dotenv.config();
 const app: Express = express();
 

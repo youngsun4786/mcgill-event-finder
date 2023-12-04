@@ -1,8 +1,9 @@
-<div class="overlay" [@overlayToggle]="showCreateEvent ? 'open' : 'closed'"
-(click)="closeCreateEvent()"
-[style.pointer-events]="showCreateEvent ? 'auto' : 'none'"></div>
+<div class="overlay" @overlayToggle
+  *ngIf="showCreateEvent"
+  (click)="closeCreateEvent()"
+  [style.pointer-events]="showCreateEvent ? 'auto' : 'none'"></div>
 
-<div class="create-event-modal" [@fadeInOut]="showCreateEvent ? 'open' : 'closed'">
+<div class="create-event-modal" @modalToggle *ngIf="showCreateEvent">
   <form [formGroup]="newEventForm" (ngSubmit)="onEventCreate()">
     <div class="create-event-title-row">
       <h1 class="create-event-title">Create Event</h1>
