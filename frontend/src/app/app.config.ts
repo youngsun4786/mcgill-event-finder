@@ -10,7 +10,7 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { httpInterceptorProviders } from './utils/HttpRequestInterceptor';
 import { authInterceptor, loggerInterceptor } from './utils';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideAnimations, provideNoopAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,6 +19,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(HttpClientModule),
     provideRouter(routes),
     provideClientHydration(),
-    provideNoopAnimations()
+    provideNoopAnimations(),
+    provideAnimations()
 ],
 };

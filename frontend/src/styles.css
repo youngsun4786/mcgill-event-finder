@@ -38,15 +38,15 @@ button.submit {
   align-self: center;
 }
 
-button:hover {
+button.submit:hover {
   background: var(--signature-red);
 }
 
-button:active {
+button.submit:active {
   background: #8a2a2a;
 }
 
-button:disabled {
+button.submit:disabled {
   background: rgba(144, 112, 112, 0.5);
 }
 
@@ -94,6 +94,8 @@ textarea {
   padding-top: 6px;
 
   width: calc(100% + 2px) !important;
+
+  z-index: 5 !important;
 
   .ng-dropdown-panel-items .ng-option {
     padding: 0.5rem;
