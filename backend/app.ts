@@ -5,6 +5,7 @@ import { configureSession } from "./configs/session.config";
 import { errorHandler } from "./middlewares/error.middleware";
 import log from "./configs/logger.config";
 
+
 dotenv.config();
 const app: Express = express();
 
@@ -25,6 +26,9 @@ connectToDatabase()
     // * start server
     app.listen(port, () => {
       log.info(`[server]: Server running at http://localhost:${port}`);
+
+      // ! Run ONLY once
+      // PostModel.bulkSave(posts);
     });
   })
   .catch((error: Error) => {
