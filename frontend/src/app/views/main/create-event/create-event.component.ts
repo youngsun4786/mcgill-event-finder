@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Post } from '../../../models/post.models';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
+import { DateRange, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgClickOutsideDirective } from 'ng-click-outside2';
 
 
 const createEventToggleAnimation = [
@@ -50,8 +50,8 @@ const createEventToggleAnimation = [
     ReactiveFormsModule,
     NgSelectModule,
     MatDatepickerModule,
-    MatInputModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    NgClickOutsideDirective
   ],
   animations: createEventToggleAnimation,
   templateUrl: './create-event.component.html',
@@ -66,8 +66,13 @@ export class CreateEventComponent {
 
   tags: string[] = ['tag1', 'tag2', 'tag3'];
 
-  calendarOpen: boolean = false;
-  selectedDate: Date | null = null;
+  calendar1Open: boolean = false;
+  calendar2Open: boolean = false;
+  selectedSingleDate: Date | null = null;
+  selectedStartDate: Date | null = null;
+  selectedEndDate: Date | null = null;
+  minDate: Date = new Date();
+  maxDate: Date = new Date();
 
   constructor(fb : FormBuilder) {
     this.newEventForm = fb.group({
@@ -83,12 +88,63 @@ export class CreateEventComponent {
   }
 
   ngOnInit() {
-
+    this.minDate.setDate(this.minDate.getDate());
+    this.maxDate.setDate(this.maxDate.getDate() + 30);
   }
 
-  calendarToggle() {
-    this.calendarOpen = !this.calendarOpen;
+  calendarToggle(num : number = 1) {
+    if (num == 1) {
+      this.calendar1Open = !this.calendar1Open;
+    } else if (num == 2) {
+      this.calendar2Open = !this.calendar2Open;
+    }
   }
+
+  changeEventDateType(type: string) {
+    this.eventDayType = type;
+    this.calendar1Open = false;
+    this.calendar2Open = false;
+  }
+
+  onDateSelect(date: Date, type: string) {
+    if (type === 'single') {
+      this.selectedSingleDate = date;
+      this.selectedStartDate = date;
+      this.selectedEndDate = date;
+      this.newEventForm.patchValue({
+        startDate: date.toDateString(),
+        endDate: date.toDateString()
+      });
+      this.calendarToggle(1);
+    } else if (type === 'start') {
+      this.selectedStartDate = date;
+      if (this.selectedEndDate && this.selectedEndDate < this.selectedStartDate) {
+        this.selectedEndDate = null;
+      }
+      this.newEventForm.patchValue({
+        startDate: date.toDateString(),
+        endDate: this.selectedEndDate ? this.selectedEndDate.toDateString() : ''
+      });
+      this.calendarToggle(1);
+    } else if (type === 'end') {
+      this.selectedEndDate = date;
+      this.newEventForm.patchValue({
+        endDate: date.toDateString()
+      });
+      this.calendarToggle(2);
+    }
+  }
+
+  getLaterDate() {
+    if (this.selectedStartDate) {
+      let laterDate = new Date(this.selectedStartDate);
+      laterDate.setDate(laterDate.getDate() + 1);
+      return laterDate;
+    }
+    return new Date();
+  }
+
+  // TODO: prevent date from being before startdate
 
   closeCreateEvent() {
     this.showCreateEvent = false;
