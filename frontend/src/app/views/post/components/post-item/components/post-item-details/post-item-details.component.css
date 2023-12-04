@@ -67,6 +67,7 @@ textarea {
 }
 
 .view-post-important-row {
+  margin-top: 1rem;
   display: flex;
   justify-content: space-between;
   gap: 2rem;
@@ -84,6 +85,11 @@ textarea {
   display: flex;
   flex-direction: column;
   align-items: start;
+}
+
+.data-field {
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
 }
 
 .input-box {
@@ -177,7 +183,7 @@ textarea {
 
 .important-row-image {
   flex: 1;
-  width: 50%;
+  width: 100%;
   border-radius: 1rem;
   object-fit: cover;
 }
@@ -240,7 +246,7 @@ button.cancel {
   border-radius: 0.5rem;
   padding: 0.6rem 1rem;
   cursor: pointer;
-  margin: 1rem;
+  margin: 1rem 0 1rem 1rem;
   width: 10rem;
   align-self: center;
 }
