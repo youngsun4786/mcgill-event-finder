@@ -30,29 +30,17 @@
   align-items: top;
 }
 
-.view-post-title-row h1 {
+.view-post-title {
   margin: 0;
   color: #676767;
   margin-bottom: 1rem;
+  font-size: 1.5em;
+  line-height: 2rem;
 }
-
-.day-type-toggle-section {
-  display: flex;
-  align-items: top;
-  gap: 2rem;
-}
-
-.day-type-toggle {
+.post-author {
   font-size: 1.2rem;
   font-weight: 500;
   color: var(--gray-500);
-  cursor: pointer;
-}
-
-.selected-toggle {
-  font-weight: 700;
-  color: black;
-  text-decoration: underline;
 }
 
 .field-label {
@@ -84,6 +72,13 @@ textarea {
 }
 
 .important-row-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.important-row-right {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -179,7 +174,7 @@ textarea {
   flex: 1;
 }
 
-.important-row-right {
+.important-row-image {
   flex: 1;
   width: 50%;
   border-radius: 1rem;

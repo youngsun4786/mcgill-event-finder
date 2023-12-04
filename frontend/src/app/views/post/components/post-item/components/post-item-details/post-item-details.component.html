@@ -1,10 +1,31 @@
 <div
   class="overlay"
-  [@overlayToggle]="showViewPost ? 'open' : 'closed'"
+  [@overlayToggle]="this.showViewPost ? 'open' : 'closed'"
   (click)="closeShowPost()"
-  [style.pointer-events]="showViewPost ? 'auto' : 'none'"
+  [style.pointer-events]="this.showViewPost ? 'auto' : 'none'"
 ></div>
 
-<div class="view-post-modal" [@fadeInOut]="showViewPost ? 'open' : 'closed'">
-  <p>show post works!</p>
+<div
+  class="view-post-modal"
+  [@fadeInOut]="this.showViewPost ? 'open' : 'closed'"
+>
+  <div class="view-post-title-row">
+    <h1 class="view-post-title">{{ this.post.title }}</h1>
+    <div class="post-author">post by {{ this.post.author.name }}</div>
+  </div>
+  <!-- Post content-body start -->
+  <div class="view-post-important-row">
+    <div class="important-row-left">
+      <p>post works</p>
+    </div>
+
+    <!-- <div class="important-row-right">
+      <p>works</p>
+    </div> -->
+
+    <img
+      class="important-row-image"
+      src="../../../../../../../assets/images/event-img-placeholder.jpg"
+    />
+  </div>
 </div>

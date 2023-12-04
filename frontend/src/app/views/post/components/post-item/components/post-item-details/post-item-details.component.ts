@@ -66,7 +66,8 @@ const showPostToggleAnimation = [
 })
 export class PostItemDetailsComponent {
   @Input('post') post!: Post;
-  @Input('date') date!: Record<string, string>;
+  @Input('startDate') startDate!: Record<string, string>;
+  @Input('endDate') endDate!: Record<string, string>;
   @Input('showViewPost') showViewPost: boolean = false;
   @Output() showViewPostChange = new EventEmitter<boolean>();
 

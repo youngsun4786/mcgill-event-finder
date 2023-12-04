@@ -13,14 +13,16 @@ import { PostItemDetailsComponent } from './components/post-item-details/post-it
 export class PostItemComponent implements OnInit {
   @Input() post!: Post;
   showPostOpen: boolean = false;
-  date!: Record<string, string>;
+  startDate!: Record<string, string>;
+  endDate!: Record<string, string>;
 
   ngOnInit(): void {
-    this.formatISODate();
+    this.startDate = this.formatISODate(this.post.startDate);
+    this.endDate = this.formatISODate(this.post.endDate);
   }
 
-  formatISODate(): void {
-    const date = new Date(this.post.startDate);
+  formatISODate(inputDate: Date): Record<string, string> {
+    const date = new Date(inputDate);
 
     const formattedDate = date.toLocaleString('en-US', {
       year: 'numeric',
@@ -39,7 +41,7 @@ export class PostItemComponent implements OnInit {
     const day = parseInt(monthDayYear[1], 10);
     const time = dateParts[2];
 
-    this.date = {
+    return {
       month: month.toString(),
       day: day.toString(),
       year: year.toString(),
