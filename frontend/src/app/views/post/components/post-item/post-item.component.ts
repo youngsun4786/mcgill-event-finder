@@ -1,16 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Post } from '@app/models/post.models';
-
+import { MatButtonModule } from '@angular/material/button';
+import { PostItemDetailsComponent } from './components/post-item-details/post-item-details.component';
 @Component({
   selector: 'app-post-item',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatButtonModule, PostItemDetailsComponent],
   templateUrl: './post-item.component.html',
   styleUrl: './post-item.component.css',
 })
 export class PostItemComponent implements OnInit {
   @Input() post!: Post;
+  showPostOpen: boolean = false;
   date!: Record<string, string>;
 
   ngOnInit(): void {
@@ -43,5 +45,9 @@ export class PostItemComponent implements OnInit {
       year: year.toString(),
       time: time,
     };
+  }
+
+  showPost() {
+    this.showPostOpen = !this.showPostOpen;
   }
 }
