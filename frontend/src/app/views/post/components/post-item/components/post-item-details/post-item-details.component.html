@@ -1,1 +1,10 @@
-<p>post-item-details works!</p>
+<div
+  class="overlay"
+  [@overlayToggle]="showViewPost ? 'open' : 'closed'"
+  (click)="closeShowPost()"
+  [style.pointer-events]="showViewPost ? 'auto' : 'none'"
+></div>
+
+<div class="view-post-modal" [@fadeInOut]="showViewPost ? 'open' : 'closed'">
+  <p>show post works!</p>
+</div>
