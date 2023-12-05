@@ -1,36 +1,52 @@
+import { StorageService } from './../../../services/storage.service';
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { trigger, state, style, animate, transition } from '@angular/animations';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { EventStatusType, Post } from '../../../models/post.models';
-import { DateRange, MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgClickOutsideDirective } from 'ng-click-outside2';
 import { User } from '@app/models/user.models';
 import { HttpClient } from '@angular/common/http';
-import { httpOptions } from '@app/services/auth.service';
+import { PostService } from '@app/services/post.service';
 
 const createEventToggleAnimation = [
-	trigger('overlayToggle', [
+  trigger('overlayToggle', [
     transition(':enter', [
       style({ opacity: 0 }),
-      animate('200ms ease-in', style({ opacity: 0.25 }))
+      animate('200ms ease-in', style({ opacity: 0.25 })),
     ]),
-    transition(':leave', [
-      animate('300ms ease-in', style({ opacity: 0 }))
-    ])
-	]),
-	trigger('modalToggle', [
+    transition(':leave', [animate('300ms ease-in', style({ opacity: 0 }))]),
+  ]),
+  trigger('modalToggle', [
     transition(':enter', [
       style({ opacity: 0, transform: 'translateY(30px)' }),
-      animate('200ms ease-in', style({ opacity: 1, transform: 'translateY(0)' }))
+      animate(
+        '200ms ease-in',
+        style({ opacity: 1, transform: 'translateY(0)' })
+      ),
     ]),
     transition(':leave', [
-      animate('300ms ease-in', style({ opacity: 0, transform: 'translateY(30px)' }))
-    ])
-  ])
-]
+      animate(
+        '300ms ease-in',
+        style({ opacity: 0, transform: 'translateY(30px)' })
+      ),
+    ]),
+  ]),
+];
 
 @Component({
   selector: 'app-create-event',
@@ -45,12 +61,14 @@ const createEventToggleAnimation = [
   ],
   animations: createEventToggleAnimation,
   templateUrl: './create-event.component.html',
-  styleUrl: './create-event.component.css'
+  styleUrl: './create-event.component.css',
 })
 export class CreateEventComponent {
   @Input('showCreateEvent') showCreateEvent: boolean = false;
   @Output() showCreateEventChange = new EventEmitter<boolean>();
   httpClient = inject(HttpClient);
+  storageService = inject(StorageService);
+  postService = inject(PostService);
 
   newEventForm: FormGroup;
   eventDayType: string = 'singleday';
@@ -68,7 +86,7 @@ export class CreateEventComponent {
   isIncomplete: boolean = false;
   timeError: boolean = false;
 
-  constructor(fb : FormBuilder) {
+  constructor(fb: FormBuilder) {
     this.newEventForm = fb.group({
       title: ['', Validators.required],
       startDate: ['', Validators.required],
@@ -86,7 +104,7 @@ export class CreateEventComponent {
     this.maxDate.setDate(this.maxDate.getDate() + 30);
   }
 
-  calendarToggle(num : number = 1) {
+  calendarToggle(num: number = 1) {
     if (num == 1) {
       this.calendar1Open = !this.calendar1Open;
     } else if (num == 2) {
@@ -107,23 +125,28 @@ export class CreateEventComponent {
       this.selectedEndDate = date;
       this.newEventForm.patchValue({
         startDate: date.toDateString(),
-        endDate: date.toDateString()
+        endDate: date.toDateString(),
       });
       this.calendarToggle(1);
     } else if (type === 'start') {
       this.selectedStartDate = date;
-      if (this.selectedEndDate && this.selectedEndDate < this.selectedStartDate) {
+      if (
+        this.selectedEndDate &&
+        this.selectedEndDate < this.selectedStartDate
+      ) {
         this.selectedEndDate = null;
       }
       this.newEventForm.patchValue({
         startDate: date.toDateString(),
-        endDate: this.selectedEndDate ? this.selectedEndDate.toDateString() : ''
+        endDate: this.selectedEndDate
+          ? this.selectedEndDate.toDateString()
+          : '',
       });
       this.calendarToggle(1);
     } else if (type === 'end') {
       this.selectedEndDate = date;
       this.newEventForm.patchValue({
-        endDate: date.toDateString()
+        endDate: date.toDateString(),
       });
       this.calendarToggle(2);
     }
@@ -140,7 +163,7 @@ export class CreateEventComponent {
 
   getTime(t: string) {
     if (t === 'min') {
-      console.log(this.newEventForm.controls['startTime'].value)
+      console.log(this.newEventForm.controls['startTime'].value);
       return this.newEventForm.controls['startTime'].value || '00:00';
     }
 
@@ -159,35 +182,43 @@ export class CreateEventComponent {
 
   onEventCreate() {
     this.isIncomplete = !this.newEventForm.valid;
-    this.timeError = this.eventDayType == 'singleday' && (this.newEventForm.controls['startTime'].value > this.newEventForm.controls['endTime'].value);
+    this.timeError =
+      this.eventDayType == 'singleday' &&
+      this.newEventForm.controls['startTime'].value >
+        this.newEventForm.controls['endTime'].value;
 
     if (this.isIncomplete || this.timeError) return;
-
 
     let newPost: Post = {
       title: this.newEventForm.controls['title'].value,
       location: this.newEventForm.controls['location'].value,
-      startDate: new Date(this.newEventForm.controls['startDate'].value + ' ' + this.newEventForm.controls['startTime'].value),
-      endDate: new Date(this.newEventForm.controls['endDate'].value + ' ' + this.newEventForm.controls['endTime'].value),
+      startDate: new Date(
+        this.newEventForm.controls['startDate'].value +
+          ' ' +
+          this.newEventForm.controls['startTime'].value
+      ),
+      endDate: new Date(
+        this.newEventForm.controls['endDate'].value +
+          ' ' +
+          this.newEventForm.controls['endTime'].value
+      ),
       createdAt: new Date(),
       tags: this.newEventForm.controls['tags'].value,
       status: EventStatusType.SCHEDULED,
-      author: new Object() as User,
-    }
+      email: this.storageService.getUser().email,
+    };
     this.createEvent(newPost);
   }
 
   createEvent(post: Post) {
-    this.httpClient
-      .post(`http://localhost:8000/posts`, post, httpOptions)
-      .subscribe({
-        next: () => {
-          this.closeCreateEvent();
-        },
-        error: (error: any) => {
-          alert(error.toString().replace(/['"]+/g, ''));
-          console.error(error);
-        },
-      });
+    this.postService.createPost(post).subscribe({
+      next: (post: Post) => {
+        this.closeCreateEvent();
+        console.log(post);
+      },
+      error: (error: any) => {
+        console.error(error);
+      },
+    });
   }
 }

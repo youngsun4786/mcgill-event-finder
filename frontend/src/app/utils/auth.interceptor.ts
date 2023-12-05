@@ -7,9 +7,7 @@ import { isPlatformBrowser } from '@angular/common';
 const handleToken = (router: Router, platformId: Object) => {
   if (isPlatformBrowser(platformId)) {
     localStorage.clear();
-    router.navigateByUrl('/login').then(() => {
-      window.location.reload();
-    });
+    router.navigateByUrl('/login');
   }
 };
 
@@ -17,7 +15,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   req = req.clone({ withCredentials: true });
   const router = inject(Router);
   const platformId = inject(PLATFORM_ID);
-  const token = localStorage.getItem('token') ?? '';
+  let token: string | null = '';
+  if (isPlatformBrowser(platformId)) {
+    token = localStorage.getItem('token') ?? '';
+  }
 
   if (token) {
     try {
@@ -25,17 +26,17 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       const expired =
         decoded && decoded.exp ? decoded.exp < Date.now() / 1000 : false;
       if (expired) {
-        alert('Token expired');
+        // alert('Token expired');
         console.error('Token expired');
         handleToken(router, platformId);
       }
     } catch (e: any) {
-      alert('Invalid token');
+      // alert('Invalid token');
       console.error('Invalid token');
       handleToken(router, platformId);
     }
   } else {
-    alert('No token');
+    // alert('No token');
     console.error('No token');
     handleToken(router, platformId);
   }
