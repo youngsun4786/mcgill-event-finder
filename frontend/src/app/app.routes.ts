@@ -10,6 +10,9 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'posts', component: PostComponent, canActivate: [authGuard] },
+  { path: 'my-posts', component: PostComponent, canActivate: [authGuard] },
+  { path: 'pinned-posts', component: PostComponent, canActivate: [authGuard] },
+
   { path: '', redirectTo: '', pathMatch: 'full' },
 ];
 

@@ -13,16 +13,15 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './post.component.css',
 })
 export class PostComponent {
-  router = inject(Router);
-  // postService = inject(PostService);
-  // storageService = inject(StorageService);
+  route = inject(ActivatedRoute);
+  postService = inject(PostService);
+  storageService = inject(StorageService);
   posts: Post[] = [];
 
-  constructor(
-    private postService: PostService,
-    private storageService: StorageService,
-    private route: ActivatedRoute
-  ) {
+  constructor() // private postService: PostService,
+  // private storageService: StorageService,
+  // private route: ActivatedRoute
+  {
     this.route.url.subscribe(([url]) => {
       const { path } = url;
       if (path === 'my-posts') {
