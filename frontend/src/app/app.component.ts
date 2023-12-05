@@ -4,7 +4,6 @@ import { RouterOutlet } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './views/components/navbar/navbar.component';
-import { PostService } from './services/post.service';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -21,8 +20,4 @@ import { PostService } from './services/post.service';
 })
 export class AppComponent {
   title = 'frontend';
-
-  // constructor(private postService: PostService) {
-  //   this.postService.ngOnInit();
-  // }
 }

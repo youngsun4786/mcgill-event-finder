@@ -10,15 +10,15 @@ export const routes: Routes = [
   { path: '', component: MainComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'posts', component: DisplayPostComponent, canActivate: [authGuard] },
+  { path: 'posts', component: PostComponent, canActivate: [authGuard] },
   {
     path: 'my-posts',
-    component: DisplayPostComponent,
+    component: PostComponent,
     canActivate: [authGuard],
   },
   {
     path: 'pinned-posts',
-    component: DisplayPostComponent,
+    component: PostComponent,
     canActivate: [authGuard],
   },
   { path: '', redirectTo: '', pathMatch: 'full' },

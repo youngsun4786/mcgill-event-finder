@@ -6,7 +6,6 @@ import { SearchPipe } from '@app/pipes/search.pipe';
 import { StorageService } from '@app/services/storage.service';
 import { HttpClientModule } from '@angular/common/http';
 
-
 @Component({
   selector: 'app-display-post',
   standalone: true,
@@ -19,9 +18,9 @@ export class DisplayPostComponent {
 
   storageService = inject(StorageService);
 
-  search : string = '';
+  search: string = '';
 
-  filters : { [field: string]: string[] } = { }
+  filters: { [field: string]: string[] } = {};
 
   ngOnInit() {
     // have checks for what router we're on to decide what filters to use
@@ -32,7 +31,7 @@ export class DisplayPostComponent {
 
     // for checking user posts
     this.filters = {
-      'author.email' : [this.storageService.getUser().email]
-    }
+      // 'author.email': [this.storageService.getUser().email],
+    };
   }
 }
