@@ -6,7 +6,7 @@
       <!-- <button mat-raised-button class="create-event-button" (click)="createEvent()">Create event</button> -->
     </div>
     <section class="result-base">
-      @for(post of allPosts | search : search : ['title'] : filters ; track post._id) {
+      @for(post of allPosts | search : search : ['title', 'tags'] : filters ; track post._id) {
       <app-post-item [post]="post"></app-post-item>
       }
     </section>
