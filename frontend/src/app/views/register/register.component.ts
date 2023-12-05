@@ -17,7 +17,6 @@ import { AuthService, httpOptions } from '../../services/auth.service';
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
-
 export class RegisterComponent {
   httpClient = inject(HttpClient);
   authService = inject(AuthService);
@@ -33,7 +32,13 @@ export class RegisterComponent {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern(/(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/)]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/),
+        ],
+      ],
       passwordConfirmation: ['', Validators.required],
       role: ['', Validators.required],
     });
@@ -48,7 +53,7 @@ export class RegisterComponent {
           this.router.navigateByUrl('/login');
         },
         error: (error: any) => {
-          alert(error.toString().replace(/['"]+/g, ''));
+          alert(error.message.toString().replace(/['"]+/g, ''));
           console.error(error);
         },
       });
@@ -66,15 +71,17 @@ export class RegisterComponent {
     this.registerUser(this.registerForm.value as User);
   }
 
-  emailCheck(){
-    this.emailWarning = this.registerForm.controls['email'].invalid
+  emailCheck() {
+    this.emailWarning = this.registerForm.controls['email'].invalid;
   }
 
-  passwordCheck(){
-    this.passwordError = this.registerForm.controls['password'].invalid
+  passwordCheck() {
+    this.passwordError = this.registerForm.controls['password'].invalid;
   }
 
-  passwordMatchCheck(){
-    this.passwordMismatch = this.registerForm.controls['password'].value !== this.registerForm.controls['passwordConfirmation'].value
+  passwordMatchCheck() {
+    this.passwordMismatch =
+      this.registerForm.controls['password'].value !==
+      this.registerForm.controls['passwordConfirmation'].value;
   }
 }

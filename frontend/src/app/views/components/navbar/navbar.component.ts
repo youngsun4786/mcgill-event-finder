@@ -45,11 +45,6 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  FilterByEmail() {
-    console.log(this.postService.emailFilter);
-    return (this.postService.emailFilter = true);
-  }
-
   logout(): void {
     this.authService.logout().subscribe({
       next: (response) => {

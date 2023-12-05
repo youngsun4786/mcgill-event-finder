@@ -8,8 +8,8 @@
 
 <div class="view-post-modal" @modalToggle *ngIf="showViewPost">
   <div class="view-post-title-row">
-    <h1 class="view-post-title">{{ post.title }}</h1>
-    <!--   -->
+    <h1 class="view-post-title">{{ this.post.title }}</h1>
+    <div class="">{{ this.post.author!.name }}</div>
   </div>
   <!-- Post content-body start -->
   <div class="view-post-important-row">
@@ -44,7 +44,14 @@
     <button class="cancel" type="button" (click)="closeShowPost()">
       Cancel
     </button>
-    <button class="submit" type="submit">Edit</button>
-    <button class="submit" type="submit">Delete</button>
+    @if(currentUserEmail === this.post.author?.email?.toLowerCase()) {
+    <button class="submit" type="submit" (click)="editPost(this.post._id!)">
+      Edit
+    </button>
+    <button class="submit" type="submit" (click)="deletePost(this.post._id!)">
+      Delete
+    </button>
+
+    }
   </div>
 </div>
