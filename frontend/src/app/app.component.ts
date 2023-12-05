@@ -1,17 +1,18 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './views/components/navbar/navbar.component';
+import { PostService } from './services/post.service';
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     NavbarComponent,
     CommonModule,
-    RouterOutlet,
     HttpClientModule,
+    RouterOutlet,
     FormsModule,
     ReactiveFormsModule,
   ],
@@ -20,4 +21,8 @@ import { NavbarComponent } from './views/components/navbar/navbar.component';
 })
 export class AppComponent {
   title = 'frontend';
+
+  // constructor(private postService: PostService) {
+  //   this.postService.ngOnInit();
+  // }
 }

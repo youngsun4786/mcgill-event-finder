@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Post } from '../models/post.models';
 import { Observable } from 'rxjs';
@@ -7,7 +7,7 @@ import { httpOptions } from './auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class PostService {
+export class PostService implements OnInit {
   private postsSubject = new BehaviorSubject<Post[]>([]);
   posts$ = this.postsSubject.asObservable();
 
@@ -15,8 +15,21 @@ export class PostService {
   emailFilter = false;
   constructor(private http: HttpClient) {}
 
+  ngOnInit(): void {
+    this.refreshPosts();
+  }
+
+  private refreshPosts() {
+    this.http
+      .get<Post[]>(`${this.URL}/posts`, httpOptions)
+      .subscribe((posts: Post[]) => {
+        this.postsSubject.next(posts);
+      });
+  }
+
   getPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.URL}/posts`, httpOptions);
+    this.refreshPosts();
+    return this.posts$;
   }
 
   createPost(post: Post): Observable<Post> {
