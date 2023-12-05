@@ -1,12 +1,19 @@
 .content {
   width: 100%;
   height: 100%;
+  overflow-x: hidden;
+}
+
+.image {
+  width: 100vw;
+  object-fit: cover;
+  position: relative;
 }
 
 
-.allposts {
-  position: absolute;
-  top: 210px;
+.imgheading {
+  position:absolute;
+  top: 40px;
   left: 180px;
   width: 188px;
   height: 53px;
@@ -25,7 +32,9 @@
 }
 
 heading.p {
- 
+  white-space: nowrap; /* Prevent text from wrapping to the next line */
+  overflow: hidden; /* Hide overflowing content */
+  text-overflow: ellipsis; /* Display an ellipsis for overflowed text */
 }
 
 h2 {
