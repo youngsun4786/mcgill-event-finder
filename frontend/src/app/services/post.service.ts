@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {} from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Post } from '../models/post.models';
 import { Observable } from 'rxjs';
 import { httpOptions } from './auth.service';
@@ -8,6 +8,9 @@ import { httpOptions } from './auth.service';
   providedIn: 'root',
 })
 export class PostService {
+  private postsSubject = new BehaviorSubject<Post[]>([]);
+  posts$ = this.postsSubject.asObservable();
+
   URL = 'http://localhost:8000';
   emailFilter = false;
   constructor(private http: HttpClient) {}

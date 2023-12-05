@@ -1,11 +1,10 @@
-import { Component, OnInit, PLATFORM_ID, inject } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { DisplayPostComponent } from './components/display-post/display-post.component';
 import { Post } from '../../models/post.models';
 import { PostService } from '../../services/post.service';
 import { StorageService } from '../../services/storage.service';
-import { Router } from '@angular/router';
-import { Observable, map, filter } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-posts',
   standalone: true,
@@ -15,29 +14,36 @@ import { Observable, map, filter } from 'rxjs';
 })
 export class PostComponent {
   router = inject(Router);
-  postService = inject(PostService);
-  storageService = inject(StorageService);
-  posts: Observable<Post[]> = this.postService.getPosts();
-  posts$: Post[] = [];
+  // postService = inject(PostService);
+  // storageService = inject(StorageService);
+  posts: Post[] = [];
 
-  // filteredPosts$ = this.posts.pipe(
-  //   map((posts: Post[]) => {
-  //     return posts.filter((post: Post) => {
-  //       return this.postService.emailFilter
-  //         ? post.author.email.toLowerCase() ===
-  //             this.storageService.getUser().email.toLowerCase()
-  //         : true;
-  //     });
-  //   })
-  // );
-  ngOnInit(): void {
-    this.fetchPosts();
-  }
-
-  fetchPosts(): void {
-    this.posts.subscribe((posts: Post[]) => {
-      console.log(posts);
-      this.posts$ = posts;
+  constructor(
+    private postService: PostService,
+    private storageService: StorageService,
+    private route: ActivatedRoute
+  ) {
+    this.route.url.subscribe(([url]) => {
+      const { path } = url;
+      if (path === 'my-posts') {
+        // filter posts by user posts
+        this.postService.posts$.subscribe((posts: Post[]) => {
+          this.posts = posts.filter((post: Post) => {
+            return (
+              post.author.email.toLowerCase() ===
+              this.storageService.getUser().email.toLowerCase()
+            );
+          });
+        });
+      } else if (path === 'pinned-posts') {
+        // filter posts by pinned post id
+        // * /posts
+      } else if (path == 'posts') {
+        this.postService.posts$.subscribe((posts: Post[]) => {
+          console.log(posts);
+          this.posts = posts;
+        });
+      }
     });
   }
 }
