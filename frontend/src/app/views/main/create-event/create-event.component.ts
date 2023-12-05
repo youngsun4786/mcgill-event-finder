@@ -1,3 +1,4 @@
+import { StorageService } from './../../../services/storage.service';
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { trigger, state, style, animate, transition } from '@angular/animations';
@@ -9,7 +10,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgClickOutsideDirective } from 'ng-click-outside2';
 import { User } from '@app/models/user.models';
 import { HttpClient } from '@angular/common/http';
-import { httpOptions } from '@app/services/auth.service';
+import { PostService } from '@app/services/post.service';
 
 const createEventToggleAnimation = [
 	trigger('overlayToggle', [
@@ -51,6 +52,8 @@ export class CreateEventComponent {
   @Input('showCreateEvent') showCreateEvent: boolean = false;
   @Output() showCreateEventChange = new EventEmitter<boolean>();
   httpClient = inject(HttpClient);
+  storageService = inject(StorageService);
+  postService = inject(PostService);
 
   newEventForm: FormGroup;
   eventDayType: string = 'singleday';
@@ -163,7 +166,6 @@ export class CreateEventComponent {
 
     if (this.isIncomplete || this.timeError) return;
 
-
     let newPost: Post = {
       title: this.newEventForm.controls['title'].value,
       location: this.newEventForm.controls['location'].value,
@@ -172,22 +174,19 @@ export class CreateEventComponent {
       createdAt: new Date(),
       tags: this.newEventForm.controls['tags'].value,
       status: EventStatusType.SCHEDULED,
-      author: new Object() as User,
+      email: this.storageService.getUser().email
     }
     this.createEvent(newPost);
   }
 
   createEvent(post: Post) {
-    this.httpClient
-      .post(`http://localhost:8000/posts`, post, httpOptions)
-      .subscribe({
-        next: () => {
-          this.closeCreateEvent();
-        },
-        error: (error: any) => {
-          alert(error.toString().replace(/['"]+/g, ''));
-          console.error(error);
-        },
-      });
+    this.postService.createPost(post).subscribe({
+      next: (post: Post) => {
+        this.closeCreateEvent();
+        console.log(post);
+      },
+      error: (error: any) => {
+        console.error(error);
+    }});
   }
 }

@@ -7,7 +7,7 @@ import log from "../configs/logger.config";
 dotenv.config();
 
 export default interface DataInToken extends JwtPayload {
-  user?: { _id: string; name: string; email: string; role: string };
+  user?: { _id: string; name: string; email: string; role: string; pins: string[] };
 }
 
 // environment variables
