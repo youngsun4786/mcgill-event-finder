@@ -67,7 +67,8 @@ export const loginController = async (
       name: user.name,
       email: user.email,
       role: user.role,
-    } as DataInToken;
+      pins: user.pins,
+  } as DataInToken;
     const token = generateToken(res, { user: userData } as DataInToken);
 
     if (req.session) req.session.token = token;
