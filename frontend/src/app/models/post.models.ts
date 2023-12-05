@@ -9,7 +9,7 @@ export enum EventStatusType {
 
 export interface Post {
   _id?: string;
-  author: User;
+  email: string;
   title: string;
   tags?: string[];
   location: string;

@@ -1,8 +1,12 @@
 <section class="event-component">
   <div class="posts-base">
     <h2>Events Post</h2>
+    <div class="search-bar">
+      <!-- <input class="search" type="text" placeholder="Search for an event..." [(ngModel)]="search" ng/> -->
+      <!-- <button mat-raised-button class="create-event-button" (click)="createEvent()">Create event</button> -->
+    </div>
     <section class="result-base">
-      @for(post of allPosts; track post._id) {
+      @for(post of allPosts | search : '' : ['title'] : filters ; track post._id) {
       <app-post-item [post]="post"></app-post-item>
       }
     </section>

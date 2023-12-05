@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { get } from 'http';
 
 @Pipe({
   name: 'search',
@@ -23,7 +24,8 @@ export class SearchPipe implements PipeTransform {
       )
     ).filter((item) =>
       Object.entries(filters).every(([field, values]) =>
-        values.includes(item[field])  // checks every value and field to see if the item includes at least one of them at that field
+        this.checkFilterNestedField(item, field.split('.'), values)
+        // values.includes(item[field])  // checks every value and field to see if the item includes at least one of them at that field
       )
     )
   }
@@ -32,15 +34,7 @@ export class SearchPipe implements PipeTransform {
   // in the case that the field is nested, the fieldParts array is used to access the nested field
   // it should also check if the field is an array and if so, check if the search string is in any of the items in the array
   private checkNestedField(item: any, fieldParts: string[], search: string): boolean {
-    const nestedField = fieldParts.reduce((obj, key) => {
-      if (Array.isArray(obj)) {
-        // handle array case
-        return obj.reduce((acc, element) => acc.concat(element?.[key]), []);
-      } else {
-        // handle object case
-        return obj?.[key];
-      }
-     }, item);
+    const nestedField = this.getNestedField(item, fieldParts);
     // handle case where nestedField is undefined
     if (!nestedField) return false;
 
@@ -50,5 +44,30 @@ export class SearchPipe implements PipeTransform {
     }
     // handle object case
     return nestedField.toString().toLowerCase().includes(search);
+  }
+
+  private checkFilterNestedField(item: any, fieldParts: string[], values: string[]): boolean {
+    const nestedField = this.getNestedField(item, fieldParts);
+    // handle case where nestedField is undefined
+    if (!nestedField) return false;
+
+    if (Array.isArray(nestedField)) {
+      // handle array case
+      return nestedField.some((element) => values.includes(element.toString()));
+    }
+    // handle object case
+    return values.includes(nestedField.toString());
+  }
+
+  private getNestedField(item: any, fieldParts: string[]): any {
+    return fieldParts.reduce((obj, key) => {
+      if (Array.isArray(obj)) {
+        // handle array case
+        return obj.reduce((acc, element) => acc.concat(element?.[key]), []);
+      } else {
+        // handle object case
+        return obj?.[key];
+      }
+     }, item)
   }
 }
