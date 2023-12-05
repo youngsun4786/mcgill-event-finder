@@ -25,7 +25,7 @@ export class NavbarComponent implements OnInit {
   links: any[] = [
     { label: 'All Posts', link: '/posts', index: 0 },
     { label: 'My Posts', link: '/my-posts', index: 1 },
-    { label: 'Create Posts', link: '/create-post', index: 2 },
+    { label: 'Pinned Posts', link: '/pinned-posts', index: 2 },
   ];
   activeLinkIndex = -1;
 

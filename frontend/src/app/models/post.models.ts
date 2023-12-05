@@ -16,6 +16,6 @@ export interface Post {
   createdAt: Date;
   startDate: Date;
   endDate: Date;
-  status: 'scheduled' | 'ongoing' | 'cancelled' | 'delayed';
+  status: EventStatusType;
   description?: string;
 }

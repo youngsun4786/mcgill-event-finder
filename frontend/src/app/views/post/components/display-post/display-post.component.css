@@ -24,11 +24,10 @@
 .event-component {
   display: flex;
   align-items: center;
-  font-family: Inter;
+  color: #363636;
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
-    
 }
 
 heading.p {

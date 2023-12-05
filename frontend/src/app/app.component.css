@@ -64,6 +64,12 @@ main {
   position: relative;
 }
 
+app-navbar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+}
+
 .angular-logo {
   max-width: 9.2rem;
 }

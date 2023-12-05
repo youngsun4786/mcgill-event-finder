@@ -4,7 +4,7 @@ import {
   loginController,
   logoutController,
 } from "../controllers/auth.controller";
-import validatorResource from "../middlewares/validators/post.validator";
+import validatorResource from "../middlewares/schema.validator";
 import {
   registerUserSchema,
   loginUserSchema,

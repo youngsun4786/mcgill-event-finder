@@ -1,4 +1,3 @@
-import { InvalidPropTypeError } from "@typegoose/typegoose/lib/internal/errors";
 import { NextFunction, Request, Response } from "express";
 import { AnyZodObject } from "zod";
 
@@ -17,4 +16,4 @@ const validatorResource =
     }
   };
 
-  export default validatorResource;
+export default validatorResource;

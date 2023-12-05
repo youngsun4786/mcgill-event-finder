@@ -2,7 +2,13 @@
   background: var(--accent-color);
   border-radius: 10px;
   border: 0.3px solid #b9b9b9;
-  
+  transition-property: box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.posting:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
 
@@ -53,7 +59,6 @@
   content: url("../../../../../assets/images/pin.svg") / "";
   margin-right: 4px;
 }
-
 
 .heading {
   line-height: 20%;

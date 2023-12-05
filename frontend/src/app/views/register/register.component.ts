@@ -25,6 +25,7 @@ export class RegisterComponent {
 
   loading = false;
   hasErrors: boolean = false;
+  passwordError: boolean = false;
   passwordMismatch: boolean = false;
   emailWarning: boolean = false;
 
@@ -32,7 +33,7 @@ export class RegisterComponent {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.pattern(/(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/)]],
       passwordConfirmation: ['', Validators.required],
       role: ['', Validators.required],
     });
@@ -55,9 +56,8 @@ export class RegisterComponent {
 
   onSubmit() {
     this.emailCheck();
-    if (this.registerForm.value.password !== this.registerForm.value.passwordConfirmation) {
-      this.passwordMismatch = true;
-    }
+    this.passwordCheck();
+    this.passwordMatchCheck();
     if (this.passwordMismatch || this.registerForm.invalid) {
       this.hasErrors = true;
       return;
@@ -68,5 +68,13 @@ export class RegisterComponent {
 
   emailCheck(){
     this.emailWarning = this.registerForm.controls['email'].invalid
+  }
+
+  passwordCheck(){
+    this.passwordError = this.registerForm.controls['password'].invalid
+  }
+
+  passwordMatchCheck(){
+    this.passwordMismatch = this.registerForm.controls['password'].value !== this.registerForm.controls['passwordConfirmation'].value
   }
 }

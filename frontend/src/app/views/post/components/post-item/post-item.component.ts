@@ -1,24 +1,28 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Post } from '@app/models/post.models';
-
+import { MatButtonModule } from '@angular/material/button';
+import { PostItemDetailsComponent } from './components/post-item-details/post-item-details.component';
 @Component({
   selector: 'app-post-item',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatButtonModule, PostItemDetailsComponent],
   templateUrl: './post-item.component.html',
   styleUrl: './post-item.component.css',
 })
 export class PostItemComponent implements OnInit {
   @Input() post!: Post;
-  date!: Record<string, string>;
+  showPostOpen: boolean = false;
+  startDate!: Record<string, string>;
+  endDate!: Record<string, string>;
 
   ngOnInit(): void {
-    this.formatISODate();
+    this.startDate = this.formatISODate(this.post.startDate);
+    this.endDate = this.formatISODate(this.post.endDate);
   }
 
-  formatISODate(): void {
-    const date = new Date(this.post.startDate);
+  formatISODate(inputDate: Date): Record<string, string> {
+    const date = new Date(inputDate);
 
     const formattedDate = date.toLocaleString('en-US', {
       year: 'numeric',
@@ -37,11 +41,15 @@ export class PostItemComponent implements OnInit {
     const day = parseInt(monthDayYear[1], 10);
     const time = dateParts[2];
 
-    this.date = {
+    return {
       month: month.toString(),
       day: day.toString(),
       year: year.toString(),
       time: time,
     };
+  }
+
+  showPost() {
+    this.showPostOpen = !this.showPostOpen;
   }
 }

@@ -1,10 +1,5 @@
 import { User } from "./user.models";
-import {
-  modelOptions,
-  prop,
-  Severity,
-  Ref,
-} from "@typegoose/typegoose";
+import { modelOptions, prop, Severity, Ref } from "@typegoose/typegoose";
 
 // export type Post = {
 //   _id?: ObjectId;
