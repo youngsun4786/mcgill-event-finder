@@ -2,17 +2,24 @@
   width: 100%;
   height: 100%;
   overflow-x: hidden;
+  z-index: 1;
 }
 
 .image {
+  margin-top: 160px;
   width: 100vw;
   object-fit: cover;
+  position: relative;
+  z-index: 0;
+}
+
+.image img {
   position: relative;
 }
 
 
 .imgheading {
-  position:absolute;
+  position: absolute;
   top: 40px;
   left: 180px;
   width: 188px;
