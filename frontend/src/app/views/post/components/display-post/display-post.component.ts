@@ -5,12 +5,13 @@ import { Post } from '../../../../models/post.models';
 import { PostItemComponent } from '../post-item/post-item.component';
 import { SearchPipe } from '@app/pipes/search.pipe';
 import { StorageService } from '@app/services/storage.service';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-display-post',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, PostItemComponent, SearchPipe],
+  imports: [CommonModule, HttpClientModule, PostItemComponent, SearchPipe, FormsModule],
   templateUrl: './display-post.component.html',
   styleUrl: './display-post.component.css',
 })
@@ -31,8 +32,8 @@ export class DisplayPostComponent {
     // }
 
     // for checking user posts
-    this.filters = {
-      'author.email' : [this.storageService.getUser().email]
-    }
+    // this.filters = {
+    //   'author.email' : [this.storageService.getUser().email]
+    // }
   }
 }
