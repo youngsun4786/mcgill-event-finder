@@ -1,17 +1,57 @@
-<section class="event-component">
-  <div class="posts-base">
-    <h2>Events Post</h2>
-    <div class="search-bar">
+<section class="content">
+  <div class="img-container">
+    @switch (this.path) { @case("posts") {
+    <img src="../../../../../assets/images/allPosts.png" alt="page-pics" />
+    }@case("my-posts") {
+    <img src="../../../../../assets/images/createPost.png" alt="page-pics" />
+    }@case("pinned-posts") {
+    <img
+      src="../../../../../assets/images/redpath_museum_exterior_night.png"
+      alt="page-pics"
+    />
+    } }
+
+    <!-- <p
+      style="
+        z-index: 2;
+        position: absolute;
+        font-size: 35px;
+        font-weight: 600;
+        margin-block-start: 4px;
+        color: #676767;
+        margin-left: 15px;
+      "
+    >
+      @switch (this.path) { @case("posts") { All Posts }@case("my-posts") { My
+      Posts }@case("pinned-posts") { Pinned Posts } }
+    </p> -->
+  </div>
+
+  <section class="event-component">
+    <section class="posts-base">
+      <h2>All Events</h2>
+      <!-- <div class="search-bar"> -->
       <!-- <input class="search" type="text" placeholder="Search for an event..." [(ngModel)]="search" ng/> -->
       <!-- < button mat-raised-button class="create-event-button" (click)="createEvent()">Create event</button> -->
-    </div>
-    <section class="result-base">
-      <!-- @for(post of this.allPosts | search : '' : ['title'] : filters ; track post._id) {
+      <!-- </div> -->
+      <section class="result-base">
+        <!-- @for(post of this.allPosts | search : '' : ['title'] : filters ; track post._id) {
       <app-post-item [post]="post"></app-post-item>
       } -->
-      @for(post of this.allPosts ; track post._id) {
-      <app-post-item [post]="post"></app-post-item>
-      }
+        @for(post of this.allPosts ; track post._id) {
+        <app-post-item [post]="post"></app-post-item>
+        }
+      </section>
     </section>
-  </div>
+
+    <section class="upcoming-events">
+      <h2>Upcoming Events</h2>
+
+      <section class="result-upcoming">
+        @for(post of allPosts; track post._id) {
+        <app-upcoming-post [post]="post"></app-upcoming-post>
+        }
+      </section>
+    </section>
+  </section>
 </section>

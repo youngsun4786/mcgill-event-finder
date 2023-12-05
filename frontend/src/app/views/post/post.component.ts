@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class PostComponent {
   posts: Post[] = [];
+  path!: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -42,6 +43,7 @@ export class PostComponent {
 
     this.route.url.subscribe(([url]) => {
       const { path } = url;
+      this.path = path;
       if (path === 'my-posts') {
         // filter posts by user posts
         this.postService.posts$.subscribe((posts: Post[]) => {

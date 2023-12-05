@@ -15,7 +15,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { EventStatusType, Post } from '../../../models/post.models';
-import { DateRange, MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgClickOutsideDirective } from 'ng-click-outside2';

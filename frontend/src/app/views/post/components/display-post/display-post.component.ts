@@ -5,16 +5,24 @@ import { PostItemComponent } from '../post-item/post-item.component';
 import { SearchPipe } from '@app/pipes/search.pipe';
 import { StorageService } from '@app/services/storage.service';
 import { HttpClientModule } from '@angular/common/http';
+import { UpcomingPostComponent } from '../upcoming-post/upcoming-post.component';
 
 @Component({
   selector: 'app-display-post',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, PostItemComponent, SearchPipe],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    PostItemComponent,
+    SearchPipe,
+    UpcomingPostComponent,
+  ],
   templateUrl: './display-post.component.html',
   styleUrl: './display-post.component.css',
 })
 export class DisplayPostComponent {
   @Input() allPosts!: Post[];
+  @Input() path!: string;
 
   storageService = inject(StorageService);
 

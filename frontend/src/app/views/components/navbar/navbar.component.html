@@ -1,12 +1,17 @@
-<div class="nav-bar" [ngStyle]="this.isAuth ? { height: '95px' } : null">
+<div class="nav-bar" [ngStyle]="this.isAuth ? { height: '139px' } : null">
   <div
     class="app-header"
     [ngStyle]="this.isAuth ? { marginBottom: '0' } : null"
   >
-    <a routerLink="/"><img src="assets/images/mcgill-logo.svg" alt="logo" /></a>
+    <img
+      routerLink="/"
+      class="mcgill"
+      src="assets/images/mcgill-logo.svg"
+      alt="logo"
+    />
     <div>
-      <h2>McEv</h2>
-      <p style="font-size: small">Where all events come to reality</p>
+      <h2>McEvent Finder</h2>
+      <p>Where all events come to reality</p>
     </div>
   </div>
   <nav class="nav-options" mat-tab-nav-bar [tabPanel]="tabPanel">
