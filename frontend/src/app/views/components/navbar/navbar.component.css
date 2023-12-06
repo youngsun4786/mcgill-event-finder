@@ -1,15 +1,22 @@
 .nav-bar {
-  position: sticky;
+  position: fixed;
   right: 0;
   left: 0;
-  z-index: 30;
-  height: 65px;
-  padding: 6px 20px;
+  top: 0;
+  z-index: 9999;
+  height: 70px;
+  padding: 15px 15px 6px 15px;
   border-bottom: solid;
-  border-bottom-width: 1px;
+  border-bottom-width: 1.5px;
   border-color: #e5e7eb;
   background-color: #fff;
   overflow: hidden;
+}
+
+.mcgill {
+  width: 53px;
+  height: 65px;
+  margin: 35px 0 0 12px;
 }
 
 .nav-options {
@@ -18,20 +25,36 @@
   justify-content: space-between;
   background-color: #fff;
   padding: 4px 20px;
+  margin-top: 25px;
+  font-size: 18px;
 }
 
 .app-header {
   display: flex;
-  row-gap: 10px;
-  height: 60px;
+  row-gap: 0px;
+  height: 55px;
   border-color: #e5e7eb;
   align-items: center;
 
   :is(h2) {
-    margin-left: 20px;
-    font-weight: 400;
+    margin: 41px 0 0 18px;
+    font-weight: 290;
+    font-size: 33px;
     color: #000;
+    text-transform: capitalize;
   }
+}
+
+p {
+  margin-block-end: 10px;
+  margin-block-start: 0px;
+  color: #000;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 200;
+  line-height: normal;
+  text-transform: capitalize;
+  margin-left: 19px;
 }
 
 .nav-a {
@@ -51,7 +74,7 @@
   float: left;
   color: #000;
   text-align: center;
-  padding: 14px 8px;
+  padding: 30px 8px;
   text-decoration: none;
 }
 

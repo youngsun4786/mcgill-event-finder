@@ -1,28 +1,36 @@
 import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { Post } from '../../../../models/post.models';
 import { PostItemComponent } from '../post-item/post-item.component';
 import { SearchPipe } from '@app/pipes/search.pipe';
 import { StorageService } from '@app/services/storage.service';
 import { FormsModule } from '@angular/forms';
-
+import { HttpClientModule } from '@angular/common/http';
+import { UpcomingPostComponent } from '../upcoming-post/upcoming-post.component';
 
 @Component({
   selector: 'app-display-post',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, PostItemComponent, SearchPipe, FormsModule],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    PostItemComponent,
+    SearchPipe,
+    UpcomingPostComponent,
+    FormsModule,
+  ],
   templateUrl: './display-post.component.html',
   styleUrl: './display-post.component.css',
 })
 export class DisplayPostComponent {
   @Input() allPosts!: Post[];
+  @Input() path!: string;
 
   storageService = inject(StorageService);
 
-  search : string = '';
+  search: string = '';
 
-  filters : { [field: string]: string[] } = { }
+  filters: { [field: string]: string[] } = {};
 
   ngOnInit() {
     // have checks for what router we're on to decide what filters to use
@@ -32,8 +40,8 @@ export class DisplayPostComponent {
     // }
 
     // for checking user posts
-    // this.filters = {
-    //   'author.email' : [this.storageService.getUser().email]
-    // }
+    this.filters = {
+      // 'author.email': [this.storageService.getUser().email],
+    };
   }
 }

@@ -6,6 +6,7 @@ import { StorageService } from '../../../services/storage.service';
 import { RouterModule } from '@angular/router';
 import { PostService } from '../../../services/post.service';
 import { MatTabsModule } from '@angular/material/tabs';
+import { UserService } from '@app/services/user.service';
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -16,6 +17,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 export class NavbarComponent implements OnInit {
   authService = inject(AuthService);
   postService = inject(PostService);
+  userService = inject(UserService);
   router = inject(Router);
   storageService = inject(StorageService);
   platformId = inject(PLATFORM_ID);
@@ -45,14 +47,14 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  FilterByEmail() {
-    console.log(this.postService.emailFilter);
-    return (this.postService.emailFilter = true);
-  }
-
   logout(): void {
     this.authService.logout().subscribe({
       next: (response) => {
+        this.userService
+          .updateUserPins(this.storageService.getUser())
+          .subscribe((response) => {
+            console.log(response);
+          });
         localStorage.clear();
         this.isAuth = false;
         this.authService.currentUserSignal.set(null);

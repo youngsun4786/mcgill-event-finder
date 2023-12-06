@@ -1,6 +1,24 @@
 import { EventStatusType } from "../models/post.models";
-import { PostModel } from "../models";
+import { PostModel, UserModel } from "../models";
 import { ObjectId } from "mongodb";
+
+export const users = [
+  new UserModel({
+    name: "nick yoo",
+    email: "nick12@gmail.com",
+    password: "$2b$10$0qCfkGy4g/vw7gOKR71C9OVlW9r5FnCwl1gpqKDBski7vlP055IXC",
+    role: "student",
+    pins: [],
+  }),
+
+  new UserModel({
+    name: "john kim",
+    email: "john12@gmail.com",
+    password: "$2b$10$fV.iRVQ6JXMMmrDQYS/eMe/iKCR1WlLZV.uQbqjwIQHepZloP5Qve",
+    role: "student",
+    pins: [],
+  }),
+];
 
 export const posts = [
   new PostModel({

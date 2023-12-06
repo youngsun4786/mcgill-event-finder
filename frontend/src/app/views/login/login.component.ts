@@ -65,8 +65,8 @@ export class LoginComponent implements OnInit {
         },
         error: (error: any) => {
           // remove the quotes from the error message
-          alert(error);
-          console.error(error);
+          alert(error.message.toString().replace(/['"]+/g, ''));
+          console.error(error.message);
           this.authService.currentUserSignal.set(null);
         },
       });
