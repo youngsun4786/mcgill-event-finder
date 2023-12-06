@@ -26,12 +26,12 @@
 }
 
 .posting-heading {
-  color: var(--primary-color);
+  color: #000;
   padding: 5px 20px 0 20px;
   margin-block-end: 5px;
   margin-block-start: 15px;
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 300;
 }
 
 .posting-location {

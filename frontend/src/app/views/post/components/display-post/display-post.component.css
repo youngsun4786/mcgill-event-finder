@@ -62,7 +62,7 @@ h2 {
 
 .upcoming-events {
   margin: 137px auto auto 20px;
-  width: minmax(max(25%, 250px), 340px);
+  width: min(max(25%, 250px), 340px);
   border-radius: 6px;
   background-color: #f5f5f5;
 
