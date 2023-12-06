@@ -6,7 +6,6 @@ import { SearchPipe } from '@app/pipes/search.pipe';
 import { StorageService } from '@app/services/storage.service';
 import { HttpClientModule } from '@angular/common/http';
 import { UpcomingPostComponent } from '../upcoming-post/upcoming-post.component';
-import { GroupByPipe } from '@app/pipes/group-by.pipe';
 import { OrderByPipe } from '@app/pipes/order-by.pipe';
 import { upcomingPipe } from '@app/pipes/upcoming.pipe';
 
@@ -21,7 +20,6 @@ import { upcomingPipe } from '@app/pipes/upcoming.pipe';
     SearchPipe,
     UpcomingPostComponent,
     OrderByPipe,
-    GroupByPipe,
     upcomingPipe,
   ],
   templateUrl: './display-post.component.html',
@@ -49,7 +47,7 @@ export class DisplayPostComponent {
       // 'author.email': [this.storageService.getUser().email],
     };
   }
-  
+
   createFormattedDate(month: number, year: number): string {
     const date = new Date(year, month, 1); // Using 1 for day, as we're interested in the month and year
     return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
