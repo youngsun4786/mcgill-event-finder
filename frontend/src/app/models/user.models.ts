@@ -7,5 +7,6 @@ export enum UserType {
 export interface User {
   name: string;
   email: string;
+  pins: string[];
   role: UserType;
 }

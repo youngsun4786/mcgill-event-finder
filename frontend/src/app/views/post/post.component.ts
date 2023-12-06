@@ -36,9 +36,7 @@ export class PostComponent {
     };
 
     const filterPostsByPinnedPostId = (post: Post) => {
-      // TODO: implement user pins, and update the filter
-      // return this.storageService.getUser().pins.includes(post._id);
-      return true;
+      return this.storageService.getUser().pins.includes(post._id!);
     };
 
     this.route.url.subscribe(([url]) => {

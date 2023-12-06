@@ -14,6 +14,7 @@ import { NgClickOutsideDirective } from 'ng-click-outside2';
 import { MatNativeDateModule } from '@angular/material/core';
 import { PostService } from '@app/services/post.service';
 import { StorageService } from '@app/services/storage.service';
+import { User } from '@app/models/user.models';
 
 const showPostToggleAnimation = [
   trigger('overlayToggle', [
@@ -61,16 +62,26 @@ export class PostItemDetailsComponent {
   @Input('showViewPost') showViewPost: boolean = false;
   @Output() showViewPostChange = new EventEmitter<boolean>();
   currentUserEmail!: string;
+  isEditPost: boolean;
+  pinned: boolean; // Indicates if the item is pinned or not
+
   constructor(
     private postService: PostService,
     private storageService: StorageService
   ) {
+    this.isEditPost = false;
+    this.pinned = false;
+
     this.currentUserEmail = this.storageService.getUser().email.toLowerCase();
   }
 
-  editPost(id: string): void {
-    
+  ngOnInit(): void {
+    this.storageService.getUser().pins!.includes(this.post._id!)
+      ? (this.pinned = true)
+      : (this.pinned = false);
   }
+
+  editPost(id: string): void {}
 
   deletePost(id: string): void {
     if (!id) {
@@ -85,8 +96,44 @@ export class PostItemDetailsComponent {
     });
   }
 
+  togglePin() {
+    this.pinned = !this.pinned;
+  }
+
   closeShowPost() {
     this.showViewPost = false;
+    // * if pinned and pins array does not contain post id, push it
+    // * and update user in token
+    if (
+      !this.storageService.getUser().pins.includes(this.post._id!) &&
+      this.pinned
+    ) {
+      const pins = this.storageService.getUser().pins!;
+      pins.push(this.post._id!);
+      this.storageService.saveUser({
+        name: this.storageService.getUser().name,
+        email: this.storageService.getUser().email,
+        role: this.storageService.getUser().role,
+        pins: pins,
+      } as User);
+    }  
+
+    // * if unpinned and pins array contains post id, remove it
+    // * and update user in token
+    if (
+      this.storageService.getUser().pins.includes(this.post._id!) &&
+      !this.pinned
+    ) {
+      const pins = this.storageService.getUser().pins!;
+      pins.splice(pins.indexOf(this.post._id!), 1);
+      this.storageService.saveUser({
+        name: this.storageService.getUser().name,
+        email: this.storageService.getUser().email,
+        role: this.storageService.getUser().role,
+        pins: pins,
+      } as User);
+    }
+
     this.showViewPostChange.emit(this.showViewPost);
   }
 }

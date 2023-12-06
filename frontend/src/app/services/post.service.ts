@@ -15,7 +15,7 @@ export class PostService {
 
   URL = 'http://localhost:8000';
 
-  constructor(private http: HttpClient, private authService: AuthService) {
+  constructor(private http: HttpClient) {
     console.count('PostService:constructor');
   }
 
