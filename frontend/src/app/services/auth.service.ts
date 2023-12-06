@@ -19,12 +19,6 @@ export class AuthService {
     this.httpClient = inject(HttpClient);
   }
 
-  registerUser(user: User): Observable<string> {
-    return this.httpClient.post(`${this.url}/auth/register`, user, {
-      responseType: 'text',
-    });
-  }
-
   logout(): Observable<Object> {
     return this.httpClient.post(`${this.url}/auth/logout`, {}, httpOptions);
   }
