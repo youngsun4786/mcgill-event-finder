@@ -1,5 +1,7 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { UserModel } from "../models";
+import { UpdateUserPinsInput } from "../models/schemas/user.schema";
+import { updateUserPins } from "../services/user.service";
 
 export const getUserController = async (req: Request, res: Response) => {
   try {
@@ -23,5 +25,25 @@ export const getUserController = async (req: Request, res: Response) => {
     console.error(error);
     res.status(500);
     throw new Error(error.message);
+  }
+};
+
+// * @desc   Update users pins array
+// * @route  PUT /users
+// * @access Private
+export const updateUserPinsController = async (
+  req: Request<{}, {}, UpdateUserPinsInput>,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { email, pins } = req.body;
+    const updated = await updateUserPins(email, pins);
+    if (updated) {
+      res.status(200).json("User pins array updated successfully");
+    }
+  } catch (error: any) {
+    res.status(500).json(error.message);
+    next(error);
   }
 };

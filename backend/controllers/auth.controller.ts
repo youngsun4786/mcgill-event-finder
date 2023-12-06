@@ -8,7 +8,7 @@ import InvalidCredentialsException from "../exceptions/InvalidCrendentialsExcept
 import {
   RegisterUserInput,
   LoginUserInput,
-} from "../models/schemas/user.schema";
+} from "../models/schemas/auth.schema";
 import { register, login } from "../services/auth.service";
 
 // * @desc   Register a new user
