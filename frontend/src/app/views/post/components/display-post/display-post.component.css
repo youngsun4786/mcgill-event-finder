@@ -12,12 +12,6 @@
   padding-top: 160px;
 }
 
-/* .allposts {
-  z-index: 1;
-  position: absolute;
-  background: rgba(255, 255, 255, 0.68);
-} */
-
 .event-component {
   display: flex;
   align-items: center;

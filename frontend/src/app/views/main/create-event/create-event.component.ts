@@ -1,13 +1,7 @@
 import { StorageService } from './../../../services/storage.service';
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-} from '@angular/animations';
+import { trigger, style, animate, transition } from '@angular/animations';
 import {
   FormBuilder,
   FormGroup,
@@ -19,7 +13,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgClickOutsideDirective } from 'ng-click-outside2';
-import { User } from '@app/models/user.models';
 import { HttpClient } from '@angular/common/http';
 import { PostService } from '@app/services/post.service';
 
