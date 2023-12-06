@@ -46,22 +46,17 @@
 
     <section class="upcoming-events">
       <h2>Upcoming Events</h2>
-    <!--
-        
-      <ng-container *ngIf="allPosts">
-        <div *ngFor="let entry of group | groupBy ">
-          <h3>{{ entry.key | date:'MMMM yyyy' }}</h3>
-          <div *ngFor="let post of entry.value">
-            <app-upcoming-post [post]="post"></app-upcoming-post>
-          </div>
-        </div>
-        
-      </ng-container>
-    -->
 
+      <ng-container class="group-by-month" *ngFor="let group of allPosts | upcomingPipe ">
+        <h3>{{ createFormattedDate(group.month, group.year) }}</h3>
+
+            <div class="" *ngFor="let post of group.events | orderBy: 'startDate'">
+              <app-upcoming-post [post]="post"></app-upcoming-post>
+            </div>
+          </ng-container>
     </section>
-  
       
-    </section>
+    
+    
   
 </section>
