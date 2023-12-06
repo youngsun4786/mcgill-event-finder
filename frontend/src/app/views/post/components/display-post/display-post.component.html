@@ -54,4 +54,14 @@
       </section>
     </section>
   </section>
+
+  <button
+    mat-fab aria-label="Create Event Button"
+    class="create-event-button"
+    (click)="createEvent()"
+    color="white"
+    >
+    <mat-icon>add</mat-icon>
+  </button>
+  <app-create-event [(showCreateEvent)]="createEventOpen"></app-create-event>
 </section>
