@@ -47,11 +47,18 @@
     <section class="upcoming-events">
       <h2>Upcoming Events</h2>
 
-      <section class="result-upcoming">
-        @for(post of allPosts; track post._id) {
-        <app-upcoming-post [post]="post"></app-upcoming-post>
-        }
-      </section>
+      <ng-container *ngFor="let group of allPosts | upcomingPipe ">
+        <h3>{{ createFormattedDate(group.month, group.year) }}</h3>
+        <div class="group-by-month">
+          <div *ngFor="let post of group.events | orderBy: 'startDate'">
+            <app-upcoming-post [post]="post"></app-upcoming-post>
+          </div>
+        </div>
+            
+          </ng-container>
     </section>
-  </section>
+      
+    
+    
+  
 </section>
