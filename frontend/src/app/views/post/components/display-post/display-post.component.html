@@ -29,7 +29,7 @@
 
   <section class="event-component">
     <section class="posts-base">
-      <h2>All Events</h2>
+      <h2 style="font-size: 26px; margin-left: 45px">All Events</h2>
       <!-- <div class="search-bar"> -->
       <!-- <input class="search" type="text" placeholder="Search for an event..." [(ngModel)]="search" ng/> -->
       <!-- < button mat-raised-button class="create-event-button" (click)="createEvent()">Create event</button> -->
@@ -47,11 +47,26 @@
     <section class="upcoming-events">
       <h2>Upcoming Events</h2>
 
-      <section class="result-upcoming">
-        @for(post of allPosts; track post._id) {
-        <app-upcoming-post [post]="post"></app-upcoming-post>
-        }
-      </section>
+      <ng-container *ngFor="let group of allPosts | upcomingPipe">
+        <h3>{{ createFormattedDate(group.month, group.year) }}</h3>
+        <div class="group-by-month">
+          <div *ngFor="let post of group.events | orderBy : 'startDate'">
+            <app-upcoming-post
+              [post]="post"
+            ></app-upcoming-post>
+          </div>
+        </div>
+      </ng-container>
     </section>
   </section>
+
+  <button
+    mat-fab aria-label="Create Event Button"
+    class="create-event-button"
+    (click)="createEvent()"
+    color="white"
+    >
+    <mat-icon>add</mat-icon>
+  </button>
+  <app-create-event [(showCreateEvent)]="createEventOpen"></app-create-event>
 </section>

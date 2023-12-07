@@ -2,10 +2,7 @@
   border-bottom: 1px solid #d4d4d4;
   background: rgba(217, 217, 217, 0);
   margin: 8px;
-}
-
-p {
-  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .date {

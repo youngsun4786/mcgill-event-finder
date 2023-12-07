@@ -24,8 +24,8 @@
   align-items: center;
   justify-content: space-between;
   background-color: #fff;
-  padding: 4px 20px;
-  margin-top: 25px;
+  padding: 4px 10px;
+  margin-top: 20px;
   font-size: 18px;
 }
 
@@ -80,7 +80,8 @@ p {
 
 nav a:hover {
   background-color: #ddd;
-  color: black;
+  border-bottom: 1px solid #CBCBCB;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, rgba(238, 238, 238, 0.01) 22.4%, rgba(230, 230, 230, 0.00) 55.21%, rgba(222, 222, 222, 0.92) 86.98%, #CFCFCF 100%);
 }
 
 ul {
@@ -107,6 +108,8 @@ ul a {
 
 .menu-container:hover .menu {
   display: block;
+  border-bottom: 1px solid #CBCBCB;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, rgba(238, 238, 238, 0.01) 22.4%, rgba(230, 230, 230, 0.00) 55.21%, rgba(222, 222, 222, 0.92) 86.98%, #CFCFCF 100%);
 }
 .menu a {
   width: 100%;

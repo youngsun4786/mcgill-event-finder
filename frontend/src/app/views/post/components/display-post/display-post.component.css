@@ -9,14 +9,8 @@
 
 .content {
   overflow-x: hidden;
-  padding-top: 160px;
+  padding-top: 152px;
 }
-
-/* .allposts {
-  z-index: 1;
-  position: absolute;
-  background: rgba(255, 255, 255, 0.68);
-} */
 
 .event-component {
   display: flex;
@@ -24,6 +18,7 @@
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
+  padding-bottom: 25px;
 }
 
 heading.p {
@@ -44,7 +39,8 @@ h2 {
 .posts-base {
   margin: 137px 20px auto auto;
   width: min(max(50%, 400px), 666px);
-  background-color: #f5f5f5;
+  border-radius: 6px;
+  background: rgba(238, 238, 238, 0.82);
 }
 
 .result-base {
@@ -61,7 +57,36 @@ h2 {
 
 .upcoming-events {
   margin: 137px auto auto 20px;
-  width: min(max(25%, 250px), 340px);
+  width: minmax(max(25%, 250px), 340px);
   border-radius: 6px;
-  background: rgba(238, 238, 238, 0.82);
+  background-color: #f5f5f5;
+}
+
+.upcoming-events :host ::ng-deep h2 {
+  color: rgba(0, 0, 0, 0.74);
+  font-size: 26px;
+  font-weight: 400;
+}
+
+.upcoming-events h3 {
+  color: #000;
+  font-size: 16px;
+  font-weight: 200;
+  margin: 20px 0 20px 30px;
+}
+
+.group-by-month {
+  width: 80%;
+  margin: 0px 0 0 10%;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+}
+
+.create-event-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 5rem;
+  height: 5rem;
 }

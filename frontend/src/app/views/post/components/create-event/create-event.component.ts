@@ -1,9 +1,8 @@
-import { StorageService } from './../../../services/storage.service';
+import { StorageService } from '../../../../services/storage.service';
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   trigger,
-  state,
   style,
   animate,
   transition,
@@ -14,7 +13,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { EventStatusType, Post } from '../../../models/post.models';
+import { EventStatusType, Post } from '../../../../models/post.models';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgSelectModule } from '@ng-select/ng-select';
