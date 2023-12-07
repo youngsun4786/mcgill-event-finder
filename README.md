@@ -10,8 +10,8 @@ In order to run it locally, make sure that you are connected to a MongoDB instan
 
 `cd` into backend folder and run `npm install --force` to include dependencies because the typegoose library demands for lower version for mongoose it will throw an error when installing without the force flag.
 
-then `cd` into frontend folder and run `npm install` to download all the dependencies.
+Afterwards, run `npm start` to start the server.
 
-This will be all for the installation, and to start the application run the following command at the **root** of the project folder:
+Next, open up a new terminal tab, and `cd` into frontend folder and run `npm install` to download all the dependencies.
 
-`cd frontend && npm start && cd .. && cd backend && npm start`
+Finally, run `npm start` to start the client.
