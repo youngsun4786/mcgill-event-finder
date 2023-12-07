@@ -17,7 +17,6 @@ export const isAuthenticated = (
   let token: string | null = "";
   // * check if the token exists in incoming request session
 
-  log.info(req.session);
   if (req.session) token = req.session["token"];
 
   if (!token) {
@@ -25,7 +24,9 @@ export const isAuthenticated = (
   }
   try {
     const receivedUser = verifyToken(token);
-    console.log(receivedUser);
+    // log.info(
+    //   `Session authenticated after login\n Session: ${req.session}\n User data: ${receivedUser}`
+    // );
     if (receivedUser) {
       req.user = receivedUser.user;
       next();
