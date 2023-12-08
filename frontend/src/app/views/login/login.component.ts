@@ -18,7 +18,7 @@ import { User } from '../../models/user.models';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   authService = inject(AuthService);
   httpClient = inject(HttpClient);
   platformId = inject(PLATFORM_ID);
@@ -33,12 +33,6 @@ export class LoginComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
-  }
-
-  ngOnInit(): void {
-    // if (this.storageService.loggedIn()) {
-    //   this.loggedIn = true;
-    // }
   }
 
   loginUser(email: string, password: string) {

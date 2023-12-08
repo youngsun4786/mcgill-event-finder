@@ -13,8 +13,6 @@ import {
   findPostById,
 } from "../services/post.service";
 
-import util from "util";
-
 // * @desc   Create a new post
 // * @route  POST /posts
 // * @access Private

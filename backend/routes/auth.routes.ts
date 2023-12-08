@@ -8,7 +8,7 @@ import validatorResource from "../middlewares/schema.validator";
 import {
   registerUserSchema,
   loginUserSchema,
-} from "../models/schemas/user.schema";
+} from "../models/schemas/auth.schema";
 const router = Router();
 
 router.post(

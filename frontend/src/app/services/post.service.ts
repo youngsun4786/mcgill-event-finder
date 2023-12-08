@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Post } from '../models/post.models';
 import { Observable } from 'rxjs';
-import { AuthService, httpOptions } from './auth.service';
+import { httpOptions } from './auth.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -15,7 +15,7 @@ export class PostService {
 
   URL = 'http://localhost:8000';
 
-  constructor(private http: HttpClient, private authService: AuthService) {
+  constructor(private http: HttpClient) {
     console.count('PostService:constructor');
   }
 

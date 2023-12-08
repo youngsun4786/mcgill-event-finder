@@ -8,8 +8,17 @@
 
 <div class="view-post-modal" @modalToggle *ngIf="showViewPost">
   <div class="view-post-title-row">
-    <h1 class="view-post-title">{{ this.post.title }}</h1>
-    <div class="">{{ this.post.author!.name }}</div>
+    <div class="title-container">
+      <h1 class="view-post-title">{{ this.post.title }}</h1>
+      <span
+        (click)="togglePin()"
+        class="pin material-icons"
+        [ngStyle]="this.pinned ? { color: '#3B82F6' } : null"
+      >
+        push_pin
+      </span>
+    </div>
+    <div>{{ this.post.author!.name }}</div>
   </div>
   <!-- Post content-body start -->
   <div class="view-post-important-row">
