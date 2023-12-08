@@ -21,11 +21,6 @@
   padding-bottom: 25px;
 }
 
-heading.p {
-  white-space: nowrap; /* Prevent text from wrapping to the next line */
-  overflow: hidden; /* Hide overflowing content */
-  text-overflow: ellipsis; /* Display an ellipsis for overflowed text */
-}
 
 h2 {
   color: #363636;
@@ -34,10 +29,11 @@ h2 {
   font-weight: 400;
   line-height: normal;
   margin: 26px 0 0 26px;
+  margin-block-end: 0px;
 }
 
 .posts-base {
-  margin: 137px 20px auto auto;
+  margin: 50px 20px auto auto;
   width: min(max(50%, 400px), 666px);
   border-radius: 6px;
   background: rgba(238, 238, 238, 0.82);
@@ -51,12 +47,12 @@ h2 {
   column-gap: 25px;
   row-gap: 25px;
   grid-template-columns: repeat(auto-fill, minmax(200px, 280px));
-  margin: 10% auto 10% auto;
+  margin: 5% auto 10% auto;
   justify-content: center;
 }
 
 .upcoming-events {
-  margin: 137px auto auto 20px;
+  margin: 50px auto auto 20px;
   width: min(max(25%, 250px), 340px);
   border-radius: 6px;
   background-color: #f5f5f5;
@@ -76,8 +72,8 @@ h2 {
 }
 
 .group-by-month {
-  width: 80%;
-  margin: 0px 0 0 10%;
+  width: 85%;
+  margin: 0px 0 15px 10%;
   border-radius: 8px;
   background: #fff;
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
@@ -87,6 +83,6 @@ h2 {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 5rem;
-  height: 5rem;
+  width: 4rem;
+  height: 4rem;
 }

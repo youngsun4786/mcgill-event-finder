@@ -72,7 +72,7 @@ export class CreateEventComponent {
   newEventForm: FormGroup;
   eventDayType: string = 'singleday';
 
-  tags: string[] = ['tag1', 'tag2', 'tag3'];
+  tags: string[] = ['Academic', 'Social', 'Online', 'In-Person', 'Entertainment'];
 
   calendar1Open: boolean = false;
   calendar2Open: boolean = false;

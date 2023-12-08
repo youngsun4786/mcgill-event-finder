@@ -276,3 +276,45 @@ button.cancel:hover {
 button.cancel:active {
   background-color: var(--gray-300);
 }
+
+.tags {
+  display: flex;
+  flex-direction: row;
+  margin: 5px 0 5px 10px;
+}
+
+.tag {
+  height: 16px;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 20px;
+  border: 1.5px solid;
+  text-align: center;
+  margin-block-start: 2px;
+  margin-right: 3px;
+}
+
+.Academic {
+  width: 80px;
+  color: darkred;
+}
+
+.Social {
+  width: 80px;
+  color: darkcyan;
+}
+
+.Online {
+  width: 80px;
+  color: darkolivegreen;
+}
+
+.In-Person {
+  width: 90px;
+  color: darkgoldenrod;
+}
+
+.Entertainment {
+  width: 110px;
+  color: darkorchid;
+}
