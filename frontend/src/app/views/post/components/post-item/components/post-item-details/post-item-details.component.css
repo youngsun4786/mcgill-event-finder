@@ -12,7 +12,7 @@
 
 .view-post-modal {
   position: fixed;
-  width: 50%;
+  width: 40%;
   left: 25%;
   top: 10%;
   background: var(--gray-000);
@@ -27,7 +27,9 @@
 
 .view-post-title-row {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+  margin-bottom: 5px;
   align-items: top;
 }
 
@@ -35,6 +37,50 @@
   display: flex;
   justify-content: space-between;
   row-gap: 1em;
+}
+
+/* Tag Styling */
+.tags {
+  display: flex;
+  flex-direction: row;
+  margin: 1rem 10px 5px 0;
+}
+
+.tag {
+  height: 25px;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 20px;
+  text-align: center;
+  margin-block-start: 2px;
+  margin-right: 3px;
+  color: white;
+  padding-top: 5px;
+}
+
+.Academic {
+  width: 80px;
+  background-color: darkred;
+}
+
+.Social {
+  width: 80px;
+  background-color: darkcyan;
+}
+
+.Online {
+  width: 80px;
+  background-color: darkolivegreen;
+}
+
+.In-Person {
+  width: 90px;
+  background-color: darkgoldenrod;
+}
+
+.Entertainment {
+  width: 120px;
+  background-color: darkorchid;
 }
 
 .pin {
@@ -50,11 +96,12 @@
 }
 
 .view-post-title {
-  margin: 0;
-  color: #676767;
+  margin: 0.5rem;
+  color: black;
   margin-bottom: 1rem;
   font-size: 1.5em;
   line-height: 2rem;
+  font-weight: 400;
 }
 .post-author {
   font-size: 1.2rem;
@@ -64,6 +111,7 @@
 
 .field-label {
   margin: 0 0.5rem;
+  font-weight: 400;
 }
 
 input {
@@ -74,14 +122,14 @@ input {
   outline: none;
 }
 
-textarea {
+.textarea {
   max-width: 100%;
   min-width: 100%;
-  min-height: 5rem;
+  min-height: 1rem;
   max-height: 10rem;
-  margin: 0;
-  margin-bottom: 1rem;
-  border: 1px solid #676767;
+  margin: 1rem 0 1rem 0;
+  color: #676767;
+  font-size: 17px;
 }
 
 .view-post-important-row {
@@ -89,6 +137,8 @@ textarea {
   display: flex;
   justify-content: space-between;
   gap: 2rem;
+  font-weight: 300;
+  font-size: 16px;
 }
 
 .important-row-left {
@@ -110,94 +160,13 @@ textarea {
   margin-left: 0.5rem;
 }
 
-.input-box {
-  display: flex;
-  position: relative;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-  font-family: var(--inter-font);
-  font-size: 1rem;
-  font-weight: 500;
-  border-radius: 0.5rem;
-  /* add some drop shadow */
-  width: 100%;
-  margin: 0;
-  margin-bottom: 1rem;
-  border: 1px solid #676767;
-}
-
-.input-box div {
-  flex: 2;
-  margin: 0.6rem;
-}
-
-.input-box i {
-  margin: 0.6rem;
-}
-
-.input-box input {
-  flex: 1;
-  min-width: fit-content;
-  margin: 0;
-  border: none;
-  border-left: 1px solid #676767;
-  border-radius: 0;
-  outline: none;
-  background: none;
-  text-align: center;
-}
-
-.input-box input:first-child {
-  border-left: none;
-}
-
-.custom-calendar {
-  position: absolute;
-  top: 2.4rem;
-  right: 0;
-  background-color: var(--gray-000);
-  border: 1px solid #676767;
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  width: 300px;
-  z-index: 6;
-}
-
-.error {
-  border: 1px solid red;
-  outline: 1px solid rgb(255, 146, 146);
-}
-
-.error input:not(:first-child) {
-  border-left: 1px solid red;
-}
-
-.error-message {
-  color: red;
-  font-size: 1rem;
-  font-weight: 400;
-  margin: 0;
-  margin-left: 0.5rem;
-}
 
 .row-labels {
   display: flex;
   align-items: center;
   width: 100%;
 }
-.row-labels .field-label {
-  flex: 1;
-  margin: 0 0.5rem;
-}
 
-.row-labels .field-date-label {
-  flex: 2;
-}
-
-.row-labels .field-time-label {
-  flex: 1;
-}
 
 .important-row-image {
   flex: 1;
@@ -206,37 +175,39 @@ textarea {
   object-fit: cover;
 }
 
-.optional-label {
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: var(--gray-500);
-  margin: 0;
-  margin-left: 0.5rem;
+.scheduled {
+  /* Styles for the 'scheduled' status */
+  color: green; /* Change the color as needed */
 }
 
-ng-select.custom-select {
-  box-sizing: border-box;
-  font-family: var(--inter-font);
-  font-size: 1rem;
-  font-weight: 500;
-  border-radius: 0.5rem;
-  /* add some drop shadow */
-  width: 100%;
-  padding: 0.5rem;
-  margin: 0;
-  margin-bottom: 1rem;
-  border: 1px solid #676767;
+.ongoing {
+  /* Styles for the 'ongoing' status */
+  color: blue; /* Change the color as needed */
 }
+
+.cancelled {
+  /* Styles for the 'cancelled' status */
+  color: red; /* Change the color as needed */
+}
+
+.delayed {
+  /* Styles for the 'delayed' status */
+  color: orange; /* Change the color as needed */
+}
+
 
 .view-post-button-row {
   display: flex;
+  flex-direction: row;
   justify-content: end;
   align-items: center;
+  margin-top: 1.5rem;
 }
 
 button {
   font-weight: 600;
   font-size: 1rem;
+  border-radius: 3rem;
 }
 
 button.submit {
@@ -259,9 +230,8 @@ button.submit:active {
 button.cancel {
   font-family: var(--inter-font);
   color: black;
-  border: 2px solid black;
+  border: 1px solid black;
   background: none;
-  border-radius: 0.5rem;
   padding: 0.6rem 1rem;
   cursor: pointer;
   margin: 1rem 0 1rem 1rem;
@@ -277,44 +247,3 @@ button.cancel:active {
   background-color: var(--gray-300);
 }
 
-.tags {
-  display: flex;
-  flex-direction: row;
-  margin: 5px 0 5px 10px;
-}
-
-.tag {
-  height: 16px;
-  font-size: 14px;
-  font-weight: 400;
-  border-radius: 20px;
-  border: 1.5px solid;
-  text-align: center;
-  margin-block-start: 2px;
-  margin-right: 3px;
-}
-
-.Academic {
-  width: 80px;
-  color: darkred;
-}
-
-.Social {
-  width: 80px;
-  color: darkcyan;
-}
-
-.Online {
-  width: 80px;
-  color: darkolivegreen;
-}
-
-.In-Person {
-  width: 90px;
-  color: darkgoldenrod;
-}
-
-.Entertainment {
-  width: 110px;
-  color: darkorchid;
-}
