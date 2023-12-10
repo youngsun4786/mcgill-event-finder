@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StorageService } from '../../services/storage.service';
 import { AuthService } from '../../services/auth.service';
@@ -14,7 +14,6 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './main.component.css',
 })
 export class MainComponent {
-
   createEventOpen: boolean = false;
 
   constructor() { }

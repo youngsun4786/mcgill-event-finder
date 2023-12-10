@@ -34,6 +34,8 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+
 h1 {
   font-size: 3.125rem;
   color: var(--gray-900);

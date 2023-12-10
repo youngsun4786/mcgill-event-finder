@@ -7,6 +7,9 @@ import { StorageService } from '@app/services/storage.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UpcomingPostComponent } from '../upcoming-post/upcoming-post.component';
+import { OrderByPipe } from '@app/pipes/order-by.pipe';
+import { upcomingPipe } from '@app/pipes/upcoming.pipe';
+
 import { CreateEventComponent } from '../create-event/create-event.component';
 // TODO remove when we incorporate our own style for the button
 import { MatButtonModule } from '@angular/material/button';
@@ -21,6 +24,8 @@ import { MatIconModule } from '@angular/material/icon';
     PostItemComponent,
     SearchPipe,
     UpcomingPostComponent,
+    OrderByPipe,
+    upcomingPipe,
     FormsModule,
     CreateEventComponent,
     MatButtonModule,
@@ -53,6 +58,13 @@ export class DisplayPostComponent {
       // 'author.email': [this.storageService.getUser().email],
     };
   }
+
+  createFormattedDate(month: number, year: number): string {
+    const date = new Date(year, month, 1); // Using 1 for day, as we're interested in the month and year
+    return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  }
+
+  
 
   createEvent() {
     this.createEventOpen = true;
