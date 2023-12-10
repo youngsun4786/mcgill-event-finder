@@ -25,7 +25,6 @@ export class PostComponent {
     postService.initialize();
 
     const filterPostsByCurrentUser = (post: Post) => {
-      // ! post.author can be null if user is deleted
       if (!post.author!.email) {
         return false;
       }
