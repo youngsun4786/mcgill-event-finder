@@ -1,6 +1,8 @@
 import logger from "pino";
-import config from "config";
+import dotenv from "dotenv";
 import pretty from "pino-pretty";
+
+dotenv.config();
 
 const stream = pretty({
   levelFirst: true,
