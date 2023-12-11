@@ -46,7 +46,11 @@ export class RegisterComponent {
 
   registerUser(user: User) {
     this.httpClient
-      .post(`http://localhost:8000/auth/register`, user, httpOptions)
+      .post(
+        `https://mcgill-event-finder-backend.vercel.app/auth/register`,
+        user,
+        httpOptions
+      )
       .subscribe({
         next: () => {
           this.authService.currentUserSignal.set(user);

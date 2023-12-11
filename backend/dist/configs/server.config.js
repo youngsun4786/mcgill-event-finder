@@ -7,7 +7,7 @@ exports.configureServer = void 0;
 const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
 const corsOptions = {
-    origin: "https://mcgill-event-finder-frontend-youngsun4786.vercel.app/",
+    origin: "http://localhost:4200",
     credentials: true,
 };
 const configureServer = (app, enableCors) => {

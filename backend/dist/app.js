@@ -16,9 +16,6 @@ app.use(error_middleware_1.errorHandler);
 (0, configs_1.connectToDatabase)().then(() => {
     (0, session_config_1.configureSession)(app);
     (0, configs_1.configureRoutes)(app);
-    app.get("/", (req, res) => {
-        res.send("Hello World!");
-    });
     app.listen(port, () => {
         console.log(`[server]: Server running at http://localhost:${port}`);
     });

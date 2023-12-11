@@ -11,7 +11,7 @@ export const httpOptions = {
   providedIn: 'root',
 })
 export class AuthService {
-  url = 'http://localhost:8000';
+  url = 'https://mcgill-event-finder-backend.vercel.app';
   currentUserSignal = signal<User | undefined | null>(undefined);
   platformId = inject(PLATFORM_ID);
 
