@@ -4,12 +4,19 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "build": "tsc",
+    "build": "rimraf dist && tsc",
     "start": "ts-node app.ts",
+    "ts.check": "tsc --project tsconfig.json",
+    "add-build": "git add dist",
     "start:production": "node app.js",
     "dev": "nodemon --legacy-watch --exec ts-node-dev app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "pre-commit": [
+    "ts.check",
+    "build",
+    "add-build"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",

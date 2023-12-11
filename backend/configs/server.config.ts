@@ -3,7 +3,7 @@ import express, { Express } from "express";
 import log from "./logger.config";
 
 const corsOptions: CorsOptions = {
-  origin: process.env.CLIENT_ORIGIN || "http://localhost:4200",
+  origin: "https://mcgill-event-finder-frontend-youngsun4786.vercel.app/",
   credentials: true,
 };
 
