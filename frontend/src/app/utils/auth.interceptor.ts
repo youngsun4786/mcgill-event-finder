@@ -46,5 +46,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     withCredentials: true,
   });
 
+  console.log(req);
+
   return next(req);
 };

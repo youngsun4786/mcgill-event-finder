@@ -15,15 +15,19 @@ export const isAuthenticated = (
 ) => {
   let token: string | null = "";
   // * check if the token exists in incoming request session
-
-  if (req.session) token = req.session["token"];
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    token = req.headers.authorization.split(" ")[1];
+    console.log("Received token", token);
+  }
 
   if (!token) {
     return next(new UnauthorizedNoTokenException());
   }
   try {
     const receivedUser = verifyToken(token);
-    console.log(req.session);
     // log.info(
     //   `Session authenticated after login\n Session: ${req.session}\n User data: ${receivedUser}`
     // );

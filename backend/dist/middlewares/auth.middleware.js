@@ -9,14 +9,16 @@ const UnauthorizedInvalidTokenException_1 = __importDefault(require("../exceptio
 const UnauthorizedNoTokenException_1 = __importDefault(require("../exceptions/UnauthorizedNoTokenException"));
 const isAuthenticated = (req, res, next) => {
     let token = "";
-    if (req.session)
-        token = req.session["token"];
+    if (req.headers.authorization &&
+        req.headers.authorization.startsWith("Bearer")) {
+        token = req.headers.authorization.split(" ")[1];
+        console.log("Received token", token);
+    }
     if (!token) {
         return next(new UnauthorizedNoTokenException_1.default());
     }
     try {
         const receivedUser = (0, jwtCredentials_1.verifyToken)(token);
-        console.log(req.session);
         if (receivedUser) {
             req.user = receivedUser.user;
             next();
