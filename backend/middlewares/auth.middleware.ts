@@ -3,7 +3,6 @@ import { verifyToken } from "../utils/jwtCredentials";
 import UnauthorizedInvalidTokenException from "../exceptions/UnauthorizedInvalidTokenException";
 import UnauthorizedNoTokenException from "../exceptions/UnauthorizedNoTokenException";
 
-
 // create a special interface for request with exception of user
 export interface RequestWithUser extends Request {
   user?: { _id: string; name: string; email: string; role: string };
@@ -24,6 +23,7 @@ export const isAuthenticated = (
   }
   try {
     const receivedUser = verifyToken(token);
+    console.log(req.session);
     // log.info(
     //   `Session authenticated after login\n Session: ${req.session}\n User data: ${receivedUser}`
     // );

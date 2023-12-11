@@ -16,6 +16,7 @@ const isAuthenticated = (req, res, next) => {
     }
     try {
         const receivedUser = (0, jwtCredentials_1.verifyToken)(token);
+        console.log(req.session);
         if (receivedUser) {
             req.user = receivedUser.user;
             next();
