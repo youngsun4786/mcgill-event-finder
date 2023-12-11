@@ -94,7 +94,7 @@ export const logoutController = async (
     // removing the cookie session
     // if (req.session) req.session.token = null;
 
-    res.clearCookie("token", { httpOnly: true, expires: new Date(0) });
+    res.clearCookie("token", { httpOnly: false, expires: new Date(0) });
     res.status(201).json({ message: "Logout successful" });
     next();
   } catch (error: any) {
