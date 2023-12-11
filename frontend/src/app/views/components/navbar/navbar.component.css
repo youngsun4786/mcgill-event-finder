@@ -24,9 +24,9 @@
   align-items: center;
   justify-content: space-between;
   background-color: #fff;
-  padding: 4px 10px;
-  margin-top: 20px;
+  padding: 4px 0;
   font-size: 18px;
+  margin: 20px -15px 0 -15px;
 }
 
 .app-header {
@@ -81,6 +81,14 @@ p {
 nav a:hover {
   background-color: #ddd;
   border-bottom: 1px solid #CBCBCB;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, rgba(238, 238, 238, 0.01) 22.4%, rgba(230, 230, 230, 0.00) 55.21%, rgba(222, 222, 222, 0.92) 86.98%, #CFCFCF 100%);
+}
+
+a[aria-selected="true"] {
+  background-color: #ddd;
+  border-bottom: 1px solid #CBCBCB;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.6) !important;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, rgba(238, 238, 238, 0.01) 22.4%, rgba(230, 230, 230, 0.00) 55.21%, rgba(222, 222, 222, 0.92) 86.98%, #CFCFCF 100%);
 }
 

@@ -1,75 +1,45 @@
-import { StorageService } from '../../../../services/storage.service';
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  trigger,
-  style,
-  animate,
-  transition,
-} from '@angular/animations';
+import { EventStatusType, Post } from '@app/models/post.models';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { EventStatusType, Post } from '../../../../models/post.models';
+import { HttpClient } from '@angular/common/http';
+import { StorageService } from '@app/services/storage.service';
+import { PostService } from '@app/services/post.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgClickOutsideDirective } from 'ng-click-outside2';
-import { User } from '@app/models/user.models';
-import { HttpClient } from '@angular/common/http';
-import { PostService } from '@app/services/post.service';
-
-const createEventToggleAnimation = [
-  trigger('overlayToggle', [
-    transition(':enter', [
-      style({ opacity: 0 }),
-      animate('200ms ease-in', style({ opacity: 0.25 })),
-    ]),
-    transition(':leave', [animate('300ms ease-in', style({ opacity: 0 }))]),
-  ]),
-  trigger('modalToggle', [
-    transition(':enter', [
-      style({ opacity: 0, transform: 'translateY(30px)' }),
-      animate(
-        '200ms ease-in',
-        style({ opacity: 1, transform: 'translateY(0)' })
-      ),
-    ]),
-    transition(':leave', [
-      animate(
-        '300ms ease-in',
-        style({ opacity: 0, transform: 'translateY(30px)' })
-      ),
-    ]),
-  ]),
-];
+import { start } from 'repl';
 
 @Component({
-  selector: 'app-create-event',
+  selector: 'app-post-item-edit',
   standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    NgSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    NgClickOutsideDirective,
+    NgSelectModule,
+    NgClickOutsideDirective
   ],
-  animations: createEventToggleAnimation,
-  templateUrl: './create-event.component.html',
-  styleUrl: './create-event.component.css',
+  templateUrl: './post-item-edit.component.html',
+  styleUrl: './post-item-edit.component.css'
 })
-export class CreateEventComponent {
-  @Input('showCreateEvent') showCreateEvent: boolean = false;
-  @Output() showCreateEventChange = new EventEmitter<boolean>();
+export class PostItemEditComponent {
+  @Input('isEdit') isEdit!: boolean;
+  @Output() isEditChange = new EventEmitter<boolean>();
+  @Input('post') selectedPost!: Post;
+
   httpClient = inject(HttpClient);
   storageService = inject(StorageService);
   postService = inject(PostService);
 
-  newEventForm: FormGroup;
+  editEventForm: FormGroup;
   eventDayType: string = 'singleday';
 
   tags: string[] = ['Academic', 'Social', 'Online', 'In-Person', 'Entertainment'];
@@ -86,7 +56,7 @@ export class CreateEventComponent {
   timeError: boolean = false;
 
   constructor(fb: FormBuilder) {
-    this.newEventForm = fb.group({
+    this.editEventForm = fb.group({
       title: ['', Validators.required],
       startDate: ['', Validators.required],
       startTime: ['', Validators.required],
@@ -101,6 +71,30 @@ export class CreateEventComponent {
   ngOnInit() {
     this.minDate.setDate(this.minDate.getDate());
     this.maxDate.setDate(this.maxDate.getDate() + 30);
+
+    const startDate = new Date(this.selectedPost.startDate);
+    const endDate = new Date(this.selectedPost.endDate);
+    const startTime = startDate.getHours() + ':' + startDate.getMinutes();
+    const endTime = endDate.getHours() + ':' + endDate.getMinutes();
+
+    // if start date and end date are different, set eventDayType to 'multiday'
+    if (startDate.toDateString() !== endDate.toDateString()) {
+      this.eventDayType = 'multiday';
+    }
+
+    // fill out form with post data
+    this.editEventForm.patchValue({
+      title: this.selectedPost.title,
+      startDate: startDate.toDateString(),
+      startTime: startTime.length === 4 ? '0' + startTime : startTime,
+      endDate: endDate.toDateString(),
+      endTime: endTime.length === 4 ? '0' + endTime : endTime,
+      location: this.selectedPost.location,
+      description: this.selectedPost.description,
+      tags: this.selectedPost.tags,
+    });
+
+    console.log(this.editEventForm.value);
   }
 
   calendarToggle(num: number = 1) {
@@ -122,7 +116,7 @@ export class CreateEventComponent {
       this.selectedSingleDate = date;
       this.selectedStartDate = date;
       this.selectedEndDate = date;
-      this.newEventForm.patchValue({
+      this.editEventForm.patchValue({
         startDate: date.toDateString(),
         endDate: date.toDateString(),
       });
@@ -135,7 +129,7 @@ export class CreateEventComponent {
       ) {
         this.selectedEndDate = null;
       }
-      this.newEventForm.patchValue({
+      this.editEventForm.patchValue({
         startDate: date.toDateString(),
         endDate: this.selectedEndDate
           ? this.selectedEndDate.toDateString()
@@ -144,7 +138,7 @@ export class CreateEventComponent {
       this.calendarToggle(1);
     } else if (type === 'end') {
       this.selectedEndDate = date;
-      this.newEventForm.patchValue({
+      this.editEventForm.patchValue({
         endDate: date.toDateString(),
       });
       this.calendarToggle(2);
@@ -162,55 +156,52 @@ export class CreateEventComponent {
 
   getTime(t: string) {
     if (t === 'min') {
-      console.log(this.newEventForm.controls['startTime'].value);
-      return this.newEventForm.controls['startTime'].value || '00:00';
+      return this.editEventForm.controls['startTime'].value || '00:00';
     }
 
     if (t === 'max') {
-      return this.newEventForm.controls['endTime'].value || '23:59';
+      return this.editEventForm.controls['endTime'].value || '23:59';
     }
   }
 
-  closeCreateEvent() {
-    this.showCreateEvent = false;
-    this.isIncomplete = false;
-    this.showCreateEventChange.emit(this.showCreateEvent);
+  closeEditEvent(): void {
+    this.isEditChange.emit(false);
   }
 
-  onEventCreate() {
-    this.isIncomplete = !this.newEventForm.valid;
+  onEventEdit() {
+    this.isIncomplete = !this.editEventForm.valid;
     this.timeError =
       this.eventDayType == 'singleday' &&
-      this.newEventForm.controls['startTime'].value >
-        this.newEventForm.controls['endTime'].value;
+      this.editEventForm.controls['startTime'].value >
+        this.editEventForm.controls['endTime'].value;
 
     if (this.isIncomplete || this.timeError) return;
 
     let newPost: Post = {
-      title: this.newEventForm.controls['title'].value,
-      location: this.newEventForm.controls['location'].value,
+      title: this.editEventForm.controls['title'].value,
+      location: this.editEventForm.controls['location'].value,
       startDate: new Date(
-        this.newEventForm.controls['startDate'].value +
+        this.editEventForm.controls['startDate'].value +
           ' ' +
-          this.newEventForm.controls['startTime'].value
+          this.editEventForm.controls['startTime'].value
       ),
       endDate: new Date(
-        this.newEventForm.controls['endDate'].value +
+        this.editEventForm.controls['endDate'].value +
           ' ' +
-          this.newEventForm.controls['endTime'].value
+          this.editEventForm.controls['endTime'].value
       ),
       createdAt: new Date(),
-      tags: this.newEventForm.controls['tags'].value,
+      tags: this.editEventForm.controls['tags'].value,
       status: EventStatusType.SCHEDULED,
       email: this.storageService.getUser().email,
     };
     this.createEvent(newPost);
   }
 
-  createEvent(post: Post) {
-    this.postService.createPost(post).subscribe({
+  createEvent(updatedPost: Post) {
+    this.postService.updatePostById(this.selectedPost._id!, updatedPost).subscribe({
       next: (post: Post) => {
-        this.closeCreateEvent();
+        this.closeEditEvent();
         this.postService.getPosts();
         console.log(post);
       },

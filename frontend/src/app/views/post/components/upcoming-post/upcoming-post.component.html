@@ -4,7 +4,13 @@
             <p style="margin-top: 21px;">{{ this.date["month"] }}</p>
             <p class="day">{{ this.date["day"] }}</p>
           </div>
+
           <div class="heading">
+            
+            <div class="tags">
+              <div *ngFor="let tag of this.post.tags" class="tag" [ngClass]="tag">{{ tag }}</div>
+            </div>
+            
             <p class="posting-heading">{{ post.title }}</p>
             <p class="posting-location">{{ post.location }}</p>
             <small *ngIf="post.startDate">{{ this.date["time"] }}</small>

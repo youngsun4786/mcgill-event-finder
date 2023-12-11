@@ -15,6 +15,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { PostService } from '@app/services/post.service';
 import { StorageService } from '@app/services/storage.service';
 import { User } from '@app/models/user.models';
+import { PostItemEditComponent } from './post-item-edit/post-item-edit.component';
 
 const showPostToggleAnimation = [
   trigger('overlayToggle', [
@@ -50,6 +51,7 @@ const showPostToggleAnimation = [
     MatDatepickerModule,
     NgClickOutsideDirective,
     MatNativeDateModule,
+    PostItemEditComponent,
   ],
   animations: showPostToggleAnimation,
   templateUrl: './post-item-details.component.html',
@@ -81,8 +83,6 @@ export class PostItemDetailsComponent {
       : (this.pinned = false);
   }
 
-  editPost(id: string): void {}
-
   deletePost(id: string): void {
     if (!id) {
       alert('This post does not exist');
@@ -102,6 +102,7 @@ export class PostItemDetailsComponent {
 
   closeShowPost() {
     this.showViewPost = false;
+    this.isEditPost = false;
     // * if pinned and pins array does not contain post id, push it
     // * and update user in token
     if (
@@ -116,7 +117,7 @@ export class PostItemDetailsComponent {
         role: this.storageService.getUser().role,
         pins: pins,
       } as User);
-    }  
+    }
 
     // * if unpinned and pins array contains post id, remove it
     // * and update user in token
