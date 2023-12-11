@@ -43,6 +43,9 @@ export class DisplayPostComponent {
   search: string = '';
 
   filters: { [field: string]: string[] } = {};
+  tags: string[] = ['Academic', 'Social', 'Online', 'In-Person', 'Entertainment'];
+
+  selectedTags: string[] = ['Academic', 'Social', 'Online', 'In-Person', 'Entertainment'];
 
   createEventOpen: boolean = false;
 
@@ -55,7 +58,7 @@ export class DisplayPostComponent {
 
     // for checking user posts
     this.filters = {
-      // 'author.email': [this.storageService.getUser().email],
+      'tags': this.selectedTags,
     };
   }
 
@@ -64,9 +67,20 @@ export class DisplayPostComponent {
     return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
   }
 
-  
-
   createEvent() {
     this.createEventOpen = true;
+  }
+
+  toggleFilter(value: string) {
+    // toggles tags filter
+    if (this.selectedTags.includes(value)) {
+      this.selectedTags = this.selectedTags.filter((tag) => tag !== value);
+    } else {
+      this.selectedTags.push(value);
+    }
+
+    this.filters = {
+      'tags': this.selectedTags,
+    };
   }
 }

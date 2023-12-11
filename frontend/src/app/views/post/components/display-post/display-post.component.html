@@ -43,10 +43,6 @@
 
       </div>
 
-      <!-- <div class="search-bar"> -->
-      <!-- <input class="search" type="text" placeholder="Search for an event..." [(ngModel)]="search" ng/> -->
-      <!-- < button mat-raised-button class="create-event-button" (click)="createEvent()">Create event</button> -->
-      <!-- </div> -->
       <section class="result-base">
         <!-- @for(post of this.allPosts | search : '' : ['title'] : filters ; track post._id) {
       <app-post-item [post]="post"></app-post-item>
@@ -57,20 +53,35 @@
       </section>
     </section>
 
-    <section class="upcoming-events">
-      <h2>Upcoming Events</h2>
+    <section class="right-col">
+      <section class="upcoming-events">
+        <h2 style="margin-bottom: 1rem">Upcoming Events</h2>
+        <div class="upcoming-events-content">
+          <ng-container *ngFor="let group of allPosts | upcomingPipe">
+            <h3 style="margin-top: 0">{{ createFormattedDate(group.month, group.year) }}</h3>
+            <div class="group-by-month">
+              <div *ngFor="let post of group.events | orderBy : 'startDate'">
+                <app-upcoming-post
+                  [post]="post"
+                ></app-upcoming-post>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </section>
 
-      <ng-container *ngFor="let group of allPosts | upcomingPipe">
-        <h3>{{ createFormattedDate(group.month, group.year) }}</h3>
-        <div class="group-by-month">
-          <div *ngFor="let post of group.events | orderBy : 'startDate'">
-            <app-upcoming-post
-              [post]="post"
-            ></app-upcoming-post>
+      <section class="filters">
+        <!-- section to filter tags -->
+        <h2 style="margin-bottom: 1rem">Filter by Tags</h2>
+        <div class="filter-tags">
+          <div class="tag" *ngFor="let tag of tags">
+            <input type="checkbox" [checked]="selectedTags.includes(tag)" (click)="toggleFilter(tag)"/>
+            <label>{{ tag }}</label>
           </div>
         </div>
-      </ng-container>
+      </section>
     </section>
+
   </section>
 
   <button
