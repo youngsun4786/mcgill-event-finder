@@ -12,7 +12,7 @@
 
 .view-post-modal {
   position: fixed;
-  width: 40%;
+  width: 50%;
   left: 25%;
   top: 10%;
   background: var(--gray-000);
@@ -43,7 +43,7 @@
 .tags {
   display: flex;
   flex-direction: row;
-  margin: 1rem 10px 5px 0;
+  margin: 0 10px 5px 0;
 }
 
 .tag {
@@ -207,7 +207,7 @@ input {
 button {
   font-weight: 600;
   font-size: 1rem;
-  border-radius: 3rem;
+  margin-bottom: 0;
 }
 
 button.submit {
@@ -230,11 +230,13 @@ button.submit:active {
 button.cancel {
   font-family: var(--inter-font);
   color: black;
-  border: 1px solid black;
+  border: 2px solid black;
   background: none;
+  border-radius: 0.5rem;
   padding: 0.6rem 1rem;
   cursor: pointer;
-  margin: 1rem 0 1rem 1rem;
+  margin: 1rem;
+  margin-bottom: 0;
   width: 10rem;
   align-self: center;
 }
@@ -246,4 +248,3 @@ button.cancel:hover {
 button.cancel:active {
   background-color: var(--gray-300);
 }
-
