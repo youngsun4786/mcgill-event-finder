@@ -8,6 +8,7 @@ const configs_1 = require("./configs");
 const dotenv_1 = __importDefault(require("dotenv"));
 const session_config_1 = require("./configs/session.config");
 const error_middleware_1 = require("./middlewares/error.middleware");
+const data_1 = require("./data/data");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 8000;
@@ -17,7 +18,7 @@ app.use(error_middleware_1.errorHandler);
     (0, session_config_1.configureSession)(app);
     (0, configs_1.configureRoutes)(app);
     app.get("/", (req, res) => {
-        res.send("Hello World!");
+        res.send(data_1.posts);
     });
     app.listen(port, () => {
         console.log(`[server]: Server running at http://localhost:${port}`);
