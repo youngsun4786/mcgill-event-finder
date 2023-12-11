@@ -112,5 +112,5 @@
     "files": true
   },
   "include": ["**/*.ts"],
-  "exclude": ["node_modules", "dist/*", "static"]
+  "exclude": ["node_modules", "static"]
 }
