@@ -211,8 +211,8 @@ export class CreateEventComponent {
     this.postService.createPost(post).subscribe({
       next: (post: Post) => {
         this.closeCreateEvent();
+        this.newEventForm.reset();
         this.postService.getPosts();
-        console.log(post);
       },
       error: (error: any) => {
         console.error(error);
