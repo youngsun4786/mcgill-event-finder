@@ -22,8 +22,6 @@ if (!dbName) {
 export const connectToDatabase = async () => {
   try {
     mongoose.connect(`${connectionUrl}/${dbName}`, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
       writeConcern: { w: "majority" },
     } as ConnectOptions);
     log.info("Successfully connected to MongoDB");
