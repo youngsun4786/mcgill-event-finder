@@ -7,7 +7,6 @@ exports.verifyToken = exports.generateRefreshToken = exports.generateToken = exp
 const bcrypt_1 = require("bcrypt");
 const dotenv_1 = __importDefault(require("dotenv"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const logger_config_1 = __importDefault(require("../configs/logger.config"));
 dotenv_1.default.config();
 const jwtEnv = process.env.JWT_SECRET;
 const jwtRefreshEnv = process.env.REFRESH_JWT_SECRET;
@@ -30,7 +29,6 @@ const comparePassword = async (hashedPassword, password) => {
         return (0, bcrypt_1.compareSync)(password, hashedPassword);
     }
     catch (error) {
-        logger_config_1.default.error(error, "Could not validate password");
         return false;
     }
 };

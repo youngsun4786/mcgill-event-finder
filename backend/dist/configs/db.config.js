@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.connectToDatabase = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
-const logger_config_1 = __importDefault(require("./logger.config"));
 dotenv_1.default.config();
 const connectionUrl = process.env.DB_URL;
 const dbName = process.env.DB_NAME || "myDbTest";
@@ -23,10 +22,10 @@ const connectToDatabase = async () => {
         mongoose_1.default.connect(`${connectionUrl}/${dbName}`, {
             writeConcern: { w: "majority" },
         });
-        logger_config_1.default.info("Successfully connected to MongoDB");
+        console.log("Successfully connected to MongoDB");
     }
     catch (error) {
-        logger_config_1.default.error(error, "Could not connect to MongoDB");
+        console.error("Successfully connected to MongoDB");
         process.exit(1);
     }
 };
