@@ -3,7 +3,6 @@ import { configureRoutes, configureServer, connectToDatabase } from "./configs";
 import dotenv from "dotenv";
 import { configureSession } from "./configs/session.config";
 import { errorHandler } from "./middlewares/error.middleware";
-import log from "./configs/logger.config";
 import { PostModel, UserModel } from "./models";
 import { posts, users } from "./data/data";
 dotenv.config();
@@ -22,9 +21,13 @@ connectToDatabase().then(() => {
   // * set routes
   configureRoutes(app);
 
+  app.get("/", (req, res) => {
+    res.send("Hello World!");
+  });
+
   // * start server
   app.listen(port, () => {
-    log.info(`[server]: Server running at http://localhost:${port}`);
+    console.log(`[server]: Server running at http://localhost:${port}`);
 
     // ! Run ONLY once
     // PostModel.bulkSave(posts);

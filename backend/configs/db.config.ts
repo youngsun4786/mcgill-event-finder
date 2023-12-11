@@ -1,6 +1,5 @@
 import dotenv from "dotenv";
 import mongoose, { ConnectOptions } from "mongoose";
-import log from "./logger.config";
 
 dotenv.config();
 
@@ -24,9 +23,11 @@ export const connectToDatabase = async () => {
     mongoose.connect(`${connectionUrl}/${dbName}`, {
       writeConcern: { w: "majority" },
     } as ConnectOptions);
-    log.info("Successfully connected to MongoDB");
+    console.log("Successfully connected to MongoDB");
+    // log.info("Successfully connected to MongoDB");
   } catch (error: any) {
-    log.error(error, "Could not connect to MongoDB");
+    console.error("Successfully connected to MongoDB");
+    // log.error(error, "Could not connect to MongoDB");
     process.exit(1);
   }
 };
