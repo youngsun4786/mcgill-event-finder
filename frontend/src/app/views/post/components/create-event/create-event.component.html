@@ -127,9 +127,6 @@
       <img src="../../../../assets/images/event-img-placeholder.jpg" class="important-row-right">
     </div>
 
-    <p class="field-label">Description<span class="optional-label">(optional)</span></p>
-    <textarea formControlName="description" class="input"></textarea>
-
     <p class="field-label">Tags<span class="optional-label">(optional)</span></p>
     <ng-select
       class="custom-select"
@@ -140,6 +137,9 @@
       [hideSelected]="true"
       [searchable]="true">
     </ng-select>
+
+    <p class="field-label">Description<span class="optional-label">(optional)</span></p>
+    <textarea formControlName="description" class="input"></textarea>
 
     <p class="error-message" *ngIf="isIncomplete">* Please fill out all required fields</p>
     <p class="error-message" *ngIf="timeError">* Oops, looks like your starting time is after your ending time</p>

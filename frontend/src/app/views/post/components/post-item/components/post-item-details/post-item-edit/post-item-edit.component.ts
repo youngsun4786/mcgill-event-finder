@@ -55,6 +55,10 @@ export class PostItemEditComponent {
   isIncomplete: boolean = false;
   timeError: boolean = false;
 
+  statusDropdownOpen: boolean = false;
+  eventStatus: EventStatusType = EventStatusType.SCHEDULED;
+  statuses: EventStatusType[] = [];
+
   constructor(fb: FormBuilder) {
     this.editEventForm = fb.group({
       title: ['', Validators.required],
@@ -69,8 +73,11 @@ export class PostItemEditComponent {
   }
 
   ngOnInit() {
+    this.statuses = Object.values(EventStatusType);
+
     this.minDate.setDate(this.minDate.getDate());
     this.maxDate.setDate(this.maxDate.getDate() + 30);
+    this.eventStatus = this.selectedPost.status;
 
     const startDate = new Date(this.selectedPost.startDate);
     const endDate = new Date(this.selectedPost.endDate);
@@ -192,7 +199,7 @@ export class PostItemEditComponent {
       ),
       createdAt: new Date(),
       tags: this.editEventForm.controls['tags'].value,
-      status: EventStatusType.SCHEDULED,
+      status: this.eventStatus,
       email: this.storageService.getUser().email,
     };
     this.createEvent(newPost);
@@ -209,5 +216,19 @@ export class PostItemEditComponent {
         console.error(error);
       },
     });
+  }
+
+  onDropdownMouseEnter(event: any) {
+    this.statusDropdownOpen = true;
+
+  }
+
+  onDropdownMouseLeave(event: any) {
+    this.statusDropdownOpen = false;
+  }
+
+  changeStatus(status: EventStatusType) {
+    this.eventStatus = status;
+    this.statusDropdownOpen = false;
   }
 }

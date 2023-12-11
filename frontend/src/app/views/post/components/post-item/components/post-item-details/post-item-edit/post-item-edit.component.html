@@ -1,6 +1,27 @@
 <form [formGroup]="editEventForm" (ngSubmit)="onEventEdit()">
   <div class="create-event-title-row">
-    <h1 class="create-event-title">Edit Event</h1>
+    <div class="header-left">
+      <h1 class="create-event-title">Edit Event</h1>
+
+      <div class="updating-part" (mouseenter)="onDropdownMouseEnter($event)" (mouseleave)="onDropdownMouseLeave($event)">
+        <div class="dropdown header-dropdown" >
+          <!-- (click)="periodDropdownActive = !periodDropdownActive" -->
+          <div>
+            <div class="button header-dropdown-button" aria-haspopup="true" aria-controls="dropdown-menu">
+              <span class="dropdown-button-text">{{ eventStatus }}</span> <i class="fas fa-angle-down fa-xs options-angle-down"></i>
+            </div>
+          </div>
+          <div class="dropdown-menu" role="menu" *ngIf="statusDropdownOpen">
+            <div *ngFor="let status of statuses" class="dropdown-item" (click)="changeStatus(status)">
+              {{ status }}
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
     <div class="day-type-toggle-section">
       <div class="day-type-toggle" [class.selected-toggle]="eventDayType == 'singleday'" type="button" (click)="changeEventDateType('singleday')">Single day</div>
       <div class="day-type-toggle" [class.selected-toggle]="eventDayType == 'multiday'" type="button" (click)="changeEventDateType('multiday')">Multi-day</div>
@@ -121,9 +142,6 @@
     <img src="../../../../assets/images/event-img-placeholder.jpg" class="important-row-right">
   </div>
 
-  <p class="field-label">Description<span class="optional-label">(optional)</span></p>
-  <textarea formControlName="description" class="input"></textarea>
-
   <p class="field-label">Tags<span class="optional-label">(optional)</span></p>
   <ng-select
     class="custom-select"
@@ -134,6 +152,9 @@
     [hideSelected]="true"
     [searchable]="true">
   </ng-select>
+
+  <p class="field-label">Description<span class="optional-label">(optional)</span></p>
+  <textarea formControlName="description" class="input"></textarea>
 
   <p class="error-message" *ngIf="isIncomplete">* Please fill out all required fields</p>
   <p class="error-message" *ngIf="timeError">* Oops, looks like your starting time is after your ending time</p>
