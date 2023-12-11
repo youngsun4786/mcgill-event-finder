@@ -10,12 +10,13 @@ if (!cookieEnv) {
 }
 
 export const configureSession = (app: Express) => {
-  app.set("trust proxy", 1); // trust first proxy
   app.use(
     cookieSession({
       name: "event-finder-session",
       keys: [cookieEnv || "cookie-secret"],
       httpOnly: process.env.NODE_ENV === "development",
+      sameSite: "none",
+
     })
   );
 };

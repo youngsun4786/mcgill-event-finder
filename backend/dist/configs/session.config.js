@@ -12,11 +12,11 @@ if (!cookieEnv) {
     console.error("Missing COOKIE_SECRET environment variable");
 }
 const configureSession = (app) => {
-    app.set("trust proxy", 1);
     app.use((0, cookie_session_1.default)({
         name: "event-finder-session",
         keys: [cookieEnv || "cookie-secret"],
         httpOnly: process.env.NODE_ENV === "development",
+        sameSite: "none",
     }));
 };
 exports.configureSession = configureSession;
