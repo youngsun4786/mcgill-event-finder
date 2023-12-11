@@ -1,6 +1,5 @@
 import dotenv from "dotenv";
-import mongoose from "mongoose";
-import log from "./logger.config";
+import mongoose, { ConnectOptions } from "mongoose";
 
 dotenv.config();
 
@@ -21,24 +20,14 @@ if (!dbName) {
 
 export const connectToDatabase = async () => {
   try {
-    await mongoose.connect(`${connectionUrl}/${dbName}`);
-    log.info("Successfully connected to MongoDB");
+    mongoose.connect(`${connectionUrl}/${dbName}`, {
+      writeConcern: { w: "majority" },
+    } as ConnectOptions);
+    console.log("Successfully connected to MongoDB");
+    // log.info("Successfully connected to MongoDB");
   } catch (error: any) {
-    log.error(error, "Could not connect to MongoDB");
+    console.error("Successfully connected to MongoDB");
+    // log.error(error, "Could not connect to MongoDB");
     process.exit(1);
   }
-  // const client: MongoClient = new MongoClient(connectionUrl);
-  // await client.connect();
-
-  // // check for connection error
-  // client.on("error", console.error.bind(console, "CONNECTION ERROR"));
-
-  // const db: Db = client.db(dbName);
-  // check if the collection exists, if not, create it
-  //   // Query the collection
-  //   const query = { code: { $regex: "^YUL" } }; // Define your query here. An empty query will return all documents.
-  //   const result = await collection.find(query).toArray();
-  // const result = await collection.find({}).toArray();
-
-  // Print the results
 };

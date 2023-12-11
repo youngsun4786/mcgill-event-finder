@@ -46,7 +46,11 @@ export class RegisterComponent {
 
   registerUser(user: User) {
     this.httpClient
-      .post(`http://localhost:8000/auth/register`, user, httpOptions)
+      .post(
+        `https://mcevent-backend.onrender.com/auth/register`,
+        user,
+        httpOptions
+      )
       .subscribe({
         next: () => {
           this.authService.currentUserSignal.set(user);

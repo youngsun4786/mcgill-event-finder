@@ -1,15 +1,16 @@
 import cors, { CorsOptions } from "cors";
 import express, { Express } from "express";
-import log from "./logger.config";
+// import log from "./logger.config";
 
 const corsOptions: CorsOptions = {
-  origin: process.env.CLIENT_ORIGIN || "http://localhost:4200",
+  origin: "http://localhost:4200",
+  // origin: "https://mcgill-event-finder-frontend-youngsun4786.vercel.app/",
   credentials: true,
 };
 
 export const configureServer = (app: Express, enableCors: boolean) => {
   if (enableCors) {
-    log.info("CORS enabled");
+    // log.info("CORS enabled");
     app.use(cors(corsOptions));
   }
   // express will parse incoming JSON requests
