@@ -15,7 +15,6 @@ export class HttpRequestInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     req = req.clone({
-      url: req.url.replace('http://', 'https://'),
       withCredentials: true,
     });
 
