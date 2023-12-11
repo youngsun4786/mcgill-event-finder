@@ -1,9 +1,19 @@
 import { EventStatusType } from "../models/post.models";
 import { PostModel, UserModel } from "../models";
+import { Types } from "mongoose";
 import { ObjectId } from "mongodb";
+
+const userIds = [
+  new Types.ObjectId("656569101eee26aa3dfc7a79"),
+  new Types.ObjectId("65650baa3ddcf9b005809482"),
+  new Types.ObjectId("656c074211549b07fa1bb915"),
+  new Types.ObjectId(),
+  new Types.ObjectId(),
+];
 
 export const users = [
   new UserModel({
+    _id: userIds[0],
     name: "nick yoo",
     email: "nick12@gmail.com",
     password: "$2b$10$0qCfkGy4g/vw7gOKR71C9OVlW9r5FnCwl1gpqKDBski7vlP055IXC",
@@ -12,9 +22,19 @@ export const users = [
   }),
 
   new UserModel({
+    _id: userIds[1],
     name: "john kim",
     email: "john12@gmail.com",
     password: "$2b$10$fV.iRVQ6JXMMmrDQYS/eMe/iKCR1WlLZV.uQbqjwIQHepZloP5Qve",
+    role: "student",
+    pins: [],
+  }),
+
+  new UserModel({
+    _id: userIds[2],
+    name: "junsoo kim",
+    email: "jsk12@gmail.com",
+    password: "$2b$10$P2gDLuZ8euXWC.a3Gy78WeLA8SE2f2Lg7nL8PFBPW13MAtn2Hpkgm",
     role: "student",
     pins: [],
   }),
@@ -22,7 +42,7 @@ export const users = [
 
 export const posts = [
   new PostModel({
-    author: new ObjectId("65650baa3ddcf9b005809482"),
+    author: userIds[1],
     title: "Party Event",
     location: "Montreal, Quebec, Canada",
     tags: ["party"],
@@ -33,7 +53,7 @@ export const posts = [
   }),
 
   new PostModel({
-    author: new ObjectId("65650baa3ddcf9b005809482"),
+    author: userIds[1],
     title: "Awkward Mixer Event",
     location: "Montreal, Quebec, Canada",
     tags: ["social-event"],
@@ -43,7 +63,7 @@ export const posts = [
     description: "Campus Tour is open for all university students",
   }),
   new PostModel({
-    author: new ObjectId("65650baa3ddcf9b005809482"),
+    author: userIds[1],
     title: "Party Event",
     location: "Montreal, Quebec, Canada",
     tags: ["party"],
@@ -53,7 +73,7 @@ export const posts = [
     description: "Campus Tour is open for all university students",
   }),
   new PostModel({
-    author: new ObjectId("65650baa3ddcf9b005809482"),
+    author: userIds[1],
     title: "CAMPUS tour Event",
     location: "Montreal, Quebec, Canada",
     tags: ["school"],
@@ -63,7 +83,7 @@ export const posts = [
     description: "Campus Tour is open for all university students",
   }),
   new PostModel({
-    author: new ObjectId("65650baa3ddcf9b005809482"),
+    author: userIds[1],
     title: "CAMPUS tour Event",
     location: "Montreal, Quebec, Canada",
     tags: ["tour"],
@@ -74,7 +94,7 @@ export const posts = [
   }),
 
   new PostModel({
-    author: new ObjectId("656569101eee26aa3dfc7a79"),
+    author: userIds[0],
     title: "CAMPUS tour Event",
     location: "Montreal, Quebec, Canada",
     tags: ["tour"],
@@ -84,7 +104,7 @@ export const posts = [
     description: "Campus Tour is open for all university students",
   }),
   new PostModel({
-    author: new ObjectId("656569101eee26aa3dfc7a79"),
+    author: userIds[0],
     title: "CAMPUS tour Event",
     location: "Montreal, Quebec, Canada",
     tags: ["tour"],
@@ -94,7 +114,7 @@ export const posts = [
     description: "Campus Tour is open for all university students",
   }),
   new PostModel({
-    author: new ObjectId("656569101eee26aa3dfc7a79"),
+    author: userIds[0],
     title: "CAMPUS tour Event",
     location: "Montreal, Quebec, Canada",
     tags: ["tour"],
@@ -104,7 +124,7 @@ export const posts = [
     description: "Campus Tour is open for all university students",
   }),
   new PostModel({
-    author: new ObjectId("656569101eee26aa3dfc7a79"),
+    author: userIds[0],
     title: "CAMPUS tour Event",
     location: "Montreal, Quebec, Canada",
     tags: ["tour"],
@@ -114,7 +134,7 @@ export const posts = [
     description: "Campus Tour is open for all university students",
   }),
   new PostModel({
-    author: new ObjectId("656c074211549b07fa1bb915"),
+    author: userIds[2],
     title: "CAMPUS tour Event",
     location: "Montreal, Quebec, Canada",
     tags: ["tour"],
@@ -124,7 +144,7 @@ export const posts = [
     description: "Campus Tour is open for all university students",
   }),
   new PostModel({
-    author: new ObjectId("656c074211549b07fa1bb915"),
+    author: userIds[2],
     title: "CAMPUS tour Event",
     location: "Montreal, Quebec, Canada",
     tags: ["tour"],
@@ -134,7 +154,7 @@ export const posts = [
     description: "Campus Tour is open for all university students",
   }),
   new PostModel({
-    author: new ObjectId("656c074211549b07fa1bb915"),
+    author: userIds[2],
     title: "CAMPUS tour Event",
     location: "Montreal, Quebec, Canada",
     tags: ["tour"],
@@ -144,7 +164,7 @@ export const posts = [
     description: "Campus Tour is open for all university students",
   }),
   new PostModel({
-    author: new ObjectId("656c074211549b07fa1bb915"),
+    author: userIds[2],
     title: "CAMPUS tour Event",
     location: "Montreal, Quebec, Canada",
     tags: ["tour"],
