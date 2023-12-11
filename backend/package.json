@@ -9,7 +9,7 @@
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist",
     "start:production": "node app.js",
-    "dev": "nodemon --legacy-watch --exec ts-node-dev app.ts",
+    "dev": "nodemon --legacy-watch --exec ts-node-dev app.ts | pino-pretty",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "pre-commit": [
