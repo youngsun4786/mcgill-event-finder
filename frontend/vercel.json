@@ -3,6 +3,7 @@
   "builds": [
     {
       "src": "dist/*",
+      "use": "@vercel/static",
       "config": { "includeFiles": ["dist/**"] }
     }
   ],
