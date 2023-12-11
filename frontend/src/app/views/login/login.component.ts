@@ -42,7 +42,7 @@ export class LoginComponent {
     };
     this.httpClient
       .post<{ user: User }>(
-        `http://localhost:8000/auth/login`,
+        `https://mcgill-event-finder-backend.vercel.app//auth/login`,
         user,
         httpOptions
       )
