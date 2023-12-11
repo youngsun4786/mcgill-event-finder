@@ -21,10 +21,6 @@ connectToDatabase().then(() => {
   // * set routes
   configureRoutes(app);
 
-  app.get("/", (req, res) => {
-    res.send(posts);
-  });
-
   // * start server
   app.listen(port, () => {
     console.log(`[server]: Server running at http://localhost:${port}`);
