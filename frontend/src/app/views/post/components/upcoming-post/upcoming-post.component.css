@@ -67,7 +67,8 @@
   text-align: center;
   margin-block-start: 0px;
   margin-block-end: 2px;
-  margin-right: 3px;
+  margin: 3px;
+  padding: 2px 8px;
 }
 
 .tag-ellipsis {
@@ -75,27 +76,22 @@
 }
 
 .Academic {
-  width: 70px;
   color: darkred;
 }
 
 .Social {
-  width: 60px;
   color: darkcyan;
 }
 
 .Online {
-  width: 60px;
   color: darkolivegreen;
 }
 
 .In-Person {
-  width: 70px;
   color: darkgoldenrod;
 }
 
 .Entertainment {
-  width: 90px;
   color: darkorchid;
 }
 
