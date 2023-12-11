@@ -4,34 +4,30 @@ import dotenv from "dotenv";
 import { configureSession } from "./configs/session.config";
 import { errorHandler } from "./middlewares/error.middleware";
 import log from "./configs/logger.config";
-
-
+import { PostModel, UserModel } from "./models";
+import { posts, users } from "./data/data";
 dotenv.config();
 const app: Express = express();
 
 const port = process.env.PORT || 8000;
 
+// * middleware
+configureServer(app, true);
+app.use(errorHandler);
+
 // * connect to express server after connecting to the database
-connectToDatabase()
-  .then(() => {
-    // * middleware
-    configureServer(app, true);
-    configureSession(app);
-    // * error handling
+connectToDatabase().then(() => {
+  // * error handling
+  configureSession(app);
+  // * set routes
+  configureRoutes(app);
 
-    app.use(errorHandler);
-    // * set routes
-    configureRoutes(app);
+  // * start server
+  app.listen(port, () => {
+    log.info(`[server]: Server running at http://localhost:${port}`);
 
-    // * start server
-    app.listen(port, () => {
-      log.info(`[server]: Server running at http://localhost:${port}`);
-
-      // ! Run ONLY once
-      // PostModel.bulkSave(posts);
-    });
-  })
-  .catch((error: Error) => {
-    console.error("Database connection failed", error);
-    process.exit(1);
+    // ! Run ONLY once
+    // PostModel.bulkSave(posts);
+    // UserModel.bulkSave(users);
   });
+});
