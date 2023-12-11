@@ -47,7 +47,7 @@ export class RegisterComponent {
   registerUser(user: User) {
     this.httpClient
       .post(
-        `https://mcgill-event-finder-backend.vercel.app/auth/register`,
+        `https://mcevent-backend.onrender.com/auth/register`,
         user,
         httpOptions
       )
