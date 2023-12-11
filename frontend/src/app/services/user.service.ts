@@ -9,7 +9,7 @@ import { httpOptions } from './auth.service';
 export class UserService {
   isInitialized = false;
 
-  URL = 'https://mcgill-event-finder-backend.vercel.app';
+  URL = 'https://mcevent-backend.onrender.com';
 
   constructor(private http: HttpClient) {
     console.count('UserService:constructor');

@@ -11,7 +11,7 @@ export const httpOptions = {
   providedIn: 'root',
 })
 export class AuthService {
-  url = 'https://mcgill-event-finder-backend.vercel.app';
+  url = 'https://mcevent-backend.onrender.com';
   currentUserSignal = signal<User | undefined | null>(undefined);
   platformId = inject(PLATFORM_ID);
 
