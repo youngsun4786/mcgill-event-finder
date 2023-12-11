@@ -15,6 +15,8 @@ export const configureSession = (app: Express) => {
       name: "event-finder-session",
       keys: [cookieEnv || "cookie-secret"],
       httpOnly: process.env.NODE_ENV === "development",
+      sameSite: "none",
+
     })
   );
 };
