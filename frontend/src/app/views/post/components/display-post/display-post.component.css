@@ -83,11 +83,20 @@ h2 {
   justify-content: center;
 }
 
-.upcoming-events {
+.right-col {
   margin: 50px auto auto 20px;
   width: min(max(25%, 250px), 340px);
+}
+
+.upcoming-events {
+  width: 100%;
   border-radius: 6px;
   background-color: #f5f5f5;
+  max-height: 50vh;
+  padding-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
 }
 
 .upcoming-events :host ::ng-deep h2 {
@@ -101,6 +110,35 @@ h2 {
   font-size: 16px;
   font-weight: 200;
   margin: 20px 0 20px 30px;
+}
+
+.upcoming-events-content {
+  max-height: 100%;
+  overflow-y: scroll;
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.filters {
+  border-radius: 6px;
+  background-color: #f5f5f5;
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.filter-tags {
+  color: black;
+  font-size: 1rem;
+}
+
+input[type="checkbox"]:checked {
+  accent-color: #b96e6e;
 }
 
 .group-by-month {
