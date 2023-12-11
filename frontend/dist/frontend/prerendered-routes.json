@@ -1,0 +1,10 @@
+{
+  "routes": [
+    "/",
+    "/login",
+    "/my-posts",
+    "/pinned-posts",
+    "/posts",
+    "/register"
+  ]
+}
