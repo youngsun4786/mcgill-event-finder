@@ -42,6 +42,35 @@ h2 {
   background: rgba(238, 238, 238, 0.82);
 }
 
+.posts-base-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 45px 0 45px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  width: 60%;
+  height: 40px;
+  margin: 0;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #676767;
+  border-radius: 0;
+}
+
+.search {
+  margin: 0;
+  background: none;
+  border: none;
+}
+
+.search:focus {
+  outline: none;
+}
+
 .result-base {
   display: grid;
   grid-auto-flow: row;

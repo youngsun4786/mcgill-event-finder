@@ -29,7 +29,21 @@
 
   <section class="event-component">
     <section class="posts-base">
-      <h2 style="font-size: 26px; margin-left: 45px">All Events</h2>
+      <div class="posts-base-top-row">
+        <h2 style="font-size: 26px; margin:0 ">All Events</h2>
+        <div class="search-bar">
+          <i class="fa-solid fa-magnifying-glass" style="color: #676767"></i>
+          <input
+          class="search"
+          type="text"
+          placeholder="Search for an event..."
+          [(ngModel)]="search"
+          ng
+          />
+        </div>
+
+      </div>
+
       <!-- <div class="search-bar"> -->
       <!-- <input class="search" type="text" placeholder="Search for an event..." [(ngModel)]="search" ng/> -->
       <!-- < button mat-raised-button class="create-event-button" (click)="createEvent()">Create event</button> -->
@@ -38,7 +52,7 @@
         <!-- @for(post of this.allPosts | search : '' : ['title'] : filters ; track post._id) {
       <app-post-item [post]="post"></app-post-item>
       } -->
-        @for(post of this.allPosts ; track post._id) {
+        @for(post of this.allPosts | search : search : ['title', 'tags'] : filters ; track post._id) {
         <app-post-item [post]="post"></app-post-item>
         }
       </section>
