@@ -8,7 +8,8 @@
           <div class="heading">
             
             <div class="tags">
-              <div *ngFor="let tag of this.post.tags" class="tag" [ngClass]="tag">{{ tag }}</div>
+              <div *ngFor="let tag of visibleTags" class="tag" [ngClass]="tag">{{ tag }}</div>
+              <div *ngIf="hasRemainingTags" class="tag-ellipsis">...</div>
             </div>
             
             <p class="posting-heading">{{ post.title }}</p>

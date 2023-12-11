@@ -44,4 +44,19 @@ export class UpcomingPostComponent implements OnInit {
       time: time,
     };
   }
+
+  get visibleTags(): string[] {
+    // Check if this.post is defined before accessing its tags property
+    return this.post?.tags?.slice(0, 2) || [];
+  }
+
+  get remainingTags(): number {
+    // Check if this.post is defined before accessing its tags property
+    return Math.max(0, (this.post?.tags?.length || 0) - 2);
+  }
+
+  get hasRemainingTags(): boolean {
+    // Check if this.post is defined before accessing its tags property
+    return this.remainingTags > 0;
+  }
 }
