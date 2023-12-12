@@ -30,7 +30,7 @@
   <section class="event-component">
     <section class="posts-base">
       <div class="posts-base-top-row">
-        <h2 style="font-size: 26px; margin:0 ">All Events</h2>
+        <h2 style="font-size: 26px; margin:0">All Events</h2>
         <div class="search-bar">
           <i class="fa-solid fa-magnifying-glass" style="color: #676767"></i>
           <input
@@ -40,9 +40,19 @@
           [(ngModel)]="search"
           />
         </div>
-
       </div>
 
+      <section class="filters">
+        <!-- section to filter tags -->
+        <h2 style="margin: 0 0 0.5rem 0.6rem; font-size: 16px;">Filter by Tags:</h2>
+        <div class="filter-tags">
+          <div class="tag" *ngFor="let tag of tags">
+            <label class="tag-label" [class.selected]="selectedTags.includes(tag)" [ngClass]="tag" (click)="toggleFilter(tag)">
+            {{ tag }}</label>
+          </div>
+        </div>
+      </section>
+    
       <section class="result-base">
         <!-- @for(post of this.allPosts | search : '' : ['title'] : filters ; track post._id) {
       <app-post-item [post]="post"></app-post-item>
@@ -70,17 +80,7 @@
         </div>
       </section>
 
-      <section class="filters">
-        <!-- section to filter tags -->
-        <h2 style="margin-bottom: 1rem">Filter by Tags</h2>
-        <div class="filter-tags">
-          <div class="tag" *ngFor="let tag of tags">
-            <input type="checkbox" [checked]="selectedTags.includes(tag)" (click)="toggleFilter(tag)"/>
-            <label>{{ tag }}</label>
-          </div>
-        </div>
-      </section>
-    </section>
+      
 
   </section>
 

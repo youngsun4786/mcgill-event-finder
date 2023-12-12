@@ -1,4 +1,4 @@
-<div class="nav-bar" [ngStyle]="this.isAuth ? { height: '130px' } : null">
+<div class="nav-bar" [ngClass]="{'is-authenticated': isAuth}">
   <div
     class="app-header"
     [ngStyle]="this.isAuth ? { marginBottom: '0' } : null"
@@ -9,11 +9,18 @@
       src="assets/images/mcgill-logo.svg"
       alt="logo"
     />
-    <div>
+    <div class="head">
       <h2>McEvent</h2>
       <p>Where all events come to reality</p>
     </div>
   </div>
+
+  <div class="menu-icon" (click)="toggleMenu()">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </div>
+
   <nav class="nav-options" mat-tab-nav-bar [tabPanel]="tabPanel">
     @if (this.isAuth) {
     <a
@@ -29,6 +36,14 @@
     </a>
     <a mat-tab-link (click)="logout()">Logout</a>
     <a mat-tab-link>{{ this.name }}</a>
+
+    <div class="menu">
+      <a class="nav-a" mat-tab-link *ngFor="let link of links" [routerLink]="link.link" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+        {{ link.label }}
+      </a>
+      <a class="nav-a" mat-tab-link (click)="logout()">Logout</a>
+      <a class="nav-a" mat-tab-link>{{ this.name }}</a>
+    </div>
 
     }
   </nav>

@@ -46,14 +46,14 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 15px 45px 0 45px;
+  margin: 2rem 45px 0 2rem;
 }
 
 .search-bar {
   display: flex;
   align-items: center;
-  width: 60%;
-  height: 40px;
+  width: 55%;
+  height: 30px;
   margin: 0;
   background: none;
   border: none;
@@ -70,6 +70,102 @@ h2 {
 .search:focus {
   outline: none;
 }
+
+.filters {
+  border-radius: 6px;
+  background-color: rgba(238, 238, 238, 0.82);
+  width: 90%;
+  padding: 1rem;
+  box-sizing: border-box;
+  margin: 0 0 0 10px;
+}
+
+.filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.tag-label {
+  margin: 0 3px 3px 7px;
+  height: 25px;
+  font-size: 14px;
+  font-weight: 400;
+  border: 1px solid;
+  border-radius: 20px;
+  text-align: center;
+  margin-block-start: 2px;
+  padding: 5px 10px;
+  transition: background-color 0.3s, color 0.3s;
+
+}
+
+.Academic {
+  color: rgb(184, 1, 1);
+}
+
+.Academic:hover {
+  color: darkred;
+}
+
+.Academic.selected {
+  background-color: darkred;
+  color: white;
+}
+
+.Social {
+  color: rgb(0, 175, 175);
+}
+
+.Social:hover {
+  color:darkcyan;
+}
+
+.Social.selected {
+  background-color: darkcyan;
+  color: white;
+}
+
+.Online {
+  color: rgb(113, 142, 63);
+}
+
+.Online:hover {
+  color: darkolivegreen;
+}
+
+.Online.selected {
+  background-color: darkolivegreen;
+  color: white;
+}
+
+.In-Person {
+  color: rgb(220, 162, 15);
+}
+
+.In-Person:hover {
+  color: darkgoldenrod;
+}
+
+.In-Person.selected {
+  background-color: darkgoldenrod;
+  color: white;
+}
+
+.Entertainment {
+  color: rgb(178, 78, 227);
+}
+
+.Entertainment:hover {
+  color: darkorchid;
+}
+
+.Entertainment.selected {
+  background-color: darkorchid;
+  color: white;
+}
+
+
 
 .result-base {
   display: grid;
@@ -92,7 +188,7 @@ h2 {
   width: 100%;
   border-radius: 6px;
   background-color: #f5f5f5;
-  max-height: 50vh;
+  max-height: 80vh;
   padding-bottom: 1rem;
   display: flex;
   flex-direction: column;
@@ -124,22 +220,6 @@ h2 {
   scrollbar-width: none; /* Firefox */
 }
 
-.filters {
-  border-radius: 6px;
-  background-color: #f5f5f5;
-  width: 100%;
-  padding: 1rem;
-  box-sizing: border-box;
-}
-
-.filter-tags {
-  color: black;
-  font-size: 1rem;
-}
-
-input[type="checkbox"]:checked {
-  accent-color: #b96e6e;
-}
 
 .group-by-month {
   width: 85%;
@@ -155,4 +235,21 @@ input[type="checkbox"]:checked {
   right: 20px;
   width: 4rem;
   height: 4rem;
+}
+
+/* Mobile Breakpoint */
+@media screen and (max-width: 768px) {
+  .content {
+    padding-top: 100px;
+  }
+
+  .event-component {
+    flex-direction: column;
+  }
+
+  .posts-base, .right-col {
+    width: min(max(85%, 300px), 500px);
+    margin: 2rem 0;
+  }
+
 }
