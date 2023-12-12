@@ -27,7 +27,7 @@
   display: none; /* Initially hide the hamburger menu on larger screens */
   cursor: pointer;
   top: 15px;
-  left: 15px;
+  right: 15px;
 }
 
 .menu-icon div {
@@ -182,7 +182,7 @@ ul a {
   }
 
   .mcgill {
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
   }
 
   .nav-bar.is-authenticated {
@@ -191,7 +191,7 @@ ul a {
   }
 
   .nav-bar.open {
-    height: 400px;
+    height: 320px;
   }
 
   .nav-options {
@@ -205,7 +205,7 @@ ul a {
   .menu-icon.is-authenticated {
     display: block; /* Show the hamburger menu on smaller screens */
     position: absolute;
-    
+
   }
 
   .menu.open {
@@ -218,5 +218,9 @@ ul a {
       display: none;
     }
   }
-  
+
+  .nav-list {
+    z-index: 10;
+  }
+
 }
