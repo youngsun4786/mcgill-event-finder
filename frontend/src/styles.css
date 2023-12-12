@@ -118,3 +118,6 @@ textarea {
     border-right: 1px solid var(--gray-300);
   }
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

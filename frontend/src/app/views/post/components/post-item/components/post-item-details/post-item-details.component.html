@@ -7,70 +7,99 @@
 ></div>
 
 <div class="view-post-modal" @modalToggle *ngIf="showViewPost">
+  <i class="fa-solid fa-x close-button" (click)="closeShowPost()"></i>
   <ng-container *ngIf="!isEditPost; else editPost">
-    <div class="view-post-title-row">
-        <div class="tags">
-          <div *ngFor="let tag of this.post.tags" class="tag" [ngClass]="tag">{{ tag }}</div>
-        </div>
-      <div class="title-container">
-        <h1 class="view-post-title">{{ this.post.title }}</h1>
-        <span
-          (click)="togglePin()"
-          class="pin material-icons"
-          [ngStyle]="this.pinned ? { color: '#3B82F6' } : null"
-        >
-          push_pin
-        </span>
-      </div>
-    </div>
+    <div class="view-post-container">
+      <img
+        class="image-left"
+        src="../../../../../../../assets/images/event-img-placeholder.jpg"
+      />
+      <div class="view-post-content">
+        <div class="view-post-title-row">
 
-    <!-- Post content-body start -->
-    <div class="view-post-important-row">
-      <div class="important-row-left">
-        <div style="font-size: 17px; margin-left: 0.60rem;">{{ this.post.author!.name }}</div>
-        <div class="textarea">
-          <p class="field-label">Description</p>
-          <p class="data-field">{{ this.post.description }}</p>
-        </div>
-        <p class="field-label">Timeline</p>
-        <p class="data-field">
-          {{ startDate["month"] }} {{ startDate["day"] }} {{ startDate["year"] }}-
-          {{ endDate["month"] }} {{ endDate["day"] }} {{ endDate["year"] }}
-        </p>
-        <p class="field-label">Location</p>
-        <p class="data-field">
-          {{ this.post.location }}
-        </p>
-        <p class="field-label">Status</p>
-        <p class="data-field" [ngClass]="this.post.status">
-          {{ this.post.status }}
-        </p>
-      </div>
-      <div class="important-row-right">
-        <img
-          class="important-row-image"
-          src="../../../../../../../assets/images/event-img-placeholder.jpg"
-        />
+          <div class="title-container">
+            <h1 class="view-post-title">{{ this.post.title }}</h1>
+            <span
+              (click)="togglePin()"
+              class="pin material-icons"
+              [ngStyle]="this.pinned ? { color: '#3B82F6' } : null"
+            >
+              push_pin
+            </span>
+          </div>
 
+          <div class="tags">
+            <div *ngFor="let tag of this.post.tags" class="tag" [ngClass]="tag">{{ tag }}</div>
+          </div>
+        </div>
+
+        <!-- Post content-body start -->
+        <div class="view-post-important-row">
+          <div class="important-row-left">
+            <p class="section-title">Hosted by</p>
+            <p class="content">{{ this.post.author!.name }}</p>
+
+            <p class="section-title">Timeline</p>
+            <p class="content">
+              {{ startDate["month"] }} {{ startDate["day"] }} {{ startDate["year"] }}-
+              {{ endDate["month"] }} {{ endDate["day"] }} {{ endDate["year"] }}
+            </p>
+            <p class="section-title">Location</p>
+            <p class="content">
+              {{ this.post.location }}
+            </p>
+
+            <p class="section-title">Description</p>
+            <p class="content">{{ this.post.description || 'No description' }}</p>
+
+            <p class="section-title">Status</p>
+            <p class="content" [ngClass]="this.post.status">
+              {{ this.post.status }}
+            </p>
+          </div>
+        </div>
+
+        <div class="view-post-button-row">
+          <button class="cancel" type="button" (click)="closeShowPost()">
+            Close
+          </button>
+          @if(currentUserEmail === this.post.author?.email?.toLowerCase()) {
+          <button class="submit" type="submit" (click)="isEditPost = true">
+            Edit
+          </button>
+          <button class="submit" type="submit" (click)="deleteConfirmOpen = true">
+            Delete
+          </button>
+          }
+        </div>
       </div>
-    </div>
-    <div>{{ this.post.email }}</div>
-    <div class="view-post-button-row">
-      <button class="cancel" type="button" (click)="closeShowPost()">
-        Cancel
-      </button>
-      @if(currentUserEmail === this.post.author?.email?.toLowerCase()) {
-      <button class="submit" type="submit" (click)="isEditPost = true">
-        Edit
-      </button>
-      <button class="submit" type="submit" (click)="deletePost(this.post._id!)">
-        Delete
-      </button>
-      }
     </div>
   </ng-container>
 
   <ng-template #editPost>
     <app-post-item-edit [(isEdit)]="isEditPost" [post]="post"></app-post-item-edit>
   </ng-template>
+
+
+</div>
+
+<div
+  class="overlay"
+  @overlayToggle
+  *ngIf="deleteConfirmOpen"
+  (click)="closeShowPost()"
+  [style.pointer-events]="showViewPost ? 'auto' : 'none'"
+  [style.z-index]="deleteConfirmOpen ? 10 : 0"
+></div>
+
+<div *ngIf="deleteConfirmOpen" @modalToggle class="delete-confirm-modal" (clickOutside)="deleteConfirmOpen = false" [delayClickOutsideInit]="true">
+  Aw :( Are you sure you want to delete this post?
+  <div class="view-post-button-row">
+    <button class="cancel" type="button" (click)="deleteConfirmOpen = false">
+      Cancel
+    </button>
+    <button class="submit" type="submit" (click)="deletePost(this.post._id!)">
+      Delete
+    </button>
+  </div>
 </div>

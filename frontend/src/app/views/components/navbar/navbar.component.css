@@ -3,7 +3,7 @@
   right: 0;
   left: 0;
   top: 0;
-  z-index: 9999;
+  z-index: 99;
   height: 70px;
   padding: 15px 15px 6px 15px;
   border-bottom: solid;
@@ -13,11 +13,63 @@
   overflow: hidden;
 }
 
+.nav-bar.is-authenticated {
+  height: 130px;
+}
+
 .mcgill {
   width: 53px;
   height: 65px;
   margin: 35px 0 0 12px;
 }
+
+.menu-icon {
+  display: none; /* Initially hide the hamburger menu on larger screens */
+  cursor: pointer;
+  top: 15px;
+  right: 15px;
+}
+
+.menu-icon div {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+
+/* Styles for the menu icon when menu is open */
+ .menu-icon.open div:nth-child(1) {
+  transform: rotate(-45deg) translate(-4px, 8px);
+}
+
+.menu-icon.open div:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-icon.open div:nth-child(3) {
+  transform: rotate(45deg) translate(-4px, -8px);
+}
+
+.menu {
+  display: none;
+  flex-direction: column;
+  background-color: #fff;
+  position: absolute;
+  top: 70px;
+  right: 0;
+  left: 0;
+  border-bottom: 1.5px solid #e5e7eb;
+  z-index: 999;
+}
+
+.menu a {
+  padding: 14px 8px;
+  text-decoration: none;
+  color: #000;
+}
+
 
 .nav-options {
   display: flex;
@@ -103,14 +155,12 @@ ul a {
   display: inline-block;
 }
 
-.menu-container {
-  position: relative;
-}
 
 .menu {
   position: absolute;
   z-index: 1;
   background: whitesmoke;
+  flex-direction: column;
   display: none;
 }
 
@@ -122,4 +172,55 @@ ul a {
 .menu a {
   width: 100%;
   min-width: 8rem;
+}
+
+@media screen and (max-width: 575.98px) {
+
+  .app-header {
+    margin: 0rem 0 0 15%;
+    transform: scale(0.8);
+  }
+
+  .mcgill {
+    margin-bottom: 10px;
+  }
+
+  .nav-bar.is-authenticated {
+    height: 100px;
+    border: none;
+  }
+
+  .nav-bar.open {
+    height: 320px;
+  }
+
+  .nav-options {
+    display: none;
+  }
+
+  .nav-a {
+    margin-right: 10px; /* Adjust the margin as needed */
+  }
+
+  .menu-icon.is-authenticated {
+    display: block; /* Show the hamburger menu on smaller screens */
+    position: absolute;
+
+  }
+
+  .menu.open {
+    display: flex; /* Show the menu when it's open */
+  }
+
+  .mat-tab-link {
+    /* Hide the arrow icons */
+    .mat-tab-label-arrow {
+      display: none;
+    }
+  }
+
+  .nav-list {
+    z-index: 10;
+  }
+
 }

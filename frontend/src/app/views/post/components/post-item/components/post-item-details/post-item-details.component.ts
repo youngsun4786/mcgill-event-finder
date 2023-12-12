@@ -27,16 +27,16 @@ const showPostToggleAnimation = [
   ]),
   trigger('modalToggle', [
     transition(':enter', [
-      style({ opacity: 0, transform: 'translateY(30px)' }),
+      style({ opacity: 0 }),
       animate(
         '200ms ease-in',
-        style({ opacity: 1, transform: 'translateY(0)' })
+        style({ opacity: 1 })
       ),
     ]),
     transition(':leave', [
       animate(
         '300ms ease-in',
-        style({ opacity: 0, transform: 'translateY(30px)' })
+        style({ opacity: 0 })
       ),
     ]),
   ]),
@@ -67,6 +67,8 @@ export class PostItemDetailsComponent {
   isEditPost: boolean;
   pinned: boolean; // Indicates if the item is pinned or not
 
+  deleteConfirmOpen: boolean = false;
+
   constructor(
     private postService: PostService,
     private storageService: StorageService
@@ -92,6 +94,7 @@ export class PostItemDetailsComponent {
       next: () => {
         this.postService.getPosts();
         this.closeShowPost();
+        this.deleteConfirmOpen = false;
       },
     });
   }

@@ -1,4 +1,4 @@
-<div class="nav-bar" [ngStyle]="this.isAuth ? { height: '130px' } : null">
+<div class="nav-bar" [ngClass]="{'is-authenticated': isAuth}" [class.open]="isMenuOpen">
   <div
     class="app-header"
     [ngStyle]="this.isAuth ? { marginBottom: '0' } : null"
@@ -9,28 +9,49 @@
       src="assets/images/mcgill-logo.svg"
       alt="logo"
     />
-    <div>
+    <div class="head">
       <h2>McEvent</h2>
       <p>Where all events come to reality</p>
     </div>
   </div>
+
+  <div class="menu-icon" [ngClass]="{'is-authenticated': isAuth}" [class.open]="isMenuOpen" (click)="toggleMenu()">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </div>
+
   <nav class="nav-options" mat-tab-nav-bar [tabPanel]="tabPanel">
     @if (this.isAuth) {
-    <a
-      class="nav-a"
-      mat-tab-link
-      *ngFor="let link of links"
-      [routerLink]="link.link"
-      routerLinkActive
-      #rla="routerLinkActive"
-      [active]="rla.isActive"
-    >
-      {{ link.label }}
-    </a>
-    <a mat-tab-link (click)="logout()">Logout</a>
-    <a mat-tab-link>{{ this.name }}</a>
-
+      <a
+        class="nav-a"
+        mat-tab-link
+        *ngFor="let link of links"
+        [routerLink]="link.link"
+        routerLinkActive
+        #rla="routerLinkActive"
+        [active]="rla.isActive"
+      >
+        {{ link.label }}
+      </a>
+      <a mat-tab-link (click)="logout()">Logout</a>
+      <a mat-tab-link>{{ this.name }}</a>
     }
   </nav>
+  <mat-nav-list [class.active] *ngIf="isMenuOpen" class="nav-list">
+    <a mat-list-item *ngFor="let link of links"
+      [routerLink]="link.link"
+      routerLinkActive #rla="routerLinkActive"
+      [class.active]="rla.isActive"
+      (click)="isMenuOpen = false"
+      >
+      {{ link.label }}
+    </a>
+    <a mat-list-item (click)="logout()">Logout</a>
+    <a mat-list-item>{{ this.name }}</a>
+  </mat-nav-list>
+
+
+
   <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
 </div>

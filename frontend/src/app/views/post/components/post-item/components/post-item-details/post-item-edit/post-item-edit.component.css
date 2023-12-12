@@ -263,3 +263,116 @@ button.cancel:hover {
 button.cancel:active {
   background-color: var(--gray-300);
 }
+
+.header-left {
+  display: flex;
+  position: relative;
+  width: 50%;
+  justify-content: space-between;
+}
+
+/* style for the dropdown */
+.updating-part {
+  display: inline-block;
+
+}
+
+.header-dropdown-button {
+  border: none;
+  background: transparent;
+  font-size: inherit;
+  height: auto;
+  padding: 0;
+}
+
+.dropdown-button-text {
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.fa-angle-down {
+  padding: 0.25rem 0 0 0.25rem;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 2rem;
+  right: 0;
+  background-color: var(--gray-000);
+  border: 1px solid #676767;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0;
+  z-index: 6;
+}
+
+.dropdown-item {
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.25rem 2rem 0.25rem 1rem;
+  line-height: 1.5rem;
+}
+
+.dropdown-item:active {
+  background-color: #dbdbdb;
+  color: black;
+}
+
+.dropdown-item:hover {
+  background-color: #eeeeee;
+  color: black;
+}
+
+/* tablet and mobile styling */
+@media screen and (max-width: 767.98px) {
+  .day-type-toggle {
+    margin-bottom: 1rem;
+  }
+
+  .create-event-important-row {
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .important-row-left {
+    width: 100%;
+  }
+
+  .important-row-right {
+    max-height: 6rem;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 575.98px) {
+  .create-event-title-row {
+    flex-direction: column;
+  }
+
+  .header-left {
+    width: 90%;
+  }
+
+  .day-type-toggle-section {
+    margin: 0 -2rem 1rem;
+    padding: 0 2rem;
+    border-bottom: 1px solid #676767;
+  }
+
+  .day-type-toggle {
+    margin-bottom: 0;
+    padding: 0 0.5rem;
+  }
+
+  .selected-toggle {
+    font-weight: 500;
+    color: black;
+    border: 1px solid #676767;
+    border-bottom: none;
+    border-top-left-radius: 0.2rem;
+    border-top-right-radius: 0.2rem;
+    margin-bottom: -1px !important;
+    background-color: var(--gray-000);
+    text-decoration: none;
+  }
+}
