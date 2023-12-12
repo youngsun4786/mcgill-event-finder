@@ -1,15 +1,15 @@
-import logger from "pino";
-import config from "config";
+// import logger from "pino";
+// import dotenv from "dotenv";
 
-const level = "info";
+// dotenv.config();
 
-export const log = logger({
-  transport: {
-    target: "pino-pretty",
-  },
-  level,
-  base: { pid: false },
-  timestamp: () => `,"time":"${Date.now().toFixed(0)}"`,
-});
+// const level = process.env.NODE_ENV === "production" ? "info" : "debug";
 
-export default log;
+// export const log = logger({
+//   name: "McEvent",
+//   level,
+//   base: { pid: false },
+//   timestamp: () => `,"time":"${Date.now().toFixed(0)}"`,
+// });
+
+// export default log;

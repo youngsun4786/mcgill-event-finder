@@ -79,7 +79,7 @@ h2 {
   column-gap: 25px;
   row-gap: 25px;
   grid-template-columns: repeat(auto-fill, minmax(200px, 280px));
-  margin: 5% auto 10% auto;
+  margin: 5% auto 5% auto;
   justify-content: center;
 }
 

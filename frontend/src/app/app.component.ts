@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './views/components/navbar/navbar.component';
+import { environment } from '@env/environment';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -19,5 +20,6 @@ import { NavbarComponent } from './views/components/navbar/navbar.component';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'frontend';
+  title = environment.title;
+  apiURL = environment.apiURL;
 }

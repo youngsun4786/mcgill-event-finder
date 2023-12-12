@@ -13,7 +13,7 @@ export class PostService {
   private postsSubject = new BehaviorSubject<Post[]>([]);
   posts$ = this.postsSubject.asObservable();
 
-  URL = 'http://localhost:8000';
+  URL = 'https://mcevent-backend.onrender.com';
 
   constructor(private http: HttpClient) {
     console.count('PostService:constructor');

@@ -2,12 +2,17 @@ import { Response } from "express";
 import { genSalt, hashSync, compareSync } from "bcrypt";
 import dotenv from "dotenv";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import log from "../configs/logger.config";
 
 dotenv.config();
 
 export default interface DataInToken extends JwtPayload {
-  user?: { _id: string; name: string; email: string; role: string; pins: string[] };
+  user?: {
+    _id: string;
+    name: string;
+    email: string;
+    role: string;
+    pins: string[];
+  };
 }
 
 // environment variables
@@ -37,7 +42,6 @@ export const comparePassword = async (
   try {
     return compareSync(password, hashedPassword);
   } catch (error: any) {
-    log.error(error, "Could not validate password");
     return false;
   }
 };
