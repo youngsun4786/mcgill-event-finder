@@ -1,10 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DisplayPostComponent } from './components/display-post/display-post.component';
 import { Post } from '../../models/post.models';
 import { PostService } from '../../services/post.service';
 import { StorageService } from '../../services/storage.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-posts',
   standalone: true,
@@ -51,7 +51,7 @@ export class PostComponent {
         this.postService.posts$.subscribe((posts: Post[]) => {
           this.posts = posts.filter(filterPostsByPinnedPostId);
         });
-      } else {
+      } else if (path === 'posts') {
         // display all posts
         this.postService.posts$.subscribe((posts: Post[]) => {
           this.posts = posts;

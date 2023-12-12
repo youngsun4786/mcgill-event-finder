@@ -43,22 +43,27 @@ export class DisplayPostComponent {
   search: string = '';
 
   filters: { [field: string]: string[] } = {};
-  tags: string[] = ['Academic', 'Social', 'Online', 'In-Person', 'Entertainment'];
+  tags: string[] = [
+    'Academic',
+    'Social',
+    'Online',
+    'In-Person',
+    'Entertainment',
+  ];
 
-  selectedTags: string[] = ['Academic', 'Social', 'Online', 'In-Person', 'Entertainment'];
+  selectedTags: string[] = [
+    'Academic',
+    'Social',
+    'Online',
+    'In-Person',
+    'Entertainment',
+  ];
 
   createEventOpen: boolean = false;
 
   ngOnInit() {
-    // have checks for what router we're on to decide what filters to use
-
-    // this.filters = {
-    //   '_id' : ['656e89d38ef323d1205dec0d', '656e552c16c5ffabb3ddcbbc']
-    // }
-
-    // for checking user posts
     this.filters = {
-      'tags': this.selectedTags,
+      tags: this.selectedTags,
     };
   }
 
@@ -80,7 +85,7 @@ export class DisplayPostComponent {
     }
 
     this.filters = {
-      'tags': this.selectedTags,
+      tags: this.selectedTags,
     };
   }
 }

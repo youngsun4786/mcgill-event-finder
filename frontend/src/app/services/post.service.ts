@@ -36,6 +36,14 @@ export class PostService {
       });
   }
 
+  getPostsForMain() {
+    this.http
+      .get<Post[]>('http://localhost:8000/posts-main', httpOptions)
+      .subscribe((posts: Post[]) => {
+        this.postsSubject.next(posts);
+      });
+  }
+
   createPost(post: Post): Observable<Post> {
     return this.http.post<Post>(`${this.URL}/posts`, post, httpOptions);
   }
