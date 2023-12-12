@@ -83,10 +83,11 @@ h2 {
 .filter-tags {
   display: flex;
   flex-wrap: wrap;
+  gap: 5px;
 }
 
 .tag-label {
-  margin: 0 3px 0 7px;
+  margin: 0 3px 3px 7px;
   height: 25px;
   font-size: 14px;
   font-weight: 400;
@@ -234,4 +235,21 @@ h2 {
   right: 20px;
   width: 4rem;
   height: 4rem;
+}
+
+/* Mobile Breakpoint */
+@media screen and (max-width: 768px) {
+  .content {
+    padding-top: 100px;
+  }
+
+  .event-component {
+    flex-direction: column;
+  }
+
+  .posts-base, .right-col {
+    width: min(max(85%, 300px), 500px);
+    margin: 2rem 0;
+  }
+
 }
