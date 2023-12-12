@@ -1,6 +1,5 @@
 {
   "routes": [
-    "/",
     "/login",
     "/my-posts",
     "/pinned-posts",
