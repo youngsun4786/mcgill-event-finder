@@ -67,7 +67,7 @@
           <button class="submit" type="submit" (click)="isEditPost = true">
             Edit
           </button>
-          <button class="submit" type="submit" (click)="deletePost(this.post._id!)">
+          <button class="submit" type="submit" (click)="deleteConfirmOpen = true">
             Delete
           </button>
           }
@@ -79,4 +79,27 @@
   <ng-template #editPost>
     <app-post-item-edit [(isEdit)]="isEditPost" [post]="post"></app-post-item-edit>
   </ng-template>
+
+
+</div>
+
+<div
+  class="overlay"
+  @overlayToggle
+  *ngIf="deleteConfirmOpen"
+  (click)="closeShowPost()"
+  [style.pointer-events]="showViewPost ? 'auto' : 'none'"
+  [style.z-index]="deleteConfirmOpen ? 10 : 0"
+></div>
+
+<div *ngIf="deleteConfirmOpen" @modalToggle class="delete-confirm-modal" (clickOutside)="deleteConfirmOpen = false" [delayClickOutsideInit]="true">
+  Aw :( Are you sure you want to delete this post?
+  <div class="view-post-button-row">
+    <button class="cancel" type="button" (click)="deleteConfirmOpen = false">
+      Cancel
+    </button>
+    <button class="submit" type="submit" (click)="deletePost(this.post._id!)">
+      Delete
+    </button>
+  </div>
 </div>

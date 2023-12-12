@@ -67,6 +67,8 @@ export class PostItemDetailsComponent {
   isEditPost: boolean;
   pinned: boolean; // Indicates if the item is pinned or not
 
+  deleteConfirmOpen: boolean = false;
+
   constructor(
     private postService: PostService,
     private storageService: StorageService
@@ -92,6 +94,7 @@ export class PostItemDetailsComponent {
       next: () => {
         this.postService.getPosts();
         this.closeShowPost();
+        this.deleteConfirmOpen = false;
       },
     });
   }
