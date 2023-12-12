@@ -17,12 +17,13 @@ export class PostComponent {
   path!: string;
 
   constructor(
-    private route: ActivatedRoute,
+  private route: ActivatedRoute,
     private storageService: StorageService,
     private postService: PostService
   ) {
     console.count('PostComponent:constructor');
-    postService.initialize();
+    postService.getPostsForMain();
+    // postService.initialize();
 
     const filterPostsByCurrentUser = (post: Post) => {
       if (!post.author!.email) {

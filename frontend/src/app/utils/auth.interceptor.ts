@@ -1,6 +1,6 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -14,6 +14,10 @@ const handleToken = (router: Router, platformId: Object) => {
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   req = req.clone({ withCredentials: true });
   const router = inject(Router);
+  const route = inject(ActivatedRoute);
+  if (route.url.subscribe(([url]) => url.path === 'post')) {
+    return next(req);
+  }
   const platformId = inject(PLATFORM_ID);
   let token: string | null = '';
   if (isPlatformBrowser(platformId)) {
@@ -45,8 +49,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     setHeaders: { Authorization: token ? `Bearer ${token}` : '' },
     withCredentials: true,
   });
-
-  console.log(req);
 
   return next(req);
 };

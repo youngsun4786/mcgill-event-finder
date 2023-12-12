@@ -73,14 +73,17 @@ export class PostItemDetailsComponent {
   ) {
     this.isEditPost = false;
     this.pinned = false;
-
-    this.currentUserEmail = this.storageService.getUser().email.toLowerCase();
+    if (this.storageService.loggedIn()) {
+      this.currentUserEmail = this.storageService.getUser().email.toLowerCase();
+    }
   }
 
   ngOnInit(): void {
-    this.storageService.getUser().pins!.includes(this.post._id!)
-      ? (this.pinned = true)
-      : (this.pinned = false);
+    if (this.storageService.loggedIn()) {
+      this.storageService.getUser().pins!.includes(this.post._id!)
+        ? (this.pinned = true)
+        : (this.pinned = false);
+    }
   }
 
   deletePost(id: string): void {

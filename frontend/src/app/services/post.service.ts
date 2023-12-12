@@ -38,7 +38,7 @@ export class PostService {
 
   getPostsForMain() {
     this.http
-      .get<Post[]>('http://localhost:8000/posts-main', httpOptions)
+      .get<Post[]>('http://localhost:8000/posts/posts-main', httpOptions)
       .subscribe((posts: Post[]) => {
         this.postsSubject.next(posts);
       });
