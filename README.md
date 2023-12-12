@@ -17,3 +17,12 @@ In order to run it locally, make sure that you are connected to a MongoDB instan
 Next, open up a new terminal tab, and `cd` into frontend folder and run `npm install` to download all the dependencies.
 
 Finally, run `npm start` to start the client.
+
+
+## Responsbilities
+
+Tudor Mavrodin: frontend, design, create and edit components, final post styles, login, register, filters
+
+Ahreum Lee: frontend, design, final overall style, filter
+
+Youngsun Yoo: backend, api calls for frontend, project structure, configuration etc.
