@@ -1,10 +1,8 @@
 import cors, { CorsOptions } from "cors";
 import express, { Express } from "express";
-// import log from "./logger.config";
 
 const corsOptions: CorsOptions = {
-  origin: "http://localhost:4200",
-  // origin: "https://mcgill-event-finder-frontend-youngsun4786.vercel.app/",
+  origin: "https://mcevent.netlify.app",
   credentials: true,
 };
 
@@ -17,5 +15,4 @@ export const configureServer = (app: Express, enableCors: boolean) => {
   app.use(express.json({ limit: "50mb" }));
   // express will accept and parse incoming url requests (responsible for body parsing)
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
-  // app.use(cookieParser());
 };
