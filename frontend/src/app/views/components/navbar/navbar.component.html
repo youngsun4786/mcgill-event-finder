@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <div class="menu-icon" (click)="toggleMenu()">
+  <div class="menu-icon" [class.open]="isMenuOpen" (click)="toggleMenu()">
     <div class="bar"></div>
     <div class="bar"></div>
     <div class="bar"></div>
@@ -38,9 +38,19 @@
     <a mat-tab-link>{{ this.name }}</a>
 
     <div class="menu">
-      <a class="nav-a" mat-tab-link *ngFor="let link of links" [routerLink]="link.link" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
-        {{ link.label }}
-      </a>
+      <a
+      class="nav-a"
+      mat-tab-link
+      *ngFor="let link of links"
+      [routerLink]="link.link"
+      routerLinkActive
+      #rla="routerLinkActive"
+      [active]="rla.isActive"
+    >
+      {{ link.label }}
+    </a>
+    <a mat-tab-link (click)="logout()">Logout</a>
+    <a mat-tab-link>{{ this.name }}</a>
       <a class="nav-a" mat-tab-link (click)="logout()">Logout</a>
       <a class="nav-a" mat-tab-link>{{ this.name }}</a>
     </div>

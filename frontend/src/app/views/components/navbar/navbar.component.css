@@ -3,7 +3,7 @@
   right: 0;
   left: 0;
   top: 0;
-  z-index: 9999;
+  z-index: 99;
   height: 70px;
   padding: 15px 15px 6px 15px;
   border-bottom: solid;
@@ -40,16 +40,16 @@
 
 
 /* Styles for the menu icon when menu is open */
-.show-menu .menu-icon div:nth-child(1) {
-  transform: rotate(-45deg) translate(-5px, 6px);
+ .menu-icon.open div:nth-child(1) {
+  transform: rotate(-45deg) translate(-4px, 8px);
 }
 
-.show-menu .menu-icon div:nth-child(2) {
+.menu-icon.open div:nth-child(2) {
   opacity: 0;
 }
 
-.show-menu .menu-icon div:nth-child(3) {
-  transform: rotate(45deg) translate(-5px, -6px);
+.menu-icon.open div:nth-child(3) {
+  transform: rotate(45deg) translate(-4px, -8px);
 }
 
 .menu {
@@ -176,10 +176,11 @@ ul a {
   min-width: 8rem;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 575.98px) {
 
   .app-header {
-    margin: 0rem 0 0 25%;
+    margin: 0rem 0 0 15%;
+    transform: scale(0.8);
   }
 
   .mcgill {

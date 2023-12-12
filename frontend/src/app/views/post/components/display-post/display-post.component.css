@@ -181,7 +181,7 @@ h2 {
 
 .right-col {
   margin: 50px auto auto 20px;
-  width: min(max(25%, 250px), 340px);
+  width: min(max(30%, 300px), 340px);
 }
 
 .upcoming-events {
@@ -238,7 +238,7 @@ h2 {
 }
 
 /* Mobile Breakpoint */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 575.98px) {
   .content {
     padding-top: 100px;
   }
@@ -252,4 +252,18 @@ h2 {
     margin: 2rem 0;
   }
 
+}
+
+/* Tablet Breakpoint */
+@media screen and (max-width: 767.98px) {
+  .event-component {
+    flex-direction: column;
+  }
+
+  .posts-base, .right-col {
+    width: min(max(85%, 300px), 500px);
+    margin: 2rem 0;
+    height: 50vh;
+    overflow-y: scroll;
+  }
 }
