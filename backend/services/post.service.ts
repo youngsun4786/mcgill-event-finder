@@ -1,4 +1,4 @@
-import { ObjectId } from "mongodb";
+import { Types } from "mongoose";
 import { PostModel, UserModel } from "../models";
 import { PostInformation } from "../models/schemas/post.schema";
 
@@ -36,7 +36,7 @@ export const posts = async () => {
 // * @desc   find a single post by id
 export const findPostById = async (id: string) => {
   try {
-    const postId = new ObjectId(id);
+    const postId = new Types.ObjectId(id);
     const post = await PostModel.findById({ _id: postId }).lean().exec();
     return post;
   } catch (error: any) {
@@ -47,7 +47,7 @@ export const findPostById = async (id: string) => {
 // * @desc   Delete a post by id
 export const deletePostById = async (id: string) => {
   try {
-    const postId = new ObjectId(id);
+    const postId = new Types.ObjectId(id);
     return await PostModel.findByIdAndDelete({ _id: postId }).lean().exec();
   } catch (error: any) {
     throw new Error(error.message);
@@ -57,7 +57,7 @@ export const deletePostById = async (id: string) => {
 // * @desc Edit/update existing post by id
 export const updatePostById = async (id: string, post: PostInformation) => {
   try {
-    const postId = new ObjectId(id);
+    const postId = new Types.ObjectId(id);
     const updatedPost = await PostModel.findOneAndUpdate(
       { _id: postId },
       post,

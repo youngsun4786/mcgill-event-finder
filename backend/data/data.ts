@@ -1,7 +1,6 @@
 import { EventStatusType } from "../models/post.models";
 import { PostModel, UserModel } from "../models";
 import { Types } from "mongoose";
-import { ObjectId } from "mongodb";
 
 const userIds = [
   new Types.ObjectId("656569101eee26aa3dfc7a79"),
