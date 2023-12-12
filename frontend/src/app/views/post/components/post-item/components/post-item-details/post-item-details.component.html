@@ -7,6 +7,7 @@
 ></div>
 
 <div class="view-post-modal" @modalToggle *ngIf="showViewPost">
+  <i class="fa-solid fa-x close-button" (click)="closeShowPost()"></i>
   <ng-container *ngIf="!isEditPost; else editPost">
     <div class="view-post-title-row">
         <div class="tags">

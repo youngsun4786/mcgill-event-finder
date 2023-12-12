@@ -251,6 +251,10 @@ button.cancel:active {
   background-color: var(--gray-300);
 }
 
+.close-button {
+  display: none;
+}
+
 @media screen and (max-width: 767.98px) {
   .view-post-modal {
     min-width: 0;
@@ -274,5 +278,16 @@ button.cancel:active {
     border-radius: 0;
     box-sizing: border-box;
     overflow-y: scroll;
+  }
+
+  .close-button {
+    display: block;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--gray-500);
+    cursor: pointer;
   }
 }

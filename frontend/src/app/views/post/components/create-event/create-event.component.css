@@ -263,6 +263,10 @@ button.cancel:active {
   background-color: var(--gray-300);
 }
 
+.close-button {
+  display: none;
+}
+
 /* tablet and mobile styling */
 @media screen and (max-width: 767.98px) {
   .create-event-modal {
@@ -312,11 +316,36 @@ button.cancel:active {
   }
 
   .day-type-toggle-section {
-    margin-bottom: 1rem;
+    margin: 0 -2rem 1rem;
+    padding: 0 2rem;
     border-bottom: 1px solid #676767;
   }
 
   .day-type-toggle {
     margin-bottom: 0;
+    padding: 0 0.5rem;
+  }
+
+  .selected-toggle {
+    font-weight: 500;
+    color: black;
+    border: 1px solid #676767;
+    border-bottom: none;
+    border-top-left-radius: 0.2rem;
+    border-top-right-radius: 0.2rem;
+    margin-bottom: -1px !important;
+    background-color: var(--gray-000);
+    text-decoration: none;
+  }
+
+  .close-button {
+    display: block;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--gray-500);
+    cursor: pointer;
   }
 }
