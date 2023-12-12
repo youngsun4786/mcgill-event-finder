@@ -2,7 +2,7 @@ import cors, { CorsOptions } from "cors";
 import express, { Express } from "express";
 
 const corsOptions: CorsOptions = {
-  origin: "https://mcevent.netlify.app/",
+  origin: "https://mcevent.netlify.app",
   credentials: true,
 };
 

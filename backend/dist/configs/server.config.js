@@ -7,7 +7,7 @@ exports.configureServer = void 0;
 const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
 const corsOptions = {
-    origin: "https://mcevent.netlify.app/",
+    origin: "https://mcevent.netlify.app",
     credentials: true,
 };
 const configureServer = (app, enableCors) => {
