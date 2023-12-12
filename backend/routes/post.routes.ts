@@ -15,6 +15,8 @@ import validatorResource from "../middlewares/schema.validator";
 
 const router = Router();
 router.get("/", isAuthenticated, getPostsController);
+router.get("/posts-main", getPostsController);
+
 router.post(
   "/",
   [isAuthenticated, validatorResource(createPostSchema)],

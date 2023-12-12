@@ -24,17 +24,6 @@ export const registerController = async (
     // create a new user
     const newUser = await register(body);
     if (newUser) {
-      // // * create jwt token and cookie session
-
-      // generateToken(res, {
-      //   user: {
-      //     _id: newUser._id.toString(),
-      //     name: newUser.name,
-      //     email: newUser.email,
-      //     role: newUser.role,
-      //   },
-      // } as DataInToken);
-      // print token
       res.status(201).json({ message: "User created successfully" });
       return;
     }
