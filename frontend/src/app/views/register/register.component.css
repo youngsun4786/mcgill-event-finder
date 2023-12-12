@@ -1,6 +1,7 @@
 .login-container {
   background-image: url('../../../assets/images/campus.jpg');
   background-size: cover;
+  background-position: center;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -112,4 +113,17 @@ div.error > p {
 
 .radio-container label:last-of-type {
   border-radius: 0 0.5rem 0.5rem 0;
+}
+
+/* tablet and mobile styling */
+@media screen and (max-width: 767.98px) {
+  .login-box {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 575.98px) {
+  .login-box {
+    width: 100%;
+  }
 }

@@ -55,6 +55,10 @@ export class PostItemEditComponent {
   isIncomplete: boolean = false;
   timeError: boolean = false;
 
+  statusDropdownOpen: boolean = false;
+  eventStatus: EventStatusType = EventStatusType.SCHEDULED;
+  statuses: EventStatusType[] = [];
+
   constructor(fb: FormBuilder) {
     this.editEventForm = fb.group({
       title: ['', Validators.required],
@@ -69,13 +73,17 @@ export class PostItemEditComponent {
   }
 
   ngOnInit() {
+    this.statuses = Object.values(EventStatusType);
+
     this.minDate.setDate(this.minDate.getDate());
     this.maxDate.setDate(this.maxDate.getDate() + 30);
+    this.eventStatus = this.selectedPost.status;
 
     const startDate = new Date(this.selectedPost.startDate);
     const endDate = new Date(this.selectedPost.endDate);
-    const startTime = startDate.getHours() + ':' + startDate.getMinutes();
-    const endTime = endDate.getHours() + ':' + endDate.getMinutes();
+    // get first 5 characters of time string
+    const startTime = startDate.toTimeString().substring(0, 5);
+    const endTime = endDate.toTimeString().substring(0, 5);
 
     // if start date and end date are different, set eventDayType to 'multiday'
     if (startDate.toDateString() !== endDate.toDateString()) {
@@ -86,9 +94,9 @@ export class PostItemEditComponent {
     this.editEventForm.patchValue({
       title: this.selectedPost.title,
       startDate: startDate.toDateString(),
-      startTime: startTime.length === 4 ? '0' + startTime : startTime,
+      startTime: startTime,
       endDate: endDate.toDateString(),
-      endTime: endTime.length === 4 ? '0' + endTime : endTime,
+      endTime: endTime,
       location: this.selectedPost.location,
       description: this.selectedPost.description,
       tags: this.selectedPost.tags,
@@ -192,7 +200,7 @@ export class PostItemEditComponent {
       ),
       createdAt: new Date(),
       tags: this.editEventForm.controls['tags'].value,
-      status: EventStatusType.SCHEDULED,
+      status: this.eventStatus,
       email: this.storageService.getUser().email,
     };
     this.createEvent(newPost);
@@ -209,5 +217,19 @@ export class PostItemEditComponent {
         console.error(error);
       },
     });
+  }
+
+  onDropdownMouseEnter(event: any) {
+    this.statusDropdownOpen = true;
+
+  }
+
+  onDropdownMouseLeave(event: any) {
+    this.statusDropdownOpen = false;
+  }
+
+  changeStatus(status: EventStatusType) {
+    this.eventStatus = status;
+    this.statusDropdownOpen = false;
   }
 }

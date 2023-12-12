@@ -5,18 +5,7 @@
   margin-block-end: 0;
   margin-bottom: 0px;
   color: #1f1f1f;
-
-  &::-webkit-scrollbar-thumb {
-    background-color: transparent;
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-
-  /* hide scrollbar on firefox */
-  scrollbar-width: none;
+ 
 }
 
 .date {
@@ -38,8 +27,8 @@
 }
 
 .heading {
-  height: 80px;
-  margin-top: 5px;
+  height: 100%;
+  margin: 5px 0 0 5px;
 }
 
 .posting-heading {
@@ -66,7 +55,8 @@
   text-align: center;
   margin-block-start: 0px;
   margin-block-end: 2px;
-  margin-right: 3px;
+  margin: 3px;
+  padding: 2px 8px;
 }
 
 .tag-ellipsis {
@@ -74,27 +64,22 @@
 }
 
 .Academic {
-  width: 70px;
   color: darkred;
 }
 
 .Social {
-  width: 60px;
   color: darkcyan;
 }
 
 .Online {
-  width: 60px;
   color: darkolivegreen;
 }
 
 .In-Person {
-  width: 70px;
   color: darkgoldenrod;
 }
 
 .Entertainment {
-  width: 90px;
   color: darkorchid;
 }
 
@@ -123,3 +108,12 @@ small {
 .filters {
   border: 1px solid red;
 }
+
+@media screen and (max-width: 575.98px) {
+  .heading {
+    transform: scale(1.1);
+
+  }
+}
+
+
