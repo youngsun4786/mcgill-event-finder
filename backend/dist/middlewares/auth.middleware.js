@@ -12,7 +12,6 @@ const isAuthenticated = (req, res, next) => {
     if (req.headers.authorization &&
         req.headers.authorization.startsWith("Bearer")) {
         token = req.headers.authorization.split(" ")[1];
-        console.log("Received token", token);
     }
     if (!token) {
         return next(new UnauthorizedNoTokenException_1.default());

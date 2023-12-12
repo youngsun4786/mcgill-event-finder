@@ -1,5 +1,9 @@
 # mcgill-event-finder (McEvent)
 
+Here's the link to our website:
+
+https://mcevent.netlify.app/
+
 ## What is McEvent?
 
 Event-centered platform for McGill students, for easier management and viewing of events taking place on Campus.
