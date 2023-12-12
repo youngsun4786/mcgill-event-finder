@@ -12,9 +12,11 @@
 
 .view-post-modal {
   position: fixed;
+  min-width: 35rem;
   width: 50%;
-  left: 25%;
-  top: 10%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: var(--gray-000);
   border-radius: 1rem;
   padding: 2rem;
@@ -247,4 +249,30 @@ button.cancel:hover {
 
 button.cancel:active {
   background-color: var(--gray-300);
+}
+
+@media screen and (max-width: 767.98px) {
+  .view-post-modal {
+    min-width: 0;
+    width: 90vw;
+    max-height: 90vh;
+    left: 5%;
+    top: 5%;
+    transform: translate(0, 0);
+    box-sizing: border-box;
+    overflow-y: scroll;
+  }
+
+}
+
+@media screen and (max-width: 575.98px) {
+  .view-post-modal {
+    width: 100vw;
+    max-height: 100vh;
+    left: 0;
+    top: 0;
+    border-radius: 0;
+    box-sizing: border-box;
+    overflow-y: scroll;
+  }
 }

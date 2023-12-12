@@ -321,3 +321,43 @@ button.cancel:active {
   background-color: #eeeeee;
   color: black;
 }
+
+/* tablet and mobile styling */
+@media screen and (max-width: 767.98px) {
+  .day-type-toggle {
+    margin-bottom: 1rem;
+  }
+
+  .create-event-important-row {
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .important-row-left {
+    width: 100%;
+  }
+
+  .important-row-right {
+    max-height: 6rem;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 575.98px) {
+  .create-event-title-row {
+    position: fixed;
+    background: white;
+    width: 100%;
+    left: 0;
+    padding: 2rem;
+    padding-bottom: 2rem;
+    top: 0;
+    box-sizing: border-box;
+    padding-bottom: 0;
+  }
+
+  .create-event-important-row {
+    margin-top: 4rem;
+  }
+}
