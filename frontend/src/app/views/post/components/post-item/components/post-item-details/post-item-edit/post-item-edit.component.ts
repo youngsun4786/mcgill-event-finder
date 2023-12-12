@@ -81,8 +81,9 @@ export class PostItemEditComponent {
 
     const startDate = new Date(this.selectedPost.startDate);
     const endDate = new Date(this.selectedPost.endDate);
-    const startTime = startDate.getHours() + ':' + startDate.getMinutes();
-    const endTime = endDate.getHours() + ':' + endDate.getMinutes();
+    // get first 5 characters of time string
+    const startTime = startDate.toTimeString().substring(0, 5);
+    const endTime = endDate.toTimeString().substring(0, 5);
 
     // if start date and end date are different, set eventDayType to 'multiday'
     if (startDate.toDateString() !== endDate.toDateString()) {
@@ -93,9 +94,9 @@ export class PostItemEditComponent {
     this.editEventForm.patchValue({
       title: this.selectedPost.title,
       startDate: startDate.toDateString(),
-      startTime: startTime.length === 4 ? '0' + startTime : startTime,
+      startTime: startTime,
       endDate: endDate.toDateString(),
-      endTime: endTime.length === 4 ? '0' + endTime : endTime,
+      endTime: endTime,
       location: this.selectedPost.location,
       description: this.selectedPost.description,
       tags: this.selectedPost.tags,

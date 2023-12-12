@@ -3,10 +3,13 @@
     <div class="header-left">
       <h1 class="create-event-title">Edit Event</h1>
 
-      <div class="updating-part" (mouseenter)="onDropdownMouseEnter($event)" (mouseleave)="onDropdownMouseLeave($event)">
+      <div class="updating-part"
+        (mouseenter)="onDropdownMouseEnter($event)"
+        (mouseleave)="onDropdownMouseLeave($event)"
+        >
         <div class="dropdown header-dropdown" >
           <!-- (click)="periodDropdownActive = !periodDropdownActive" -->
-          <div>
+          <div (click)="statusDropdownOpen = !statusDropdownOpen" (clickOutside)="statusDropdownOpen = false" [delayClickOutsideInit]='true'>
             <div class="button header-dropdown-button" aria-haspopup="true" aria-controls="dropdown-menu">
               <span class="dropdown-button-text">{{ eventStatus }}</span> <i class="fas fa-angle-down fa-xs options-angle-down"></i>
             </div>

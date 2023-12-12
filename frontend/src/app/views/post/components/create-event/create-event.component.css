@@ -304,6 +304,7 @@ button.cancel:active {
   .create-event-modal {
     width: 100vw;
     max-height: 100vh;
+    min-height: 100vh;
     left: 0;
     top: 0;
     border-radius: 0;

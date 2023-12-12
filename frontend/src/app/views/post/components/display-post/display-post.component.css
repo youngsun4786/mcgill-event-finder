@@ -111,6 +111,7 @@ h2 {
 .Academic.selected {
   background-color: darkred;
   color: white;
+  border: 1px solid darkred;
 }
 
 .Social {
@@ -124,6 +125,7 @@ h2 {
 .Social.selected {
   background-color: darkcyan;
   color: white;
+  border: 1px solid darkcyan;
 }
 
 .Online {
@@ -137,6 +139,7 @@ h2 {
 .Online.selected {
   background-color: darkolivegreen;
   color: white;
+  border: 1px solid darkolivegreen;
 }
 
 .In-Person {
@@ -150,6 +153,7 @@ h2 {
 .In-Person.selected {
   background-color: darkgoldenrod;
   color: white;
+  border: 1px solid darkgoldenrod;
 }
 
 .Entertainment {
@@ -163,6 +167,7 @@ h2 {
 .Entertainment.selected {
   background-color: darkorchid;
   color: white;
+  border: 1px solid darkorchid;
 }
 
 
