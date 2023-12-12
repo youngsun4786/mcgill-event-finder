@@ -7,7 +7,7 @@ import { PostComponent } from './views/post/post.component';
 import { authGuard } from './utils/guard/auth.guard';
 import { DisplayPostComponent } from './views/post/components/display-post/display-post.component';
 export const routes: Routes = [
-  { path: '', component: MainComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'posts', component: PostComponent, canActivate: [authGuard] },
@@ -21,7 +21,6 @@ export const routes: Routes = [
     component: PostComponent,
     canActivate: [authGuard],
   },
-  { path: '', redirectTo: '', pathMatch: 'full' },
 ];
 
 @NgModule({
