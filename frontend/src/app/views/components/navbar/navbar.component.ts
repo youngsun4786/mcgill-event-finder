@@ -6,11 +6,13 @@ import { StorageService } from '../../../services/storage.service';
 import { RouterModule } from '@angular/router';
 import { PostService } from '../../../services/post.service';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatListModule } from '@angular/material/list';
+
 import { UserService } from '@app/services/user.service';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatTabsModule],
+  imports: [CommonModule, RouterModule, MatTabsModule, MatListModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
@@ -48,6 +50,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void {
+    this.isMenuOpen = false;
     this.authService.logout().subscribe({
       next: (response) => {
         this.userService
@@ -67,10 +70,12 @@ export class NavbarComponent implements OnInit {
         console.log(err);
       },
     });
+    
   }
   isMenuOpen = false;
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
+  
 }

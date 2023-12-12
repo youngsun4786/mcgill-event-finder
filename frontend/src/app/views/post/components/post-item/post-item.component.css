@@ -92,4 +92,9 @@ small {
   .heading {
     transform: scale(1.1);
   }
+  .posting:hover {
+    box-shadow: none;
+    cursor: pointer;
+  }
+  
 }

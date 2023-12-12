@@ -155,14 +155,12 @@ ul a {
   display: inline-block;
 }
 
-.menu-container {
-  position: relative;
-}
 
 .menu {
   position: absolute;
   z-index: 1;
   background: whitesmoke;
+  flex-direction: column;
   display: none;
 }
 
@@ -184,30 +182,41 @@ ul a {
   }
 
   .mcgill {
-    margin-bottom: 10px; /* Adjust the margin as needed */
+    margin-bottom: 10px; 
   }
 
-  .nav-bar.nav-bar.is-authenticated {
+  .nav-bar.is-authenticated {
     height: 100px;
     border: none;
+  }
+
+  .nav-bar.open {
+    height: 400px;
   }
 
   .nav-options {
     display: none;
   }
 
-
   .nav-a {
     margin-right: 10px; /* Adjust the margin as needed */
   }
 
-  .menu-icon {
+  .menu-icon.is-authenticated {
     display: block; /* Show the hamburger menu on smaller screens */
     position: absolute;
     
   }
 
-  .show-menu .menu {
+  .menu.open {
     display: flex; /* Show the menu when it's open */
   }
+
+  .mat-tab-link {
+    /* Hide the arrow icons */
+    .mat-tab-label-arrow {
+      display: none;
+    }
+  }
+  
 }
